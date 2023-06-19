@@ -1,0 +1,20 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv
+
+# downloaded
+.Python
+downloads/
+pip-wheel-metadata/
+share/python-wheels/
+MANIFEST
+
+# emacs temp files
+*~
+
+# VSCode settings
+.vscode
