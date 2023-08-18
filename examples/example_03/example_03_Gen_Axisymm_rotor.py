@@ -24,6 +24,25 @@ import string
 
 from Ansys.ACT.Automation import Mechanical
 
+###################################################################################
+# Configure graphics for image export
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ExtAPI.Graphics.Camera.SetSpecificViewOrientation(
+    Ansys.Mechanical.DataModel.Enums.ViewOrientationType.Iso
+)
+ExtAPI.Graphics.Camera.SetFit()
+image_export_format = Ansys.Mechanical.DataModel.Enums.GraphicsImageExportFormat.PNG
+settings_720p = Ansys.Mechanical.Graphics.GraphicsImageExportSettings()
+settings_720p.Resolution = (
+    Ansys.Mechanical.DataModel.Enums.GraphicsResolutionType.EnhancedResolution
+)
+settings_720p.Background = Ansys.Mechanical.DataModel.Enums.GraphicsBackgroundType.White
+settings_720p.Width = 1280
+#settings_720p.Capture = Ansys.Mechanical.DataModel.Enums.GraphicsCaptureType.ImageOnly
+settings_720p.Height = 720
+settings_720p.CurrentGraphicsDisplay = False
+
 # Set NMM_TON Unit System
 ExtAPI.Application.ActiveUnitSystem = MechanicalUnitSystem.StandardNMMton
 ExtAPI.Application.ActiveAngularVelocityUnit=AngularVelocityUnitType.RPM
@@ -504,16 +523,11 @@ CMPBL_DIAG = SOLN3.AddCampbellDiagram()
 SOLN3.Activate()
 SOLN3.Solve(True)
 
-# Set isometric view and zoom to fit
-cam = Graphics.Camera
-cam.SetSpecificViewOrientation(ViewOrientationType.Iso)
-cam.SetFit()
-
 mechdir = ExtAPI.DataModel.AnalysisList[2].WorkingDir
 export_path = os.path.join(mechdir, "tot_deform_2D.png")
-SOLN3.Activate()
-TOT_DEF3_1.Activate()
-Graphics.ExportImage(export_path, GraphicsImageExportFormat.PNG)
+Tree.Activate([TOT_DEF3_1])
+ExtAPI.Graphics.ViewOptions.ResultPreference.ExtraModelDisplay=Ansys.Mechanical.DataModel.MechanicalEnums.Graphics.ExtraModelDisplay.NoWireframe
+ExtAPI.Graphics.ExportImage(export_path, image_export_format, settings_720p)
 	
 FREQ_1_MODAL3 = SOLN3.TabularData.Values[3][18]
 FREQ_2_MODAL3 = SOLN3.TabularData.Values[3][19]

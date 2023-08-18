@@ -4,7 +4,6 @@ import os.path
 import json
 
 work_dir = GetServerWorkingDirectory()
-#work_dir = "D:\GPS_Team\Engagements_2023\PyAnsys\PyWorkbench\Examples\Tech_Demo_14\scripts_Guthub"
 arg_GeometryFile1 = os.path.join(work_dir, "example_03_3d_rotor_model.agdb")
 arg_GeometryFile2 = os.path.join(work_dir, "example_03_GenAxisymmModel.agdb")
 
