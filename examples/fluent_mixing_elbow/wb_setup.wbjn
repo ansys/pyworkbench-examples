@@ -1,0 +1,80 @@
+# encoding: utf-8
+# 2024 R1
+
+# Import the necessary libraries
+import json
+import os
+
+# Script to setup a Workbench project for a Fluent simulation, using Geometry Component, Fluent with Meshing Component
+
+SetScriptVersion(Version="24.1.5")
+template1 = GetTemplate(TemplateName="Geometry")
+system1 = template1.CreateSystem()
+geometry1 = system1.GetContainer(ComponentName="Geometry")
+work_dir = GetServerWorkingDirectory()
+cad_model_path = os.path.join(work_dir, "mixing_elbow.scdoc")
+geometry1.SetFile(FilePath=cad_model_path)
+template2 = GetTemplate(TemplateName="FLTG")
+system2 = template2.CreateSystem(
+    Position="Right",
+    RelativeTo=system1)
+geometryComponent1 = system1.GetComponent(Name="Geometry")
+meshComponent1 = system2.GetComponent(Name="Mesh")
+geometryComponent1.TransferData(TargetComponent=meshComponent1)
+setup1 = system2.GetContainer(ComponentName="Setup")
+fluentLauncherSettings1 = setup1.GetFluentLauncherSettings()
+fluentLauncherSettings1.SetEntityProperties(Properties=Set(Precision="Double", EnvPath={}, RunParallel=True, NumberOfProcessorsMeshing=4, NumberOfProcessors=4))
+tGridData1 = GetDataEntity("/Mesh/TGridData:TGridData")
+tGridData1.SetEntityProperties(Properties=Set(RunParallel=True, NumberOfProcs=4))
+mesh1 = system2.GetContainer(ComponentName="Mesh")
+Fluent.Edit(Container=mesh1)
+setup1.SendCommand(Command='(cx-gui-do cx-activate-tab-index "NavigationPane*Frame1(TreeTab)" 0)(cx-gui-do cx-activate-tab-index "NavigationPane*Frame1(TreeTab)" 1)')
+meshComponent1.Refresh()
+
+# Meshing
+setup1.SendCommand(Command='/file/set-tui-version "24.1"(cx-gui-do cx-activate-tab-index "NavigationPane*Frame1(TreeTab)" 0)(cx-gui-do cx-activate-item "Key Behavioral Changes*PanelButtons*PushButton1(OK)")')
+setup1.SendCommand(Command='(%py-exec "preferences.General.KeyBehavioralChangesMessage.set_state(True)")')
+setup1.SendCommand(Command="(%py-exec \"meshing.GlobalSettings.LengthUnit.set_state(r'm')\")")
+setup1.SendCommand(Command="(%py-exec \"meshing.GlobalSettings.AreaUnit.set_state(r'm^2')\")")
+setup1.SendCommand(Command="(%py-exec \"meshing.GlobalSettings.VolumeUnit.set_state(r'm^3')\")")
+setup1.SendCommand(Command="(%py-exec \"workflow.TaskObject['Import Geometry'].Execute()\")")
+setup1.SendCommand(Command="(newline)")
+setup1.SendCommand(Command="(%py-exec \"workflow.TaskObject['Add Local Sizing'].AddChildAndUpdate()\")")
+setup1.SendCommand(Command="(%py-exec \"workflow.TaskObject['Generate the Surface Mesh'].Execute()\")")
+setup1.SendCommand(Command="(%py-exec \"workflow.TaskObject['Describe Geometry'].UpdateChildTasks(SetupTypeChanged=False)\")")
+setup1.SendCommand(Command="(%py-exec \"workflow.TaskObject['Describe Geometry'].Arguments.set_state({r'SetupType': r'The geometry consists of only fluid regions with no voids',})\")")
+setup1.SendCommand(Command="(%py-exec \"workflow.TaskObject['Describe Geometry'].UpdateChildTasks(SetupTypeChanged=True)\")")
+setup1.SendCommand(Command="(%py-exec \"workflow.TaskObject['Describe Geometry'].Execute()\")")
+setup1.SendCommand(Command="(%py-exec \"workflow.TaskObject['Update Boundaries'].Execute()\")")
+setup1.SendCommand(Command="(%py-exec \"workflow.TaskObject['Update Regions'].Execute()\")")
+setup1.SendCommand(Command="(%py-exec \"workflow.TaskObject['Add Boundary Layers'].AddChildAndUpdate()\")")
+setup1.SendCommand(Command="(%py-exec \"workflow.TaskObject['Generate the Volume Mesh'].Execute()\")")
+setup1.SendCommand(Command='(cx-gui-do cx-activate-item "MenuBar*FileMenu*Close Fluent")')
+
+# Fluent Setup
+setup2 = system2.GetContainer(ComponentName="Setup")
+fluentLauncherSettings2 = setup2.GetFluentLauncherSettings()
+fluentLauncherSettings2.SetEntityProperties(Properties=Set(Precision="Double", EnvPath={}, RunParallel=True, NumberOfProcessors=4))
+Fluent.Edit(Container=setup2)
+setup2.Edit(Interactive=True)
+#setupScript = r'D:\Research\pyworkbench\example\setup.jou'
+setupScript = os.path.join(work_dir, "setup.jou")
+setup2.SendCommand(Command='/file read-jou "'+setupScript+'" , ')
+setup2.SendCommand(Command="/exit")
+fluentLauncherSettings2.SetEntityProperties(Properties=Set(EnvPath={}))
+
+# Fluent Solution
+setup3 = system2.GetContainer(ComponentName="Solution")
+fluentLauncherSettings2 = setup2.GetFluentLauncherSettings()
+fluentLauncherSettings2.SetEntityProperties(Properties=Set(Precision="Double", EnvPath={}, RunParallel=True, NumberOfProcessors=4))
+Fluent.Edit(Container=setup3)
+setup3.Edit(Interactive=True)
+#solveScript = r'D:\Research\pyworkbench\example\solve.jou'
+solveScript = os.path.join(work_dir, "solve.jou")
+setup3.SendCommand(Command='/file read-jou "'+solveScript+'" , ')
+setup3.SendCommand(Command="/exit")
+fluentLauncherSettings2.SetEntityProperties(Properties=Set(EnvPath={}))
+
+# assign all messages as output of the script
+ms = [m.Summary for m in GetMessages()]
+wb_script_result = json.dumps(ms)
