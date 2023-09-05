@@ -1,9 +1,0 @@
-import json
-
-# start mechanical grpc server
-
-model = system2.GetContainer(ComponentName="Model")
-model.Edit()
-
-mech_port = model.StartGrpcServer()
-wb_script_result = json.dumps(mech_port)
