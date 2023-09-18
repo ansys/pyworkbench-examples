@@ -89,8 +89,6 @@ geometry1 = system2.GetContainer(ComponentName="Geometry")
 geometry1.SetFile(FilePath=arg_GeometryFile2)
 modelComponent1.Refresh()
 
-# output geometry component state
-#result = "geometry component is "
-#result += GetComponentState(Component=system2.GetComponent(Name="Geometry")).State.ToString()
+# output systems name
 result = [system1.Name, system2.Name]
 wb_script_result = json.dumps(result)

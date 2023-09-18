@@ -93,9 +93,6 @@ modelComponent1.Refresh()
 setupComponent1 = system2.GetComponent(Name="Setup")
 setupComponent1.Refresh()
 
-# output geometry component state
-#result = "geometry component is "
-#result += GetComponentState(Component=system2.GetComponent(Name="Geometry")).State.ToString()
-#result = "System names are "
+# output system name
 result = system1.Name
 wb_script_result = json.dumps(result)
