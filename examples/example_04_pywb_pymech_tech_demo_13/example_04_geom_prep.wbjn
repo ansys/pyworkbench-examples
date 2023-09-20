@@ -1,0 +1,91 @@
+import os
+import json
+import string
+import os.path
+
+work_dir = GetServerWorkingDirectory()
+arg_CDBFile = os.path.join(work_dir, "example_04_sector_model.cdb")
+
+# Import CDB file and update External model
+template1 = GetTemplate(TemplateName="External Model")
+system1 = template1.CreateSystem()
+setup1 = system1.GetContainer(ComponentName="Setup")
+externalModelFileData1 = setup1.AddDataFile(FilePath=arg_CDBFile)
+externalModelFileDataProperty1 = externalModelFileData1.GetDataProperty()
+externalModelFileDataProperty1.SetUnitSystem(System="NMM_STANDARD")
+system1.Update(AllDependencies=True)
+
+# Insert Modal system linked to External Model
+template2 = GetTemplate(
+    TemplateName="Modal",
+    Solver="ANSYS")
+system2 = template2.CreateSystem(
+    Position="Right",
+    RelativeTo=system1)
+setupComponent1 = system1.GetComponent(Name="Setup")
+modelComponent1 = system2.GetComponent(Name="Model")
+setupComponent1.TransferData(TargetComponent=modelComponent1)
+model1 = system2.GetContainer(ComponentName="Model")
+meshConversionOptions1 = model1.GetMeshConversionOptions()
+meshConversionOptions1.ToleranceAngle = "30 [degree]"
+modelComponent1.UpdateUpstreamComponents()
+modelComponent1.Refresh()
+
+# Insert Static and Modal system for prestress Modal
+template3 = GetTemplate(
+    TemplateName="Static Structural",
+    Solver="ANSYS")
+engineeringDataComponent1 = system2.GetComponent(Name="Engineering Data")
+system3 = template3.CreateSystem(
+    ComponentsToShare=[engineeringDataComponent1, modelComponent1],
+    Position="Right",
+    RelativeTo=system2)
+engineeringDataComponent2 = system3.GetComponent(Name="Engineering Data")
+modelComponent2 = system3.GetComponent(Name="Model")
+solutionComponent1 = system3.GetComponent(Name="Solution")
+componentTemplate1 = GetComponentTemplate(Name="SimulationSetupCellTemplate_StructuralModalANSYS")
+system4 = template2.CreateSystem(
+    ComponentsToShare=[engineeringDataComponent2, modelComponent2],
+    DataTransferFrom=[Set(FromComponent=solutionComponent1, TransferName=None, ToComponentTemplate=componentTemplate1)],
+    Position="Right",
+    RelativeTo=system3)
+	
+# Insert Static and Modal system for non linear prestress Modal
+system5 = template3.CreateSystem(
+    ComponentsToShare=[engineeringDataComponent1, modelComponent1],
+    Position="Below",
+    RelativeTo=system3)
+system5.DisplayText = "Static Structural-NL"
+engineeringDataComponent3 = system5.GetComponent(Name="Engineering Data")
+modelComponent3 = system5.GetComponent(Name="Model")
+solutionComponent2 = system5.GetComponent(Name="Solution")
+system6 = template2.CreateSystem(
+    ComponentsToShare=[engineeringDataComponent3, modelComponent3],
+    DataTransferFrom=[Set(FromComponent=solutionComponent2, TransferName=None, ToComponentTemplate=componentTemplate1)],
+    Position="Right",
+    RelativeTo=system5)
+	
+# Insert Harmonic for standalone FULL solve
+template4 = GetTemplate(
+    TemplateName="Harmonic Response",
+    Solver="ANSYS")
+system7 = template4.CreateSystem(
+    ComponentsToShare=[engineeringDataComponent1, modelComponent1],
+    Position="Below",
+    RelativeTo=system5)
+componentTemplate2 = GetComponentTemplate(Name="SimulationSetupCellTemplate_StructuralHarmonicANSYS")
+
+# Insert Harmonic for prestress FULL solve
+#system8 = template4.CreateSystem(
+#    ComponentsToShare=[engineeringDataComponent3, modelComponent3],
+#    DataTransferFrom=[Set(FromComponent=solutionComponent2, TransferName=None, ToComponentTemplate=componentTemplate2)],
+#    Position="Below",
+#    RelativeTo=system6)
+#system7.Move(
+#    Position="Left",
+#    RelativeTo=system8)
+modelComponent1.Refresh()
+
+# output system name
+result = system2.Name
+wb_script_result = json.dumps(result)
