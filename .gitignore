@@ -18,3 +18,4 @@ MANIFEST
 
 # VSCode settings
 .vscode
+pywb_env/
