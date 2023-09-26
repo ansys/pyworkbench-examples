@@ -1,6 +1,6 @@
 examples/demo_pywb_with_pymech/                     @franknli
 examples/demo_log_levels/                           @franknli
 examples/fluent_mixing_elbow/                       @abhishekchitwar
-example/example_02_pywb_pymech_tech_demo_06/        @vnamdeo
-example/example_03_pywb_pymech_tech_demo_14/        @vnamdeo
-example/example_04_pywb_pymech_tech_demo_13/        @vnamdeo
+examples/example_02_pywb_pymech_tech_demo_06/       @vnamdeo
+examples/example_03_pywb_pymech_tech_demo_14/       @vnamdeo
+examples/example_04_pywb_pymech_tech_demo_13/       @vnamdeo

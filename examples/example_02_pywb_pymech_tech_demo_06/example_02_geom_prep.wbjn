@@ -5,7 +5,6 @@ import os.path
 
 work_dir = GetServerWorkingDirectory()
 arg_ProjectArchive = os.path.join(work_dir, "example_02_Cooled_Turbine_Blade.wbpz")
-pyScript1 = os.path.join(work_dir, "example_02_Cooled_Turbine_Blade_Macro.py")
 
 # Description="Insert Steady State Thermal linked with Static Structural system and define blade and fluid materials"
 Unarchive(
