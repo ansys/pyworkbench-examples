@@ -16,7 +16,7 @@
 # boundary conditions are given in SI units. Because the Reynolds number for the
 # flow at the larger inlet is ``50, 800``, a turbulent flow model is required.
 
-# ###############################################################################
+###############################################################################
 # # Perform required imports
 # # ~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -54,7 +54,7 @@ wb.run_script_string('system1 = template1.CreateSystem()')
 
 # -
 
-# ###############################################################################
+###############################################################################
 # # Launch Fluent
 # # ~~~~~~~~~~~~~
 # # Launch Fluent as a service in meshing mode with double precision running on
@@ -63,7 +63,7 @@ wb.run_script_string('system1 = template1.CreateSystem()')
 server_info_file = wb.start_fluent_server(system_name= "FLU")
 fluent_session = pyfluent.connect_to_fluent(server_info_filepath= server_info_file)
 
-# ###############################################################################
+###############################################################################
 # # Import mesh and perform mesh check
 # # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # # Import the mesh and perform a mesh check, which lists the minimum and maximum
@@ -75,7 +75,7 @@ fluent_session = pyfluent.connect_to_fluent(server_info_filepath= server_info_fi
 import_filename = os.path.join(server_dir, 'mixing_elbow.msh.h5')
 fluent_session.file.read(file_type="case", file_name= import_filename)
 
-# ###############################################################################
+###############################################################################
 # # Set working units for mesh
 # # ~~~~~~~~~~~~~~~~~~~~~~~~~~
 # # Set the working units for the mesh to inches. Because the default SI units are
@@ -85,21 +85,21 @@ fluent_session.file.read(file_type="case", file_name= import_filename)
 
 fluent_session.tui.define.units("length", "in")
 
-# ###############################################################################
+###############################################################################
 # # Enable heat transfer
 # # ~~~~~~~~~~~~~~~~~~~~
 # # Enable heat transfer by activating the energy equation.
 
 fluent_session.setup.models.energy.enabled = True
 
-# ###############################################################################
+###############################################################################
 # # Create material
 # # ~~~~~~~~~~~~~~~
 # # Create a material named ``"water-liquid"``.
 
 fluent_session.setup.materials.database.copy_by_name(type="fluid", name="water-liquid")
 
-# ###############################################################################
+###############################################################################
 # # Set up cell zone conditions
 # # ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # # Set up the cell zone conditions for the fluid zone (``elbow-fluid``). Set ``material``
@@ -107,7 +107,7 @@ fluent_session.setup.materials.database.copy_by_name(type="fluid", name="water-l
 
 fluent_session.setup.cell_zone_conditions.fluid["elbow-fluid"].material = "water-liquid"
 
-# ###############################################################################
+###############################################################################
 # # Set up boundary conditions for CFD analysis
 # # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # # Set up the boundary conditions for the inlets, outlet, and walls for CFD
@@ -166,12 +166,12 @@ wb.run_script_string("system1 = GetSystem(Name=\"FLU\")")
 wb.run_script_string("solutionComponent1 = system1.GetComponent(Name=\"Solution\")")
 wb.run_script_string("solutionComponent1.Update(AllDependencies=True)")
 
-# ###############################################################################
+###############################################################################
 # # Create velocity vectors
 # # ~~~~~~~~~~~~~~~~~~~~~~~
 # # Create and display velocity vectors on the ``symmetry-xyplane`` plane
 
-# ###############################################
+###############################################################################
 # # Post processing with PyVista (3D visualization)
 # # =============================================
 
@@ -182,7 +182,7 @@ velocity_vector.surfaces_list = ["symmetry-xyplane"]
 velocity_vector.scale = 2
 velocity_vector.display()
 
-# ###############################################################################
+###############################################################################
 # # Compute mass flow rate
 # # ~~~~~~~~~~~~~~~~~~~~~~
 # # Compute the mass flow rate.
