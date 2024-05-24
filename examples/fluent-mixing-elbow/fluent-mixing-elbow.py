@@ -1,4 +1,3 @@
-
 # # PyWorkbench - Fluent Use Case - Mixing Elbow
 #
 # #### This is a Ansys Fluent use case to demonstrates PyWorkbench features like:
