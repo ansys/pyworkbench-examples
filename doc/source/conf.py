@@ -7,6 +7,7 @@ import shutil
 
 import sphinx
 from sphinx.util import logging
+from sphinx.util.display import status_iterator
 
 from ansys_sphinx_theme import pyansys_logo_black as logo
 
@@ -36,6 +37,7 @@ extensions = [
 
 
 templates_path = ['_templates']
+exclude_examples = []
 exclude_patterns = []
 
 source_suffix = {
@@ -84,8 +86,6 @@ def copy_examples_files_to_source_dir(app: sphinx.application.Sphinx):
     all_examples = list(EXAMPLES_DIRECTORY.glob("**/*.py"))
     examples = [file for file in all_examples if f"{file.name}" not in exclude_examples]
 
-    print(f"BUILDER: {app.builder.name}")
-
     for file in status_iterator(
             examples, 
             f"Copying example to doc/source/examples/",
@@ -109,7 +109,7 @@ def copy_examples_to_output_dir(app: sphinx.application.Sphinx, exception: Excep
         Exception encountered during the building of the documentation.
 
     """
-    OUTPUT_EXAMPLES = pathlib.Path(app.outdir) / "examples"
+    OUTPUT_EXAMPLES = pathlib.Path(app.outdir)
     if not OUTPUT_EXAMPLES.exists():
         OUTPUT_EXAMPLES.mkdir(parents=True, exist_ok=True)
 
@@ -127,7 +127,7 @@ def copy_examples_to_output_dir(app: sphinx.application.Sphinx, exception: Excep
 
     for file in status_iterator(
             examples, 
-            f"Copying example to doc/_build/examples/",
+            f"Copying example to doc/_build/{app.builder.name}/",
             "green", 
             len(examples),
             verbosity=1,
