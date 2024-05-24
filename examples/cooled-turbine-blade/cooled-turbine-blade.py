@@ -1,4 +1,3 @@
-
 # # Workbench Client
 
 from ansys.workbench.core import launch_workbench
