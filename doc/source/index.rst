@@ -1,8 +1,6 @@
 PyWorkbench Examples
 ####################
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+.. nbgallery::
 
-
+   examples/axisymmetric-rotor/main
