@@ -51,12 +51,12 @@ jobs:
 
       - name: "Install system and Python requirements"
         run: |
-          sudo apt install -y pandoc make
+          winget install -e --id JohnMacFarlane.Pandoc
           python -m pip install -r requirements/requirements_doc.txt
 
       - name: "Build HTML documentation"
         run: |
-          make -C doc html
+          cd doc && make.bat html
 
   doc-deploy-dev:
     name: "Deploy development documentation"
