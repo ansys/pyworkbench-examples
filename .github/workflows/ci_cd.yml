@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  MAIN_PYTHON_VERSION: "3.10"
+  MAIN_PYTHON_VERSION: "3.12"
   PIP_EXTRA_INDEX_URL: 'https://${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}@pkgs.dev.azure.com/pyansys/_packaging/pyansys/pypi/simple/'
   DOCUMENTATION_CNAME: 'examples.workbench.docs.pyansys.com'
 
