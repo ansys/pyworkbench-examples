@@ -49,9 +49,9 @@ jobs:
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
 
-      - name: "Install system and Python requirements"
+      - name: "Install requirements"
         run: |
-          winget install -e --id JohnMacFarlane.Pandoc
+          python -m pip install -r requirements/requirements_examples.txt
           python -m pip install -r requirements/requirements_doc.txt
 
       - name: "Build HTML documentation"
