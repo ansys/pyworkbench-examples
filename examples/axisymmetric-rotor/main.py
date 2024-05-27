@@ -22,13 +22,13 @@ wb = launch_workbench(release=release, server_workdir=server_dir, client_workdir
 wb.upload_file_from_example_repo("example_03_GenAxisymmModel.agdb", "example_03")
 wb.upload_file_from_example_repo("example_03_3d_rotor_model.agdb", "example_03")
 # upload a couple of input files from client working directory to server working directory
-wb.upload_file("example_03_Gen_Axisymm_rotor.py")
-wb.upload_file("example_03_3D_rotor.py")
+wb.upload_file(r"scripts\axisymmetric_rotor.py")
+wb.upload_file(r"scripts\rotor_3d.py")
 
 # run a Workbench script to define the project and load geometry. Export workbench log to a file w2.log.
 export_path = os.path.join(client_dir, 'wb_log_file.log')
 wb.set_log_file(export_path)
-sys_name = wb.run_script_file('example_03_geom_prep.wbjn', log_level='info')
+sys_name = wb.run_script_file('assets\project.wbjn', log_level='info')
 print(sys_name)
 
 # +
@@ -42,7 +42,7 @@ print(mechanical.project_directory)
 # -
 
 # run a Mechanical python script via PyMechanical to mesh and solve the 2D general axisymmetric rotor model
-with open (os.path.join(client_dir, "example_03_Gen_Axisymm_rotor.py")) as sf:
+with open (os.path.join(client_dir, r"scripts\axisymmetric_rotor.py")) as sf:
     mech_script = sf.read()
 mech_output = mechanical.run_python_script(mech_script)
 print(mech_output)
@@ -145,7 +145,7 @@ print(mechanical.project_directory)
 # -
 
 # run a Mechanical python script via PyMechanical to mesh and solve the 3D rotor model
-with open (os.path.join(client_dir, "example_03_3D_rotor.py")) as sf:
+with open (os.path.join(client_dir, "rotor_3d.py")) as sf:
     mech_script = sf.read()
 mech_output = mechanical.run_python_script(mech_script)
 print(mech_output)
