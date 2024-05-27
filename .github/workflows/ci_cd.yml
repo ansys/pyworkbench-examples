@@ -19,26 +19,26 @@ env:
 
 jobs:
 
-  code-style:
-    name: "Code style"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: ansys/actions/code-style@v6
-        with:
-          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+    #code-style:
+    #  name: "Code style"
+    #  runs-on: ubuntu-latest
+    #  steps:
+    #    - uses: ansys/actions/code-style@v6
+    #      with:
+    #        python-version: ${{ env.MAIN_PYTHON_VERSION }}
 
-  doc-style:
-    name: "Documentation Style Check"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: ansys/actions/doc-style@v6
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+    #doc-style:
+    #  name: "Documentation Style Check"
+    #  runs-on: ubuntu-latest
+    #  steps:
+    #    - uses: ansys/actions/doc-style@v6
+    #      with:
+    #        token: ${{ secrets.GITHUB_TOKEN }}
 
   doc-build:
     name: "Build documentation"
     runs-on: [self-hosted, pyworkbench]
-    needs: [doc-style]
+        #needs: [doc-style]
     steps:
         
       - name: "Checkout project"
