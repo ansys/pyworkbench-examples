@@ -55,8 +55,9 @@ jobs:
           python -m pip install -r requirements/requirements_doc.txt
 
       - name: "Build HTML documentation"
+        working-directory: doc
         run: |
-          cd doc && make.bat html
+          .\make.bat html
 
   doc-deploy-dev:
     name: "Deploy development documentation"
