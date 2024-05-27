@@ -64,6 +64,14 @@ html_theme_options = {
     ],
 }
 
+# Configuration for nbsphinx
+nbsphinx_execute = "always"
+nbsphinx_custom_formats = {
+    ".mystnb": ["jupytext.reads", {"fmt": "mystnb"}],
+    ".py": ["jupytext.reads", {"fmt": ""}],
+}
+nbsphinx_prompt_width = ""
+
 
 # -- Sphinx application setup ------------------------------------------------
 
