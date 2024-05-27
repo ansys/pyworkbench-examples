@@ -43,6 +43,20 @@ jobs:
         
       - name: "Checkout project"
         uses: actions/checkout@v4
+        with:
+          path: pyworkbench
+
+      - name: "Checkout examples data"
+        uses: actions/checkout@v4
+        with:
+          repository: ansys/example-data
+          ref: feat/pyworkbench
+          path: data
+
+      - name: "Copy additional data into PyWorkbench"
+        run: |
+          Copy-Item -Path "data\pyworkbench\*" -Destination "pyworkbench\examples" -Recurse -Force
+          Get-ChildItem -Path "pyworkbench\examples" -Recurse
       
       - name: "Install Python ${{ env.MAIN_PYTHON_VERSION }}"
         uses: actions/setup-python@v5
@@ -55,6 +69,7 @@ jobs:
           python -m pip install -r requirements/requirements_doc.txt
 
       - name: "Build HTML documentation"
+        working-directory: pyworkbench
         run: |
             sphinx-build doc/source "doc/_build/html" --color -vW -b html
 
