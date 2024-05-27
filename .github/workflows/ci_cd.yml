@@ -55,9 +55,8 @@ jobs:
           python -m pip install -r requirements/requirements_doc.txt
 
       - name: "Build HTML documentation"
-        working-directory: doc
         run: |
-          .\make.bat html
+            sphinx-build doc/source "doc/_build/html" --color -vW -b html
 
   doc-deploy-dev:
     name: "Deploy development documentation"
