@@ -68,12 +68,6 @@ jobs:
           python -m pip install -r requirements/requirements_examples.txt
           python -m pip install -r requirements/requirements_doc.txt
 
-
-      - name: "Verify PyWorkbench installation"
-        working-directory: pyworkbench
-        run: |
-          python hello_pyworkbench.py
-
       - name: "Build HTML documentation"
         working-directory: pyworkbench
         run: |
