@@ -72,7 +72,7 @@ jobs:
       - name: "Verify PyWorkbench installation"
         working-directory: pyworkbench
         run: |
-          python -m hello_pyworkbench.py
+          python hello_pyworkbench.py
 
       - name: "Build HTML documentation"
         working-directory: pyworkbench
