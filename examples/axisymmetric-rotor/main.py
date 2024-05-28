@@ -9,7 +9,8 @@ from ansys.mechanical.core import launch_mechanical
 # +
 # launch Workbench service on the local machine; using some options
 
-workdir = pathlib.Path("__file__").parent
+#workdir = pathlib.Path("__file__").parent
+workdir = pathlib.Path(__file__).parent
 assets = workdir / "assets"
 scripts = workdir / "scripts"
 agdb = workdir / "agdb"
