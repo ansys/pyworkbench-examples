@@ -14,7 +14,7 @@ server_dir = r'D:\GPS_Team\Engagements_2023\PyAnsys\PyWorkbench\Examples\Tech_De
 host = 'localhost'
 release = '241'
 
-wb = launch_workbench(release=release, host=host)
+wb = launch_workbench()
 # -
 
 # upload a couple of input files from example data repo
