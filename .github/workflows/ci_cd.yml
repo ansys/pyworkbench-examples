@@ -69,15 +69,10 @@ jobs:
           python -m pip install -r requirements/requirements_examples.txt
           python -m pip install -r requirements/requirements_doc.txt
 
-      - name: "Run example"
+      - name: "Build HTML documentation"
         working-directory: pyworkbench-examples
         run: |
-          python examples/axisymmetric-rotor/main.py
-
-      # - name: "Build HTML documentation"
-      #   working-directory: pyworkbench-examples
-      #   run: |
-      #     sphinx-build doc/source "doc/_build/html" --color -vW -b html
+          sphinx-build doc/source "doc/_build/html" --color -vW -b html
 
   doc-deploy-dev:
     name: "Deploy development documentation"
