@@ -4,8 +4,8 @@ import os.path
 import json
 
 work_dir = GetServerWorkingDirectory()
-arg_GeometryFile1 = os.path.join(work_dir, "example_03_3d_rotor_model.agdb")
-arg_GeometryFile2 = os.path.join(work_dir, "example_03_GenAxisymmModel.agdb")
+arg_GeometryFile1 = os.path.join(work_dir, "agdb", "rotor_3d_model.agdb")
+arg_GeometryFile2 = os.path.join(work_dir, "agdb", "axisymmetric_model.agdb")
 
 #Description=Set Number of digits to 10
 Project.SetPreference(Name='NumberOfSignificantDigits', Value=10)

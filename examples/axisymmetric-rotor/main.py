@@ -9,13 +9,12 @@ from ansys.mechanical.core import launch_mechanical
 # +
 # launch Workbench service on the local machine; using some options
 
-#workdir = pathlib.Path("__file__").parent
-workdir = pathlib.Path(__file__).parent
+workdir = pathlib.Path("__file__").parent
 assets = workdir / "assets"
 scripts = workdir / "scripts"
 agdb = workdir / "agdb"
 
-wb = launch_workbench(release="241", server_workdir=str(workdir), client_workdir=str(workdir))
+wb = launch_workbench(release="241", server_workdir=str(workdir.absolute()), client_workdir=str(workdir.absolute()))
 # -
 
 # upload a couple of input files from example data repo
@@ -27,7 +26,7 @@ wb.upload_file(str(scripts / "rotor_3d.py"))
 # run a Workbench script to define the project and load geometry. Export workbench log to a file w2.log.
 export_path = 'wb_log_file.log'
 wb.set_log_file(export_path)
-sys_name = wb.run_script_file(str(assets / "project.wbjn"), log_level='info')
+sys_name = wb.run_script_file(str((assets / "project.wbjn").absolute()), log_level='info')
 print(sys_name)
 
 # +
@@ -144,7 +143,7 @@ print(mechanical.project_directory)
 # -
 
 # run a Mechanical python script via PyMechanical to mesh and solve the 3D rotor model
-with open (r"scripts\rotor_3d.py") as sf:
+with open (scripts / "rotor_3d.py") as sf:
     mech_script = sf.read()
 mech_output = mechanical.run_python_script(mech_script)
 print(mech_output)
