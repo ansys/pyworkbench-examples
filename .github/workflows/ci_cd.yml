@@ -16,7 +16,6 @@ env:
   MAIN_PYTHON_VERSION: "3.11"
   PIP_EXTRA_INDEX_URL: 'https://${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}@pkgs.dev.azure.com/pyansys/_packaging/pyansys/pypi/simple/'
   DOCUMENTATION_CNAME: 'examples.workbench.docs.pyansys.com'
-  LICENSE_SERVER_PORT: '1055'
 
 jobs:
 
@@ -69,12 +68,16 @@ jobs:
           python -m pip install -r requirements/requirements_examples.txt
           python -m pip install -r requirements/requirements_doc.txt
 
+
+      - name: "Verify PyWorkbench installation"
+        working-directory: pyworkbench
+        run: |
+          python -m hello_pyworkbench.py
+
       - name: "Build HTML documentation"
         working-directory: pyworkbench
         run: |
           sphinx-build doc/source "doc/_build/html" --color -vW -b html
-        env:
-          ANSYSLMD_LICENSE_FILE: ${{ env.LICENSE_SERVER_PORT }}@${{ secrets.LICENSE_SERVER }}
 
   doc-deploy-dev:
     name: "Deploy development documentation"
