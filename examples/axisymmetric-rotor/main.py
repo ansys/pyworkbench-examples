@@ -1,6 +1,7 @@
 # # Workbench Client
 
 import os
+import pathlib
 
 from ansys.workbench.core import launch_workbench
 from ansys.mechanical.core import launch_mechanical
@@ -8,20 +9,24 @@ from ansys.mechanical.core import launch_mechanical
 # +
 # launch Workbench service on the local machine; using some options
 
-wb = launch_workbench(release="241")
+workdir = pathlib.Path("__file__").parent
+assets = workdir / "assets"
+scripts = workdir / "scripts"
+agdb = workdir / "agdb"
+
+wb = launch_workbench(release="241", server_workdir=str(workdir))
 # -
 
 # upload a couple of input files from example data repo
-wb.upload_file_from_example_repo("example_03_GenAxisymmModel.agdb", "example_03")
-wb.upload_file_from_example_repo("example_03_3d_rotor_model.agdb", "example_03")
-# upload a couple of input files from client working directory to server working directory
-wb.upload_file(r"scripts\axisymmetric_rotor.py")
-wb.upload_file(r"scripts\rotor_3d.py")
+wb.upload_file([agdb / "axisymmetric_model.agdb"])
+wb.upload_file([agdb / "rotor_3d_model.agdb"])
+wb.upload_file([scripts / "axisymmetric_rotor.py"])
+wb.upload_file([scripts / "rotor_3d.py"])
 
 # run a Workbench script to define the project and load geometry. Export workbench log to a file w2.log.
 export_path = 'wb_log_file.log'
 wb.set_log_file(export_path)
-sys_name = wb.run_script_file('assets\project.wbjn', log_level='info')
+sys_name = wb.run_script_file(workdir / "assets" / "project.wbjn", log_level='info')
 print(sys_name)
 
 # +
@@ -35,7 +40,7 @@ print(mechanical.project_directory)
 # -
 
 # run a Mechanical python script via PyMechanical to mesh and solve the 2D general axisymmetric rotor model
-with open (r"scripts\axisymmetric_rotor.py") as sf:
+with open (scripts / "axisymmetric_rotor.py") as sf:
     mech_script = sf.read()
 mech_output = mechanical.run_python_script(mech_script)
 print(mech_output)

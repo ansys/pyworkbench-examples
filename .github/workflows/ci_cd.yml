@@ -44,7 +44,7 @@ jobs:
       - name: "Checkout project"
         uses: actions/checkout@v4
         with:
-          path: pyworkbench
+          path: pyworkbench-examples
 
       - name: "Checkout examples data"
         uses: actions/checkout@v4
@@ -55,8 +55,8 @@ jobs:
 
       - name: "Copy additional data into PyWorkbench"
         run: |
-          Copy-Item -Path "data\pyworkbench\*" -Destination "pyworkbench\examples" -Recurse -Force
-          Get-ChildItem -Path "pyworkbench\examples" -Recurse
+          Copy-Item -Path "data\pyworkbench\*" -Destination "pyworkbench-examples\examples" -Recurse -Force
+          Get-ChildItem -Path "pyworkbench-examples\examples" -Recurse
       
       - name: "Install Python ${{ env.MAIN_PYTHON_VERSION }}"
         uses: actions/setup-python@v5
