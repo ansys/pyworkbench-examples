@@ -64,12 +64,13 @@ jobs:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
 
       - name: "Install requirements"
+        working-directory: pyworkbench-examples
         run: |
           python -m pip install -r requirements/requirements_examples.txt
           python -m pip install -r requirements/requirements_doc.txt
 
       - name: "Build HTML documentation"
-        working-directory: pyworkbench
+        working-directory: pyworkbench-examples
         run: |
           sphinx-build doc/source "doc/_build/html" --color -vW -b html
 

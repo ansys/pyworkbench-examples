@@ -14,19 +14,19 @@ assets = workdir / "assets"
 scripts = workdir / "scripts"
 agdb = workdir / "agdb"
 
-wb = launch_workbench(release="241", server_workdir=str(workdir))
+wb = launch_workbench(release="241", server_workdir=str(workdir), client_workdir=str(workdir))
 # -
 
 # upload a couple of input files from example data repo
-wb.upload_file([agdb / "axisymmetric_model.agdb"])
-wb.upload_file([agdb / "rotor_3d_model.agdb"])
-wb.upload_file([scripts / "axisymmetric_rotor.py"])
-wb.upload_file([scripts / "rotor_3d.py"])
+wb.upload_file(str(agdb / "axisymmetric_model.agdb"))
+wb.upload_file(str(agdb / "rotor_3d_model.agdb"))
+wb.upload_file(str(scripts / "axisymmetric_rotor.py"))
+wb.upload_file(str(scripts / "rotor_3d.py"))
 
 # run a Workbench script to define the project and load geometry. Export workbench log to a file w2.log.
 export_path = 'wb_log_file.log'
 wb.set_log_file(export_path)
-sys_name = wb.run_script_file(workdir / "assets" / "project.wbjn", log_level='info')
+sys_name = wb.run_script_file(str(assets / "project.wbjn"), log_level='info')
 print(sys_name)
 
 # +
