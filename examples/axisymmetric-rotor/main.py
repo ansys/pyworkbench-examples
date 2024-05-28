@@ -1,20 +1,14 @@
 # # Workbench Client
 
+import os
+
 from ansys.workbench.core import launch_workbench
 from ansys.mechanical.core import launch_mechanical
-import os
-import pyvista as pv
 
 # +
 # launch Workbench service on the local machine; using some options
 
-client_dir = r'D:\GPS_Team\Engagements_2023\PyAnsys\PyWorkbench\Examples\Tech_Demo_14\client_dir'
-server_dir = r'D:\GPS_Team\Engagements_2023\PyAnsys\PyWorkbench\Examples\Tech_Demo_14\server_dir'
-
-host = 'localhost'
-release = '241'
-
-wb = launch_workbench()
+wb = launch_workbench(release="241")
 # -
 
 # upload a couple of input files from example data repo
@@ -25,7 +19,7 @@ wb.upload_file(r"scripts\axisymmetric_rotor.py")
 wb.upload_file(r"scripts\rotor_3d.py")
 
 # run a Workbench script to define the project and load geometry. Export workbench log to a file w2.log.
-export_path = os.path.join(client_dir, 'wb_log_file.log')
+export_path = 'wb_log_file.log'
 wb.set_log_file(export_path)
 sys_name = wb.run_script_file('assets\project.wbjn', log_level='info')
 print(sys_name)
@@ -41,7 +35,7 @@ print(mechanical.project_directory)
 # -
 
 # run a Mechanical python script via PyMechanical to mesh and solve the 2D general axisymmetric rotor model
-with open (os.path.join(client_dir, r"scripts\axisymmetric_rotor.py")) as sf:
+with open (r"scripts\axisymmetric_rotor.py") as sf:
     mech_script = sf.read()
 mech_output = mechanical.run_python_script(mech_script)
 print(mech_output)
@@ -144,7 +138,7 @@ print(mechanical.project_directory)
 # -
 
 # run a Mechanical python script via PyMechanical to mesh and solve the 3D rotor model
-with open (os.path.join(client_dir, "rotor_3d.py")) as sf:
+with open (r"scripts\rotor_3d.py") as sf:
     mech_script = sf.read()
 mech_output = mechanical.run_python_script(mech_script)
 print(mech_output)
