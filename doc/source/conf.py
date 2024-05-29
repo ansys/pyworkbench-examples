@@ -38,7 +38,7 @@ extensions = [
 
 templates_path = ['_templates']
 exclude_examples = []
-exclude_patterns = ["conf.py"]
+exclude_patterns = ["conf.py", "scripts"]
 
 print(f"EXCLUDE_PATTERNS: {exclude_patterns}")
 
