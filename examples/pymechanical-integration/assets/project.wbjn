@@ -3,7 +3,7 @@ import json
 
 # the path to the geometry file
 work_dir = GetServerWorkingDirectory()
-geometry_file = os.path.join(work_dir, "2pipes.agdb")
+geometry_file = os.path.join(work_dir, "agdb", "two_pipes.agdb")
 
 # create a mechanical system with the given geometry
 template = GetTemplate(TemplateName="Static Structural", Solver="ANSYS")

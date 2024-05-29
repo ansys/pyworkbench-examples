@@ -1,19 +1,24 @@
 # # PyWorkbench and PyMechanical
 
 import os
-import json
+
 import pyvista as pv
+
 from ansys.workbench.core import launch_workbench
 from ansys.mechanical.core import launch_mechanical
 
 # launch Workbench service on the local machine
-wb = launch_workbench(client_workdir='C:/Users/fli/demo')
+workdir = pathlib.Path("__file__").parent
+assets = workdir / "assets"
+scripts = workdir / "scripts"
+agdb = workdir / "agdb"
+wb = launch_workbench(release="241", server_workdir=str(workdir.absolute()), client_workdir=str(workdir.absolute()))
 
 # upload a geometry file to the server
-wb.upload_file_from_example_repo("2pipes.agdb", "2pipes")
+wb.upload_file(str(agdb / "two_pipes.agdb"))
 
 # run a Workbench script to create a mechanical system and load geometry
-system_name = wb.run_script_file('geometry.wbjn')
+system_name = wb.run_script_file(str((assets / "project.wbjn").absolute()))
 
 # start PyMechanical service for the system and create a PyMechanical client
 pymech_port = wb.start_mechanical_server(system_name=system_name)
@@ -21,7 +26,7 @@ mechanical = launch_mechanical(start_instance=False, ip='localhost', port=pymech
 print(mechanical.project_directory)
 
 # run a Mechanical python script via PyMechanical to mesh/solve the model
-with open (os.path.join(wb.client_workdir, "solve.py")) as sf:
+with open (scripts / "solve.py") as sf:
     mech_script = sf.read()
 print(mechanical.run_python_script(mech_script))
 
