@@ -1,38 +1,32 @@
 
 # # Workbench Client
 
+import os
+import pathlib
+
 from ansys.workbench.core import launch_workbench
 from ansys.mechanical.core import launch_mechanical
-import os
-import pyvista as pv
 
 # +
 # launch Workbench service on the remote host machine; specify remote host machine name and user login credentials
 
-client_dir = r'D:\GPS_Team\Engagements_2023\PyAnsys\PyWorkbench\Examples\Tech_Demo_13\client_dir'
-server_dir = r'C:\Users\vnamdeo\Project_Data\PyWorkbench_demo\server_dir'
+workdir = pathlib.Path("__file__").parent
+assets = workdir / "assets"
+scripts = workdir / "scripts"
+cdb = workdir / "cdb"
 
-host = 'PUNVDHPG01023.win.ansys.com'
-release = '241'
-
-usrname = "vnamdeo"
-key = os.getenv('PRIVATE_KEY')
-passwrd = key
-
-wb = launch_workbench(release=release, server_workdir=server_dir, client_workdir=client_dir,host=host,username=usrname,password=passwrd)
+wb = launch_workbench(release="241", server_workdir=server_dir, client_workdir=client_dir,host=host,username=usrname,password=passwrd)
 
 # +
-# upload a couple of input files from example-data repo
-wb.upload_file_from_example_repo("example_04_sector_model.cdb", "example_04")
-
-# upload a input file from client directory to server working directory
-wb.upload_file("example_04_cyclic_symm_analyses.py")
+# Upload project files
+wb.upload_file(str(cdb / "sector_model.cdb"))
+wb.upload_file(str(scripts / "cyclic_symmetry_analysis.py"))
 
 # +
 # run a Workbench script to define the project and load geometry
 log_path = os.path.join(client_dir, 'wb_log_file.log')
 wb.set_log_file(log_path)
-sys_nam = wb.run_script_file('example_04_geom_prep.wbjn', log_level='info')
+sys_name = wb.run_script_file(str((assets / "project.wbjn").absolute()), log_level='info')
 
 print(sys_nam)
 
