@@ -15,7 +15,7 @@ assets = workdir / "assets"
 scripts = workdir / "scripts"
 cdb = workdir / "cdb"
 
-wb = launch_workbench(release="241", server_workdir=server_dir, client_workdir=client_dir,host=host,username=usrname,password=passwrd)
+wb = launch_workbench(release="241", server_workdir=str(workdir.absolute()), client_workdir=str(workdir.absolute()))
 
 # +
 # Upload project files
@@ -24,24 +24,23 @@ wb.upload_file(str(scripts / "cyclic_symmetry_analysis.py"))
 
 # +
 # run a Workbench script to define the project and load geometry
-log_path = os.path.join(client_dir, 'wb_log_file.log')
-wb.set_log_file(log_path)
+export_path = 'wb_log_file.log'
+wb.set_log_file(export_path)
 sys_name = wb.run_script_file(str((assets / "project.wbjn").absolute()), log_level='info')
-
-print(sys_nam)
+print(sys_name)
 
 # +
 # start PyMechanical server on the system, then create a PyMechanical client session
 # to solve turbine blade Model
 
-server_port = wb.start_mechanical_server(system_name=sys_nam)
-mechanical = launch_mechanical(start_instance=False, ip=host, port=server_port)
+server_port = wb.start_mechanical_server(system_name=sys_name[1])
+mechanical = launch_mechanical(start_instance=False, ip='localhost', port=server_port)
 
 print(mechanical.project_directory)
 # -
 
 # run a Mechanical python script via PyMechanical to mesh/solve the model
-with open (os.path.join(client_dir, "example_04_cyclic_symm_analyses.py")) as sf:
+with open (scripts / "cyclic_symmetry_analysis.py") as sf:
     mech_script = sf.read()
 mech_output = mechanical.run_python_script(mech_script)
 print(mech_output)
