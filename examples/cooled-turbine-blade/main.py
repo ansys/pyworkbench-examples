@@ -1,32 +1,30 @@
 # # Workbench Client
 
+import os
+import pathlib
+
 from ansys.workbench.core import launch_workbench
 from ansys.mechanical.core import launch_mechanical
-import os
-import pyvista as pv
 
 # +
 # launch Workbench service on the local machine; using some options
 
-client_dir = r'D:\GPS_Team\Engagements_2023\PyAnsys\PyWorkbench\Examples\Tech_Demo_6\client_dir'
-server_dir = r'D:\GPS_Team\Engagements_2023\PyAnsys\PyWorkbench\Examples\Tech_Demo_6\server_dir'
-#alternative_target_dir = 'D:\GPS_Team\Engagements_2023\PyAnsys\PyWorkbench\Examples\Tech_Demo_6\Scripts_Github'
+workdir = pathlib.Path("__file__").parent
+assets = workdir / "assets"
+scripts = workdir / "scripts"
+wbpz = workdir / "wpbz"
 
-host = 'localhost'
-release = '241'
-
-wb = launch_workbench(release=release, server_workdir=server_dir, client_workdir=client_dir)
+wb = launch_workbench(release="241", server_workdir=str(workdir.absolute()), client_workdir=str(workdir.absolute()))
 # -
 
-# upload a couple of input files from example-data repo
-wb.upload_file_from_example_repo("example_02_Cooled_Turbine_Blade.wbpz", "example_02")
-# upload a couple of input files from client working directory to server working directory
-wb.upload_file("example_02_Turbine_Blade_Macro.py")
+# Upload project files
+wb.upload_file(str(wbpz / "cooled_turbine_blade.wbpz"))
+wb.upload_file(str(scripts / "cooled_turbine_blade.py"))
 
 # run a Workbench script to define the project and load geometry
 export_path = os.path.join(client_dir, 'wb_log_file.log')
 wb.set_log_file(export_path)
-sys_name = wb.run_script_file('example_02_geom_prep.wbjn', log_level='info')
+sys_name = wb.run_script_file(str((assets / "project.wbjn").absolute()), log_level='info')
 print(sys_name)
 
 # +
@@ -40,7 +38,7 @@ print(mechanical.project_directory)
 # -
 
 # run a Mechanical python script via PyMechanical to mesh and solve the model
-with open (os.path.join(client_dir, "example_02_Turbine_Blade_Macro.py")) as sf:
+with open (scripts / "cooled_turbine_blade.py") as sf:
     mech_script = sf.read()
 mech_output = mechanical.run_python_script(mech_script)
 print(mech_output)

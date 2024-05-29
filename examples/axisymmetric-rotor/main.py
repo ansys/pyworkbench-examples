@@ -17,7 +17,7 @@ agdb = workdir / "agdb"
 wb = launch_workbench(release="241", server_workdir=str(workdir.absolute()), client_workdir=str(workdir.absolute()))
 # -
 
-# upload a couple of input files from example data repo
+# Upload project files
 wb.upload_file(str(agdb / "axisymmetric_model.agdb"))
 wb.upload_file(str(agdb / "rotor_3d_model.agdb"))
 wb.upload_file(str(scripts / "axisymmetric_rotor.py"))
