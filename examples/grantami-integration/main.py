@@ -1,20 +1,24 @@
 # # Workbench Client
 
+import os
+import pathlib
+
 from ansys.workbench.core import launch_workbench
 from ansys.mechanical.core import launch_mechanical
-import os
-import pyvista as pv
 
 # +
 # launch Workbench service on the local machine; using some options
 
-client_dir = r'D:\GPS_Team\Engagements_2023\PyAnsys\PyWorkbench\Examples\Tech_demo_55\client_dir'
-server_dir = r'D:\GPS_Team\Engagements_2023\PyAnsys\PyWorkbench\Examples\Tech_demo_55\server_dir'
+workdir = pathlib.Path("__file__").parent
+assets = workdir / "assets"
+scripts = workdir / "scripts"
+agdb = workdir / "agdb"
+pmdb = workdir / "pmdb"
+txt = workdir / "txt"
+csv = workdir / "csv"
 
-host = 'localhost'
-release = '242'
-
-wb = launch_workbench(release=release, server_workdir=server_dir, client_workdir=client_dir)
+wb = launch_workbench(release="241", server_workdir=str(workdir.absolute()), client_workdir=str(workdir.absolute()))
+# -
 
 # +
 ###################################################################################
@@ -61,13 +65,20 @@ for nmat in imp_materials:
 
 # +
 # upload input files from example data repo
-wb.upload_file_from_example_repo("example_6_td_055_Rotor_Blade_Geom.pmdb", "example_06")
-wb.upload_file_from_example_repo("example_6_CFX_ExportResults_FT_10P_EO2.csv", "example_06")
-wb.upload_file_from_example_repo("example_6_Temperature_Data.txt", "example_06")
+wb.upload_file(str(agdb / "axisymmetric_model.agdb"))
+wb.upload_file(str(pmdb / "blade-geometry.pmdb"))
+wb.upload_file(str(csv / "results.csv"))
+wb.upload_file(str(txt / "temperature-data.txt"))
 
 # upload input files from client working directory to server working directory
 wb.upload_file("Structural steel, ASTM A500 Grade A.xml")
-wb.upload_file("example_6_Mech.py")
+wb.upload_file(str(scripts / "mechanical.py"))
+
+# Upload project files
+wb.upload_file(str(pmdb / "blade-geometry.pmdb"))
+wb.upload_file(str(agdb / "rotor_3d_model.agdb"))
+wb.upload_file(str(scripts / "axisymmetric_rotor.py"))
+wb.upload_file(str(scripts / "rotor_3d.py"))
 # -
 
 # run a Workbench script to define the project and load geometry

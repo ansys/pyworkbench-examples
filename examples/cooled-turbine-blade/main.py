@@ -22,7 +22,7 @@ wb.upload_file(str(wbpz / "cooled_turbine_blade.wbpz"))
 wb.upload_file(str(scripts / "cooled_turbine_blade.py"))
 
 # run a Workbench script to define the project and load geometry
-export_path = os.path.join(client_dir, 'wb_log_file.log')
+export_path = 'wb_log_file.log'
 wb.set_log_file(export_path)
 sys_name = wb.run_script_file(str((assets / "project.wbjn").absolute()), log_level='info')
 print(sys_name)
