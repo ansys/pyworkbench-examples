@@ -26,13 +26,17 @@ wb = launch_workbench(release="241", server_workdir=str(workdir.absolute()), cli
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import os
 
+GRANTAMI_ENDPOINT = os.getenv('GRANTA_ENDPOINT', None)
+if not GRANTAMI_ENDPOINT:
+    raise ValueError("GRANTA_ENDPOINT environment variable not set")
+
 # Use matlabplotlib to display the images.
 cwd = os.path.join(os.getcwd(), "out")
 
 def getMaterial(name,output):
 
     from GRANTA_MIScriptingToolkit import granta as mpy
-    mi = mpy.connect('http://azeww22sim01/mi_servicelayer', autologon=True)
+    mi = mpy.connect(GRANTAMI_ENDPOINT, autologon=True)
     #db = mi.get_db(db_key='MI_Pro')
     #table = db.get_table('MaterialUniverse')
     db = mi.get_db('MaterialUniverse')
@@ -49,7 +53,7 @@ def getMaterial(name,output):
     material_card = exporter.run_exporter([rec], parameter_defs=parameters_required)
 
     #path_to_save = "./"
-    path_to_save = os.path.join(client_dir + "/")
+    path_to_save = os.path.join(workdir)
     exporter.save(path_to_save, file_name=name)
     file_extension = exporter.default_file_extension
     print("Exporter output saved to \"{}{}.{}\"".format(path_to_save, name, file_extension))
@@ -82,9 +86,9 @@ wb.upload_file(str(scripts / "rotor_3d.py"))
 # -
 
 # run a Workbench script to define the project and load geometry
-export_path = os.path.join(client_dir, 'wb_log_file.log')
+export_path = 'wb_log_file.log'
 wb.set_log_file(export_path)
-sys_name = wb.run_script_file('example_06_geom_prep.wbjn', log_level='info')
+sys_name = wb.run_script_file(str((assets / "project.wbjn").absolute()), log_level='info')
 print(sys_name)
 
 # +
@@ -98,7 +102,7 @@ print(mechanical.project_directory)
 # -
 
 # run a Mechanical python script via PyMechanical to mesh and solve the model
-with open (os.path.join(client_dir, "example_6_Mech.py")) as sf:
+with open (scripts / "mechanical.py") as sf:
     mech_script = sf.read()
 mech_output = mechanical.run_python_script(mech_script)
 print(mech_output)
@@ -188,4 +192,5 @@ for file in glob.glob(source_dir + '/*'):
 # -
 
 # shutdown the Workbench client and service
+mechanical.exit()
 wb.exit()
