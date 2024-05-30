@@ -12,7 +12,7 @@ template1 = GetTemplate(TemplateName="Geometry")
 system1 = template1.CreateSystem()
 geometry1 = system1.GetContainer(ComponentName="Geometry")
 work_dir = GetServerWorkingDirectory()
-cad_model_path = os.path.join(work_dir, "mixing_elbow.scdoc")
+cad_model_path = os.path.join(work_dir, "scdoc", "mixing_elbow.scdoc")
 geometry1.SetFile(FilePath=cad_model_path)
 template2 = GetTemplate(TemplateName="FLTG")
 system2 = template2.CreateSystem(
@@ -58,7 +58,7 @@ fluentLauncherSettings2.SetEntityProperties(Properties=Set(Precision="Double", E
 Fluent.Edit(Container=setup2)
 setup2.Edit(Interactive=True)
 #setupScript = r'D:\Research\pyworkbench\example\setup.jou'
-setupScript = os.path.join(work_dir, "setup.jou")
+setupScript = os.path.join(work_dir, "jou", "setup.jou")
 setup2.SendCommand(Command='/file read-jou "'+setupScript+'" , ')
 setup2.SendCommand(Command="/exit")
 fluentLauncherSettings2.SetEntityProperties(Properties=Set(EnvPath={}))
@@ -70,7 +70,7 @@ fluentLauncherSettings2.SetEntityProperties(Properties=Set(Precision="Double", E
 Fluent.Edit(Container=setup3)
 setup3.Edit(Interactive=True)
 #solveScript = r'D:\Research\pyworkbench\example\solve.jou'
-solveScript = os.path.join(work_dir, "solve.jou")
+solveScript = os.path.join(work_dir, "jou", "solve.jou")
 setup3.SendCommand(Command='/file read-jou "'+solveScript+'" , ')
 setup3.SendCommand(Command="/exit")
 fluentLauncherSettings2.SetEntityProperties(Properties=Set(EnvPath={}))

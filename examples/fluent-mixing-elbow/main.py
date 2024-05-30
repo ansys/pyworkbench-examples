@@ -10,37 +10,42 @@
 
 # ### Import necessary libraries
 
-from ansys.workbench.core import launch_workbench as lw
+import pathlib
+
+from ansys.workbench.core import launch_workbench
 
 # ### Define the working directory
 
-workdir = "D:\Research\pyworkbench\example"
+workdir = pathlib.Path("__file__").parent
+assets = workdir / "assets"
+scdoc = workdir / "scdoc"
+jou = workdir / "jou"
 
 # ### Launch the workbench session
 
 # launch Workbench service
-client = lw(client_workdir = workdir)
+wb = launch_workbench(release="241", server_workdir=str(workdir.absolute()), client_workdir=str(workdir.absolute()))
 
 
 # ### Upload the CAD model
 
 # upload a couple of input files, This files get uploaded to the host
-client.upload_file("mixing_elbow.scdoc")
-client.upload_file("setup.jou")
-client.upload_file("solve.jou")
+wb.upload_file(str(scdoc / "mixing_elbow.scdoc"))
+wb.upload_file(str(jou / "setup.jou"))
+wb.upload_file(str(jou / "solve.jou"))
 
 # ### Run the script
 
 # run a Workbench script to define the Workbench Project Schematic
-output = client.run_script_file('wb_setup.wbjn')
-print(output)
+sys_name = wb.run_script_file(str((assets / "project.wbjn").absolute()))
+print(sys_name)
 
 # ### Download the simulation data
 
 # download a output files in working directory at client side working directory
-client.download_file("contour_1.jpeg")
+wb.download_file("contour_1.jpeg")
 
 # ### Shutdown the service
 
 # shutdown the server and client
-client.exit()
+wb.exit()
