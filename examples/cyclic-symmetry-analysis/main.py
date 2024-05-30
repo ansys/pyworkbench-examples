@@ -122,4 +122,5 @@ mechanical.download(solve_out_path, target_dir=current_working_directory)
 # -
 
 # shutdown the Workbench client and service
+mechanical.close_all_local_instances()
 wb.exit()
