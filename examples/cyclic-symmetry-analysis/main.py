@@ -33,7 +33,7 @@ print(sys_name)
 # start PyMechanical server on the system, then create a PyMechanical client session
 # to solve turbine blade Model
 
-server_port = wb.start_mechanical_server(system_name=sys_name[1])
+server_port = wb.start_mechanical_server(system_name=sys_name)
 mechanical = launch_mechanical(start_instance=False, ip='localhost', port=server_port)
 
 print(mechanical.project_directory)
@@ -122,5 +122,5 @@ mechanical.download(solve_out_path, target_dir=current_working_directory)
 # -
 
 # shutdown the Workbench client and service
-mechanical.close_all_local_instances()
+mechanical.exit()
 wb.exit()

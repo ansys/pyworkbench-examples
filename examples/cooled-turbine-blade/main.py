@@ -129,5 +129,5 @@ for file in glob.glob(source_dir + '/*'):
 # -
 
 # shutdown the Workbench client and service
-mechanical.close_all_local_instances()
+mechanical.exit()
 wb.exit()
