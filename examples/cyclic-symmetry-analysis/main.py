@@ -1,4 +1,3 @@
-
 # # Workbench Client
 
 import os
@@ -16,6 +15,7 @@ scripts = workdir / "scripts"
 cdb = workdir / "cdb"
 
 wb = launch_workbench(release="241", server_workdir=str(workdir.absolute()), client_workdir=str(workdir.absolute()))
+# -
 
 # +
 # Upload project files
