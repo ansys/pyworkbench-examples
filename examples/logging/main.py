@@ -2,7 +2,7 @@
 
 import pathlib
 import os
-from ansys.api.workbench.v0.launch_workbench import launch_workbench
+from ansys.workbench.core import launch_workbench
 
 # launch Workbench service on the local machine; using some options
 workdir = pathlib.Path("__file__").parent
