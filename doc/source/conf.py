@@ -38,7 +38,10 @@ extensions = [
 
 templates_path = ['_templates']
 exclude_examples = ["grantami-integration"]
-exclude_patterns = ["conf.py", "examples/**/scripts/*.py", "examples/grantami-integration/*", "examples/logging/alternative_target_dir/*.py"]
+exclude_patterns = ["conf.py", "examples/**/scripts/*.py",
+                    "examples/grantami-integration/*",
+                    "examples/logging/alternative_target_dir/*.py",
+                    "examples/pyfluent-mixing-elbow/*"]
 
 source_suffix = {
     ".rst": "restructuredtext",
