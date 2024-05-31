@@ -77,11 +77,24 @@ jobs:
       - name: "Clean tasks"
         if: ${{ always() }}
         run: |
-          Get-Process -Name "ANSYS" | Stop-Process -Force
-          Get-Process -Name "ANSYS241" | Stop-Process -Force
-          Get-Process -Name "AnsysWBU" | Stop-Process -Force
-          Get-Process -Name "AnsysFWW" | Stop-Process -Force
-          Get-Process -Name "RunWB2" | Stop-Process -Force
+          $processNames = @("ANSYS", "ANSYS241", "AnsysWBU", "AnsysFWW", "RunWB2")
+          $foundAnyProcess = $false
+          
+          foreach ($processName in $processNames) {
+              $process = Get-Process -Name $processName -ErrorAction SilentlyContinue
+          
+              if ($process) {
+                  $process | Stop-Process -Force
+                  $foundAnyProcess = $true
+              } else {
+                  Write-Output "No process named '$processName' was found."
+              }
+          }
+          
+          if (-not $foundAnyProcess) {
+              Write-Output "No specified processes were found."
+          }
+
 
       - name: "Remove temporary folders"
         if: ${{ always() }}
