@@ -1,4 +1,5 @@
 ansys-workbench-core==0.3.0
+ansys-fluent-core==0.20.1
 ansys-mechanical-core==0.10.11
 pyvista==0.43.8
 matplotlib==3.9.0
