@@ -1,6 +1,7 @@
 # # PyWorkbench and PyMechanical
 
 import os
+import pathlib
 
 import pyvista as pv
 
@@ -44,4 +45,5 @@ pl.add_background_image(os.path.join(wb.client_workdir, "deformation.png"))
 pl.show(jupyter_backend='static')
 
 # shutdown the Workbench service
+mechanical.exit()
 wb.exit()
