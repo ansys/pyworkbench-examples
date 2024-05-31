@@ -74,6 +74,21 @@ jobs:
         run: |
           sphinx-build doc/source "doc/_build/html" --color -vW -b html
 
+      - name: "Clean tasks"
+        if: ${{ always() }}
+        run: |
+          Get-Process -Name "ANSYS" | Stop-Process -Force
+          Get-Process -Name "ANSYS241" | Stop-Process -Force
+          Get-Process -Name "AnsysWBU" | Stop-Process -Force
+          Get-Process -Name "AnsysFWW" | Stop-Process -Force
+          Get-Process -Name "RunWB2" | Stop-Process -Force
+
+      - name: "Remove temporary folders"
+        if: ${{ always() }}
+        run: |
+          Get-ChildItem -Path "C:\Users\ansys\AppData\Local\Temp" -Directory -Filter "act_tmp*" | Remove-Item -Recurse -Force
+          Get-ChildItem -Path "C:\Users\ansys\AppData\Local\Temp" -Directory -Filter "WB_ansys*" | Remove-Item -Recurse -Force
+
   doc-deploy-dev:
     name: "Deploy development documentation"
     if: github.ref == 'refs/heads/main'
