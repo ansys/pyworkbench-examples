@@ -1,15 +1,16 @@
 # # PyWorkbench demo: launcher options; log levels; wild card file names; etc
 
+import pathlib
 import os
-import json
 from ansys.api.workbench.v0.launch_workbench import launch_workbench
 
 # launch Workbench service on the local machine; using some options
-server_workdir = 'C:/Users/fli/demo/server_workdir'
-client_workdir = 'C:/Users/fli/demo/client_workdir'
-alternative_target_dir = 'C:/Users/fli/demo/alternative_target_dir'
-release = '241'
-wb = launch_workbench(release=release, server_workdir=server_workdir, client_workdir=client_workdir)
+workdir = pathlib.Path("__file__").parent
+server_workdir = workdir / "server_workdir"
+client_workdir = workdir / "client_workdir"
+alternative_target_dir = workdir / "alternative_target_dir"
+
+wb = launch_workbench(release="241", server_workdir=str(server_workdir.absolute()), client_workdir=str(client_workdir.absolute()))
 
 # demo downloading files with wildcard
 downloaded1 = wb.download_file('server1.*')
@@ -24,7 +25,8 @@ wb.upload_file('*.txt', 'model?.prt')
 wb.upload_file(os.path.join(alternative_target_dir, 'app.py'), 'non_existing_file1', 'non_existing_file2', show_progress=False)
 
 # use a log file for PyWorkbench script execution
-wb.set_log_file('C:/Users/fli/demo/wb.log')
+export_path = 'wb_log_file.log'
+wb.set_log_file(export_path)
 print(wb.run_script_file('wb.wbjn', log_level='info'))
 
 # disable the log file; make console log verbose
