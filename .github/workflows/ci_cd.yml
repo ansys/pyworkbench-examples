@@ -13,9 +13,10 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  MAIN_PYTHON_VERSION: "3.11"
-  PIP_EXTRA_INDEX_URL: 'https://${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}@pkgs.dev.azure.com/pyansys/_packaging/pyansys/pypi/simple/'
+  MAIN_PYTHON_VERSION: '3.11'
+  PIP_EXTRA_INDEX_URL: "https://${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}@pkgs.dev.azure.com/pyansys/_packaging/pyansys/pypi/simple/"
   DOCUMENTATION_CNAME: 'examples.workbench.docs.pyansys.com'
+  VTK_OSMESA_VERSION: '9.2.20230527.dev0'
 
 jobs:
 
@@ -68,6 +69,12 @@ jobs:
         run: |
           python -m pip install -r requirements/requirements_examples.txt
           python -m pip install -r requirements/requirements_doc.txt
+
+      - name: "Configure graphic dependencies"
+        working-directory: pyworkbench-examples
+        run: |
+          python -m pip uninstall --yes vtk
+          pip install --extra-index-url https://wheels.vtk.org vtk-osmesa==${{ env.VTK_OSMESA_VERSION }}
 
       - name: "Build HTML documentation"
         working-directory: pyworkbench-examples
