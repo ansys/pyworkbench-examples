@@ -87,10 +87,9 @@ jobs:
 
       - name: "Upload HTML artifacts"
         uses: actions/upload-artifact@v4
-        working-directory: pyworkbench-examples
         with:
           name: documentation-html
-          path: doc/_build/html
+          path: pyworkbench-examples/doc/_build/html
 
       - name: "Clean tasks"
         if: ${{ always() }}
