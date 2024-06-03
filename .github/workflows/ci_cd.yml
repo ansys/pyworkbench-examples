@@ -70,11 +70,11 @@ jobs:
           python -m pip install -r requirements/requirements_examples.txt
           python -m pip install -r requirements/requirements_doc.txt
 
-      - name: "Configure graphic dependencies"
-        working-directory: pyworkbench-examples
-        run: |
-          python -m pip uninstall --yes vtk
-          pip install --extra-index-url https://wheels.vtk.org vtk-osmesa==${{ env.VTK_OSMESA_VERSION }}
+      #- name: "Configure graphic dependencies"
+      #  working-directory: pyworkbench-examples
+      #  run: |
+      #    python -m pip uninstall --yes vtk
+      #    pip install --extra-index-url https://wheels.vtk.org vtk-osmesa==${{ env.VTK_OSMESA_VERSION }}
 
       - name: "Build HTML documentation"
         working-directory: pyworkbench-examples
