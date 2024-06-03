@@ -67,6 +67,8 @@ jobs:
       - name: "Install requirements"
         working-directory: pyworkbench-examples
         run: |
+          python -m venv .venv
+          .venv\Scripts\Activate.ps1
           python -m pip install -r requirements/requirements_examples.txt
           python -m pip install -r requirements/requirements_doc.txt
 
@@ -79,7 +81,8 @@ jobs:
       - name: "Build HTML documentation"
         working-directory: pyworkbench-examples
         run: |
-          sphinx-build doc/source "doc/_build/html" --color -vW -b html
+          .venv\Scripts\Activate.ps1
+          python -m sphinx-build doc/source "doc/_build/html" --color -vW -b html
 
       - name: "Clean tasks"
         if: ${{ always() }}
