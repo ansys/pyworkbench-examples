@@ -1,0 +1,144 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    tags:
+      - "*"
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  MAIN_PYTHON_VERSION: '3.11'
+  PIP_EXTRA_INDEX_URL: "https://${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}@pkgs.dev.azure.com/pyansys/_packaging/pyansys/pypi/simple/"
+  DOCUMENTATION_CNAME: 'examples.workbench.docs.pyansys.com'
+  VTK_OSMESA_VERSION: '9.2.20230527.dev0'
+
+jobs:
+
+  code-style:
+    name: "Code style"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ansys/actions/code-style@v6
+        with:
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+          use-python-cache: false
+
+  doc-style:
+    name: "Documentation Style Check"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ansys/actions/doc-style@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  doc-build:
+    name: "Build documentation"
+    runs-on: [self-hosted, pyworkbench]
+    needs: [doc-style]
+    steps:
+        
+      - name: "Checkout project"
+        uses: actions/checkout@v4
+        with:
+          path: pyworkbench-examples
+
+      - name: "Checkout examples data"
+        uses: actions/checkout@v4
+        with:
+          repository: ansys/example-data
+          ref: feat/pyworkbench
+          path: data
+
+      - name: "Copy additional data into PyWorkbench"
+        run: |
+          Copy-Item -Path "data\pyworkbench\*" -Destination "pyworkbench-examples\examples" -Recurse -Force
+          Get-ChildItem -Path "pyworkbench-examples\examples" -Recurse
+      
+      - name: "Install Python ${{ env.MAIN_PYTHON_VERSION }}"
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+
+      - name: "Install requirements"
+        working-directory: pyworkbench-examples
+        run: |
+          python -m venv .venv
+          .venv\Scripts\Activate.ps1
+          python -m pip install -r requirements/requirements_examples.txt
+          python -m pip install -r requirements/requirements_doc.txt
+
+      - name: "Configure graphic dependencies"
+        working-directory: pyworkbench-examples
+        run: |
+          .venv\Scripts\Activate.ps1
+          python -m pip uninstall --yes vtk
+          python -m pip install --extra-index-url https://wheels.vtk.org vtk-osmesa==${{ env.VTK_OSMESA_VERSION }}
+
+      - name: "Build HTML documentation"
+        working-directory: pyworkbench-examples
+        run: |
+          .venv\Scripts\Activate.ps1
+          python -m sphinx doc/source "doc/_build/html" --color -vW -b html
+
+      - name: "Upload HTML artifacts"
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation-html
+          path: pyworkbench-examples/doc/_build/html
+
+      - name: "Clean tasks"
+        if: ${{ always() }}
+        run: |
+          $processNames = @("ANSYS", "ANSYS241", "AnsysWBU", "AnsysFWW", "RunWB2")
+          $foundAnyProcess = $false
+          
+          foreach ($processName in $processNames) {
+              $process = Get-Process -Name $processName -ErrorAction SilentlyContinue
+          
+              if ($process) {
+                  $process | Stop-Process -Force
+                  $foundAnyProcess = $true
+              } else {
+                  Write-Output "No process named '$processName' was found."
+              }
+          }
+          
+          if (-not $foundAnyProcess) {
+              Write-Output "No specified processes were found."
+          }
+
+
+      - name: "Remove temporary folders"
+        if: ${{ always() }}
+        run: |
+          Get-ChildItem -Path "C:\Users\ansys\AppData\Local\Temp" -Directory -Filter "act_tmp*" | Remove-Item -Recurse -Force
+          Get-ChildItem -Path "C:\Users\ansys\AppData\Local\Temp" -Directory -Filter "WB_ansys*" | Remove-Item -Recurse -Force
+
+  doc-deploy-dev:
+    name: "Deploy development documentation"
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    needs: doc-build
+    steps:
+      - uses: ansys/actions/doc-deploy-dev@v6
+        with:
+          cname: ${{ env.DOCUMENTATION_CNAME }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  doc-deploy-stable:
+    name: "Deploy stable docs"
+    if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
+    runs-on: ubuntu-latest
+    needs: doc-build
+    steps:
+      - name: Deploy the stable documentation
+        uses: ansys/actions/doc-deploy-stable@v6
+        with:
+          cname: ${{ env.DOCUMENTATION_CNAME }}
+          token: ${{ secrets.GITHUB_TOKEN }}

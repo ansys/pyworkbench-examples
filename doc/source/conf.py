@@ -37,8 +37,20 @@ extensions = [
 
 
 templates_path = ['_templates']
-exclude_examples = []
-exclude_patterns = []
+exclude_examples = ["grantami-integration"]
+exclude_patterns = [
+    "conf.py", 
+    "examples/**/scripts/*.py",
+    "examples/grantami-integration/*",
+    "examples/logging/alternative_target_dir/*.py",
+    "examples/pyfluent-mixing-elbow/*",
+    # DEBUGGING
+    #"examples/axisymmetric-rotor/*",
+    #"examples/cooled-turbine-blade/*",
+    #"examples/cyclic-symmetry-analysis/*",
+    #"examples/fluent-mixing-elbow/*",
+    #"examples/logging/*",
+]
 
 source_suffix = {
     ".rst": "restructuredtext",
@@ -64,10 +76,18 @@ html_theme_options = {
     ],
 }
 
+# Configuration for nbsphinx
+nbsphinx_execute = "always"
+nbsphinx_custom_formats = {
+    ".mystnb": ["jupytext.reads", {"fmt": "mystnb"}],
+    ".py": ["jupytext.reads", {"fmt": ""}],
+}
+nbsphinx_prompt_width = ""
+
 
 # -- Sphinx application setup ------------------------------------------------
 
-def copy_examples_files_to_source_dir(app: sphinx.application.Sphinx):
+def copy_examples_dir_to_source_dir(app: sphinx.application.Sphinx):
     """
     Copy the examples directory to the source directory of the documentation.
 
@@ -83,19 +103,7 @@ def copy_examples_files_to_source_dir(app: sphinx.application.Sphinx):
 
     EXAMPLES_DIRECTORY = SOURCE_EXAMPLES.parent.parent.parent / "examples"
 
-    all_examples = list(EXAMPLES_DIRECTORY.glob("**/*.py"))
-    examples = [file for file in all_examples if f"{file.name}" not in exclude_examples]
-
-    for file in status_iterator(
-            examples, 
-            f"Copying example to doc/source/examples/",
-            "green", 
-            len(examples),
-            verbosity=1,
-            stringify_func=(lambda file: file.name),
-    ):
-        destination_file = SOURCE_EXAMPLES / file.name
-        destination_file.write_text(file.read_text())
+    shutil.copytree(EXAMPLES_DIRECTORY, SOURCE_EXAMPLES, dirs_exist_ok=True)
 
 def copy_examples_to_output_dir(app: sphinx.application.Sphinx, exception: Exception):
     """
@@ -169,6 +177,6 @@ def setup(app: sphinx.application.Sphinx):
     # However, the examples are desired to be kept in the root directory. Once the
     # build has completed, no matter its success, the examples are removed from
     # the source directory.
-    app.connect("builder-inited", copy_examples_files_to_source_dir)
-    app.connect("build-finished", remove_examples_from_source_dir)
+    app.connect("builder-inited", copy_examples_dir_to_source_dir)
+    #app.connect("build-finished", remove_examples_from_source_dir)
     app.connect("build-finished", copy_examples_to_output_dir)
