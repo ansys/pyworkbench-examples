@@ -20,26 +20,26 @@ env:
 
 jobs:
 
-    #code-style:
-    #  name: "Code style"
-    #  runs-on: ubuntu-latest
-    #  steps:
-    #    - uses: ansys/actions/code-style@v6
-    #      with:
-    #        python-version: ${{ env.MAIN_PYTHON_VERSION }}
+    code-style:
+      name: "Code style"
+      runs-on: ubuntu-latest
+      steps:
+        - uses: ansys/actions/code-style@v6
+          with:
+            python-version: ${{ env.MAIN_PYTHON_VERSION }}
 
-    #doc-style:
-    #  name: "Documentation Style Check"
-    #  runs-on: ubuntu-latest
-    #  steps:
-    #    - uses: ansys/actions/doc-style@v6
-    #      with:
-    #        token: ${{ secrets.GITHUB_TOKEN }}
+    doc-style:
+      name: "Documentation Style Check"
+      runs-on: ubuntu-latest
+      steps:
+        - uses: ansys/actions/doc-style@v6
+          with:
+            token: ${{ secrets.GITHUB_TOKEN }}
 
   doc-build:
     name: "Build documentation"
     runs-on: [self-hosted, pyworkbench]
-        #needs: [doc-style]
+    needs: [doc-style]
     steps:
         
       - name: "Checkout project"
@@ -84,6 +84,13 @@ jobs:
         run: |
           .venv\Scripts\Activate.ps1
           python -m sphinx doc/source "doc/_build/html" --color -vW -b html
+
+      - name: "Upload HTML artifacts"
+        uses: actions/upload-artifact@v4
+        working-directory: pyworkbench-examples
+        with:
+          name: documentation-html
+          path: doc/_build/html
 
       - name: "Clean tasks"
         if: ${{ always() }}
