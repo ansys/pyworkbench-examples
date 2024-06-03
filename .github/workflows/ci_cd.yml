@@ -82,7 +82,7 @@ jobs:
         working-directory: pyworkbench-examples
         run: |
           .venv\Scripts\Activate.ps1
-          python -m sphinx-build doc/source "doc/_build/html" --color -vW -b html
+          python -m sphinx doc/source "doc/_build/html" --color -vW -b html
 
       - name: "Clean tasks"
         if: ${{ always() }}
