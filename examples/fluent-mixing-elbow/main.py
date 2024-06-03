@@ -17,18 +17,21 @@ from ansys.workbench.core import launch_workbench
 # ### Define the working directory
 
 workdir = pathlib.Path("__file__").parent
+
+# Creating server working directory, though this examples demonstrate on local
+server_workdir = workdir / 'server_workdir'  
+server_workdir.mkdir(exist_ok=True)  
+
 assets = workdir / "assets"
-scdoc = workdir / "scdoc"
-jou = workdir / "jou"
+scdoc = assets /"scdoc"
+jou = assets / "jou"
 
 # ### Launch the workbench session
 
 # launch Workbench service
-wb = launch_workbench(release="241", server_workdir=str(workdir.absolute()), client_workdir=str(workdir.absolute()))
-
+wb = launch_workbench(release="241", server_workdir=str(server_workdir.absolute()), client_workdir=str(workdir.absolute()))
 
 # ### Upload the CAD model
-
 # upload a couple of input files, This files get uploaded to the host
 wb.upload_file(str(scdoc / "mixing_elbow.scdoc"))
 wb.upload_file(str(jou / "setup.jou"))
