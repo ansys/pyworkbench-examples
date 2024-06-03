@@ -52,7 +52,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: ansys/example-data
-          ref: feat/pyworkbench
           path: data
 
       - name: "Copy additional data into PyWorkbench"
