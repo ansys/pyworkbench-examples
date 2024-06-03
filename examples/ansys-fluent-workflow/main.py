@@ -22,7 +22,18 @@
 import pathlib
 from ansys.workbench.core import launch_workbench
 
-# ## Setting Up server Working directory and asset paths
+# ## Setting up server Working directory and asset paths
+
+# +
+workdir = pathlib.Path("__file__").parent
+
+server_workdir = workdir / 'server_workdir'  
+server_workdir.mkdir(exist_ok=True)  
+
+assets = workdir / "assets"
+scdoc = assets /"scdoc"
+jou = assets / "jou"
+# -
 
 # ## Launch the workbench session with specified Ansys release version, server and client working directories
 
@@ -35,17 +46,19 @@ wb.upload_file(str(scdoc / "mixing_elbow.scdoc"))
 wb.upload_file(str(jou / "setup.jou"))
 wb.upload_file(str(jou / "solve.jou"))
 
-# ## Executing a Workbench Script 
+# ## Executing a workbench script 
 # This will configure the workbench project schematic. This file is Ansys Workbench recorded journal file (Python Script). This can be easily configured as per requirement.
 # >Note: For a better understanding of how meshing, setup, and solve workflows are being utilized, please refer to the project.wbjn file.
 
 sys_name = wb.run_script_file(str((assets / "project.wbjn").absolute()))
 
-# ## Downloading Output Files to the Client-Side Working Directory
+# ## Downloading output files to the client-side working directory
 # Here, only the contour saved during the simulation data post-processing is being downloaded. But one can download all the output as required.
 
 wb.download_file("temperature_contour.jpeg")
 
-# ## Shutdown the Ansys Workbench Server session
+# ## Shutdown the Ansys Workbench server session
 
 wb.exit()
+
+
