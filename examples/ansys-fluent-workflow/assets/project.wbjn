@@ -12,8 +12,6 @@ template1 = GetTemplate(TemplateName="Geometry")
 system1 = template1.CreateSystem()
 geometry1 = system1.GetContainer(ComponentName="Geometry")
 work_dir = GetServerWorkingDirectory()
-
-# Need to update this based on the input data directory structure.
 cad_model_path = os.path.join(work_dir, "mixing_elbow.scdoc")
 geometry1.SetFile(FilePath=cad_model_path)
 template2 = GetTemplate(TemplateName="FLTG")
@@ -33,7 +31,7 @@ Fluent.Edit(Container=mesh1)
 setup1.SendCommand(Command='(cx-gui-do cx-activate-tab-index "NavigationPane*Frame1(TreeTab)" 0)(cx-gui-do cx-activate-tab-index "NavigationPane*Frame1(TreeTab)" 1)')
 meshComponent1.Refresh()
 
-# Meshing
+# Meshing Workflow
 setup1.SendCommand(Command='/file/set-tui-version "24.1"(cx-gui-do cx-activate-tab-index "NavigationPane*Frame1(TreeTab)" 0)(cx-gui-do cx-activate-item "Key Behavioral Changes*PanelButtons*PushButton1(OK)")')
 setup1.SendCommand(Command='(%py-exec "preferences.General.StartupMessages.KeyBehavioralChangesMessage.set_state(True)")')
 setup1.SendCommand(Command="(%py-exec \"meshing.GlobalSettings.LengthUnit.set_state(r'm')\")")
@@ -57,9 +55,7 @@ setup1.SendCommand(Command='(cx-gui-do cx-activate-item "MenuBar*FileMenu*Close 
 setup2 = system2.GetContainer(ComponentName="Setup")
 fluentLauncherSettings2 = setup2.GetFluentLauncherSettings()
 fluentLauncherSettings2.SetEntityProperties(Properties=Set(Precision="Double", EnvPath={}, RunParallel=True, NumberOfProcessors=4))
-# Fluent.Edit(Container=setup2)
 setup2.Edit(Interactive=True)
-# Need to update this based on the input data directory structure.
 setupScript = os.path.join(work_dir, "setup.jou")
 setup2.SendCommand(Command='/file read-jou "'+setupScript+'" , ')
 setup2.SendCommand(Command="/exit")
@@ -71,7 +67,6 @@ fluentLauncherSettings2 = setup2.GetFluentLauncherSettings()
 fluentLauncherSettings2.SetEntityProperties(Properties=Set(Precision="Double", EnvPath={}, RunParallel=True, NumberOfProcessors=4))
 setup3.Edit(Interactive=True)
 
-# Need to update this based on the input data directory structure.
 solveScript = os.path.join(work_dir, "solve.jou")
 setup3.SendCommand(Command='/file read-jou "'+solveScript+'" , ')
 setup3.SendCommand(Command="/exit")
