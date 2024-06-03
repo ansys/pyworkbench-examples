@@ -45,11 +45,11 @@ exclude_patterns = [
     "examples/logging/alternative_target_dir/*.py",
     "examples/pyfluent-mixing-elbow/*",
     # DEBUGGING
-    "examples/axisymmetric-rotor/*",
-    "examples/cooled-turbine-blade/*",
-    "examples/cyclic-symmetry-analysis/*",
-    "examples/fluent-mixing-elbow/*",
-    "examples/logging/*",
+    #"examples/axisymmetric-rotor/*",
+    #"examples/cooled-turbine-blade/*",
+    #"examples/cyclic-symmetry-analysis/*",
+    #"examples/fluent-mixing-elbow/*",
+    #"examples/logging/*",
 ]
 
 source_suffix = {
