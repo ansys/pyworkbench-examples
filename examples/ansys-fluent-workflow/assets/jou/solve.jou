@@ -10,6 +10,6 @@
 /display/set-win 1
 /display/set/picture/driver jpeg
 /display/save-pic residual.jpeg q
-/display/objects/ create contour contour_1 field temperature surfaces-list symmetry-xyplane () q
-/display/objects/display contour_1 q
-/display/save-pic contour_1.jpeg q
+/display/objects/ create contour temperature_contour field temperature surfaces-list symmetry-xyplane () q
+/display/objects/display temperature_contour q
+/display/save-pic temperature_contour.jpeg q
