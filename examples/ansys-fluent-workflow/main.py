@@ -1,4 +1,4 @@
-# # Ansys Fluent workflow for mixing elbow simulation using PyWorkbench
+# # Ansys Fluent workflow
 #
 # In this example, the application of PyWorkbench, a Python client scripting tool for Ansys Workbench, is demonstrated in a use case for Ansys Fluent Workflow. The Ansys Fluent TUI (Text User Interface) journal files are utilized to set up and solve the simulation. For meshing Ansys Fluent Meshing WTM (Water Tight Meshing Workflow)is employed through recorded journaling capabilites of Ansys Fluent. As aware, Workbench offers the ability to record actions performed in the user interface, also known as journaling. These recorded actions are saved as Python scripts, which allow for extending functionality, automating repetitive analyses, and running analyses in batch mode. This example demonstrates how to use such a journal file with PyWorkbench for Ansys Fluent Workflow.
 
