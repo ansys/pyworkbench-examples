@@ -7,5 +7,5 @@ library.
 .. nbgallery::
 
    examples/logging/main
-   examples/fluent-mixing-elbow/main
+   examples/ansys-fluent-workflow/main
    examples/pymechanical-integration/main
