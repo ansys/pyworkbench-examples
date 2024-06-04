@@ -9,14 +9,21 @@ import sphinx
 from sphinx.util import logging
 from sphinx.util.display import status_iterator
 
-from ansys_sphinx_theme import pyansys_logo_black as logo
+from ansys_sphinx_theme import pyansys_logo_black as logo, get_version_match, convert_version_to_pymeilisearch
 
 
 # Project information
 project = "pymechanical-multiworkflow-examples"
 copyright = f"(c) {datetime.now().year} ANSYS, Inc. All rights reserved"
 author = "ANSYS, Inc."
-release = version = "0.4.dev0"
+
+# Read version from VERSION file in base root directory
+source_dir = pathlib.Path(__file__).parent.resolve().absolute()
+version_file = source_dir / "../../VERSION"
+with open(str(version_file), "r") as file:
+    __version__ = file.read().splitlines()[0]
+release = version = __version__
+
 cname = os.getenv("DOCUMENTATION_CNAME", "docs.pyansys.com")
 
 # -- General configuration ---------------------------------------------------
@@ -68,6 +75,16 @@ html_theme_options = {
     "additional_breadcrumbs": [
         ("PyAnsys", "https://docs.pyansys.com/"),
     ],
+    "switcher": {
+        "json_url": f"https://{cname}/versions.json",
+        "version_match": get_version_match(version),
+    },
+    "use_meilisearch": {
+        "api_key": os.getenv("MEILISEARCH_PUBLIC_API_KEY", ""),
+        "index_uids": {
+            f"pyworkbench-examples-v{convert_version_to_pymeilisearch(version)}": "pyworkbench-examples",  # noqa: E501
+        },
+    },
 }
 
 html_static_path = ["_static"]
