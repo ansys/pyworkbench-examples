@@ -1,4 +1,4 @@
-# # PyWorkbench and PyMechanical
+# # PyMechanical integration
 
 # This example demonstrates how to use PyWorkbench and PyMechanical together to upload geometry, run simulations, and visualize results. 
 # It covers launching services, running scripts, and handling files between the client and server.
