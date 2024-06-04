@@ -44,12 +44,6 @@ exclude_patterns = [
     "examples/grantami-integration/*",
     "examples/logging/alternative_target_dir/*.py",
     "examples/pyfluent-mixing-elbow/*",
-    # DEBUGGING
-    #"examples/axisymmetric-rotor/*",
-    #"examples/cooled-turbine-blade/*",
-    #"examples/cyclic-symmetry-analysis/*",
-    #"examples/fluent-mixing-elbow/*",
-    #"examples/logging/*",
 ]
 
 source_suffix = {
@@ -91,7 +85,7 @@ nbsphinx_prompt_width = ""
 nbsphinx_thumbnails = {
     # Basic examples
     "examples/logging/main": "_static/thumbnails/default.png",
-    "examples/fluent-mixing-elbow/main": "_static/thumbnails/default.png",
+    "examples/ansys-fluent-workflow/main": "_static/thumbnails/default.png",
     "examples/pymechanical-integration/main": "_static/thumbnails/default.png",
     # Advanced examples
     "examples/cooled-turbine-blade/main": "_static/thumbnails/default.png",
