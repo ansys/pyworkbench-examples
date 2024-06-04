@@ -76,6 +76,11 @@ html_theme_options = {
     ],
 }
 
+html_static_path = ["_static"]
+html_css_files = [
+    "css/custom.css"
+]
+
 # Configuration for nbsphinx
 nbsphinx_execute = "always"
 nbsphinx_custom_formats = {
@@ -83,6 +88,16 @@ nbsphinx_custom_formats = {
     ".py": ["jupytext.reads", {"fmt": ""}],
 }
 nbsphinx_prompt_width = ""
+nbsphinx_thumbnails = {
+    # Basic examples
+    "examples/logging/main": "_static/thumbnails/default.png",
+    "examples/fluent-mixing-elbow/main": "_static/thumbnails/default.png",
+    "examples/pymechanical-integration/main": "_static/thumbnails/default.png",
+    # Advanced examples
+    "examples/cooled-turbine-blade/main": "_static/thumbnails/default.png",
+    "examples/cyclic-symmetry-analysis/main": "_static/thumbnails/default.png",
+    "examples/axisymmetric-rotor/main": "_static/thumbnails/axisymmetric-rotor.png",
+}
 
 
 # -- Sphinx application setup ------------------------------------------------

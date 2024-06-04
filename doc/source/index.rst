@@ -1,11 +1,24 @@
 PyWorkbench Examples
 ####################
 
-.. nbgallery::
+.. grid:: 2
 
-   examples/axisymmetric-rotor/main
-   examples/cooled-turbine-blade/main
-   examples/cyclic-symmetry-analysis/main
-   examples/ansys-fluent-workflow/main
-   examples/logging/main
-   examples/pymechanical-integration/main
+    .. grid-item-card:: Basic examples :fa:`person-running`
+        :link: basic-examples
+        :link-type: doc
+
+        Basic examples to get you started with PyWorkbench.
+
+    .. grid-item-card:: Advanced examples:fa:`book-open-reader`
+        :link: advanced-examples
+        :link-type: doc
+
+        Advanced examples to help you understand the full capabilities of
+        PyWorkbench.
+
+.. toctree::
+   :hidden:
+   :maxdepth: 3
+
+   basic-examples
+   advanced-examples

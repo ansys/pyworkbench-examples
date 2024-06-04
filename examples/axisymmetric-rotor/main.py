@@ -1,4 +1,7 @@
-# # Workbench Client
+# # Axisymmetric rotor
+
+# This notebook demonstrates the process of running a Workbench service on a local machine to solve both 2D general axisymmetric rotor and 3D rotor models using PyMechanical. 
+# It includes steps for uploading project files, executing scripts, downloading results, and displaying output images.
 
 import os
 import pathlib
@@ -6,8 +9,9 @@ import pathlib
 from ansys.workbench.core import launch_workbench
 from ansys.mechanical.core import launch_mechanical
 
-# +
-# launch Workbench service on the local machine; using some options
+# Launch the Workbench service on the local machine using specific options.
+# Define the working directory and subdirectories for assets, scripts, and geometry databases (agdb).
+# The `launch_workbench` function starts a Workbench session with the specified directories.
 
 workdir = pathlib.Path("__file__").parent
 assets = workdir / "assets"
@@ -15,42 +19,43 @@ scripts = workdir / "scripts"
 agdb = workdir / "agdb"
 
 wb = launch_workbench(release="241", server_workdir=str(workdir.absolute()), client_workdir=str(workdir.absolute()))
-# -
 
-# Upload project files
+# Upload the project files to the server using the `upload_file` method.
+# The files uploaded are `axisymmetric_model.agdb`, `rotor_3d_model.agdb`, `axisymmetric_rotor.py`, and `rotor_3d.py`.
+
 wb.upload_file(str(agdb / "axisymmetric_model.agdb"))
 wb.upload_file(str(agdb / "rotor_3d_model.agdb"))
 wb.upload_file(str(scripts / "axisymmetric_rotor.py"))
 wb.upload_file(str(scripts / "rotor_3d.py"))
 
-# run a Workbench script to define the project and load geometry. Export workbench log to a file w2.log.
+# Execute a Workbench script (`project.wbjn`) to define the project and load the geometry.
+# The log file is set to `wb_log_file.log` and the name of the system created is stored in `sys_name` and printed.
+
 export_path = 'wb_log_file.log'
 wb.set_log_file(export_path)
 sys_name = wb.run_script_file(str((assets / "project.wbjn").absolute()), log_level='info')
 print(sys_name)
 
-# +
-# start PyMechanical server on the system, then create a PyMechanical client session
-# to solve 2D General Axisymmetric Rotor Model
+# Start a PyMechanical server for the system and create a PyMechanical client session to solve the 2D general axisymmetric rotor model.
+# The project directory is printed to verify the connection.
 
 server_port = wb.start_mechanical_server(system_name=sys_name[1])
 mechanical = launch_mechanical(start_instance=False, ip='localhost', port=server_port)
 
 print(mechanical.project_directory)
-# -
 
-# run a Mechanical python script via PyMechanical to mesh and solve the 2D general axisymmetric rotor model
-with open (scripts / "axisymmetric_rotor.py") as sf:
+# Read and execute the script `axisymmetric_rotor.py` via the PyMechanical client to mesh and solve the 2D general axisymmetric rotor model.
+# The output of the script is printed.
+
+with open(scripts / "axisymmetric_rotor.py") as sf:
     mech_script = sf.read()
 mech_output = mechanical.run_python_script(mech_script)
 print(mech_output)
 
-# +
-# Download output file from PyMechanical working directory and print contents of 2D general axisymmetric rotor model
+# Specify the Mechanical directory for the Modal Campbell Analysis and fetch the working directory path.
+# Download the solver output file (`solve.out`) from the server to the client's current working directory and print its contents.
 
-# Specify Mechanical directory of Modal Campbell Analysis
 mechanical.run_python_script(f"solve_dir=ExtAPI.DataModel.AnalysisList[2].WorkingDir")
-
 result_solve_dir_server = mechanical.run_python_script(f"solve_dir")
 print(f"All solver files are stored on the server at: {result_solve_dir_server}")
 
@@ -68,21 +73,15 @@ solve_out_local_path = os.path.join(current_working_directory, "solve.out")
 write_file_contents_to_console(solve_out_local_path)
 os.remove(solve_out_local_path)
 
-# +
-# Download postprocess/output images from PyMechanical working directory and display of 2D general axisymmetric rotor model
+# Specify the Mechanical directory path for the Modal Campbell Analysis and fetch the image directory path.
+# Download an image file (`tot_deform_2D.png`) from the server to the client's current working directory and display it using `matplotlib`.
 
 from matplotlib import image as mpimg
 from matplotlib import pyplot as plt
 
-#Specify Mechanical directory path of Modal Campbell Analysis
 mechanical.run_python_script(f"image_dir=ExtAPI.DataModel.AnalysisList[2].WorkingDir")
-
-# Verify the path for image directory.
 result_image_dir_server = mechanical.run_python_script(f"image_dir")
 print(f"Images are stored on the server at: {result_image_dir_server}")
-
-# Download one image file from the server to the current working directory and plot
-# using matplotlib.
 
 def get_image_path(image_name):
     return os.path.join(result_image_dir_server, image_name)
@@ -109,12 +108,10 @@ if image_path_server != "":
     
     display_image(image_local_path)
 
-# +
-# Download output file from PyMechanical working directory and print contents of 2D general axisymmetric rotor model
+# Specify the Mechanical directory for the Unbalance Response Analysis and fetch the working directory path.
+# Download the solver output file (`solve.out`) from the server to the client's current working directory and print its contents.
 
-# Specify Mechanical directory of Unbalance response Analysis
 mechanical.run_python_script(f"solve_dir=ExtAPI.DataModel.AnalysisList[3].WorkingDir")
-
 result_solve_dir_server = mechanical.run_python_script(f"solve_dir")
 print(f"All solver files are stored on the server at: {result_solve_dir_server}")
 
@@ -132,28 +129,26 @@ solve_out_local_path = os.path.join(current_working_directory, "solve.out")
 write_file_contents_to_console(solve_out_local_path)
 os.remove(solve_out_local_path)
 
-# +
-# start PyMechanical server on the system, then create a PyMechanical client session
-# Reference solution: to solve 3D Rotor Model
+# Start a PyMechanical server for the 3D rotor model system and create a PyMechanical client session.
+# The project directory is printed to verify the connection.
 
 server_port = wb.start_mechanical_server(system_name=sys_name[0])
 mechanical = launch_mechanical(start_instance=False, ip='localhost', port=server_port)
 
 print(mechanical.project_directory)
-# -
 
-# run a Mechanical python script via PyMechanical to mesh and solve the 3D rotor model
-with open (scripts / "rotor_3d.py") as sf:
+# Read and execute the script `rotor_3d.py` via the PyMechanical client to mesh and solve the 3D rotor model.
+# The output of the script is printed.
+
+with open(scripts / "rotor_3d.py") as sf:
     mech_script = sf.read()
 mech_output = mechanical.run_python_script(mech_script)
 print(mech_output)
 
-# +
-# Download output file from PyMechanical working directory and print contents of 3D Rotor Model
+# Specify the Mechanical directory for the Modal Campbell Analysis and fetch the working directory path.
+# Download the solver output file (`solve.out`) from the server to the client's current working directory and print its contents.
 
-# Specify Mechanical directory of Modal Campbell Analysis
 mechanical.run_python_script(f"solve_dir=ExtAPI.DataModel.AnalysisList[2].WorkingDir")
-
 result_solve_dir_server = mechanical.run_python_script(f"solve_dir")
 print(f"All solver files are stored on the server at: {result_solve_dir_server}")
 
@@ -171,21 +166,15 @@ solve_out_local_path = os.path.join(current_working_directory, "solve.out")
 write_file_contents_to_console(solve_out_local_path)
 os.remove(solve_out_local_path)
 
-# +
-# Download postprocess/output images from PyMechanical working directory and display of 3D rotor model
+# Specify the Mechanical directory path for the Modal Campbell Analysis and fetch the image directory path.
+# Download an image file (`tot_deform_3D.png`) from the server to the client's current working directory and display it using `matplotlib`.
 
 from matplotlib import image as mpimg
 from matplotlib import pyplot as plt
 
-#Specify Mechanical directory path of Modal Campbell Analysis
 mechanical.run_python_script(f"image_dir=ExtAPI.DataModel.AnalysisList[2].WorkingDir")
-
-# Verify the path for image directory.
 result_image_dir_server = mechanical.run_python_script(f"image_dir")
 print(f"Images are stored on the server at: {result_image_dir_server}")
-
-# Download one image file from the server to the current working directory and plot
-# using matplotlib.
 
 def get_image_path(image_name):
     return os.path.join(result_image_dir_server, image_name)
@@ -212,12 +201,10 @@ if image_path_server != "":
     
     display_image(image_local_path)
 
-# +
-# Download output file from PyMechanical working directory and print contents of 3D Rotor Model
+# Specify the Mechanical directory for the Unbalance Response Analysis and fetch the working directory path.
+# Download the solver output file (`solve.out`) from the server to the client's current working directory and print its contents.
 
-# Specify Mechanical directory of Unbalance Response Analysis
 mechanical.run_python_script(f"solve_dir=ExtAPI.DataModel.AnalysisList[3].WorkingDir")
-
 result_solve_dir_server = mechanical.run_python_script(f"solve_dir")
 print(f"All solver files are stored on the server at: {result_solve_dir_server}")
 
@@ -235,28 +222,24 @@ solve_out_local_path = os.path.join(current_working_directory, "solve.out")
 write_file_contents_to_console(solve_out_local_path)
 os.remove(solve_out_local_path)
 
-# +
-# Download all the files from the server to the current working directory of 3D Rotor Model
-# set working directory accordingly
+# Download all the files from the server to the current working directory for the 3D rotor model.
+# Verify the source path for the directory and copy all files from the server to the client.
 
 import shutil
 import glob
 
 current_working_directory = os.getcwd()
 target_dir2 = current_working_directory
-# Verify the target path to copy the files.
 print(f"Files to be copied from server path at: {target_dir2}")
-
-# Verify the source path for directory.
-print(f"All the solver file is stored on the server at: {result_solve_dir_server}")
+print(f"All the solver files are stored on the server at: {result_solve_dir_server}")
 
 source_dir = result_solve_dir_server
 destination_dir = target_dir2
-# Copy all the files
+
 for file in glob.glob(source_dir + '/*'):
     shutil.copy(file, destination_dir)
-# -
 
-# shutdown the Workbench client and service
+# Finally, call the `exit` method on both the PyMechanical and Workbench clients to gracefully shut down the services.
+
 mechanical.exit()
 wb.exit()
