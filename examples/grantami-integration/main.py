@@ -5,36 +5,52 @@ import pathlib
 
 from ansys.workbench.core import launch_workbench
 from ansys.mechanical.core import launch_mechanical
+from matplotlib import image as mpimg
+from matplotlib import pyplot as plt
+
+# +
+# specify server working directory
+workdir = pathlib.Path("__file__").parent
+
+# Creating server working directory, though this examples demonstrate on local
+server_workdir = workdir / 'server_workdir'  
+server_workdir.mkdir(exist_ok=True)
+
+scripts = workdir / "scripts"
+assets = workdir / "assets"
 
 # +
 # launch Workbench service on the local machine; using some options
+wb = launch_workbench(release="242", server_workdir=str(server_workdir.absolute()), client_workdir=str(workdir.absolute()))
 
-workdir = pathlib.Path("__file__").parent
-assets = workdir / "assets"
-scripts = workdir / "scripts"
-agdb = workdir / "agdb"
-pmdb = workdir / "pmdb"
-txt = workdir / "txt"
-csv = workdir / "csv"
-
-wb = launch_workbench(release="241", server_workdir=str(workdir.absolute()), client_workdir=str(workdir.absolute()))
+server_dir = str(server_workdir.absolute())
+client_dir = str(workdir.absolute())
 # -
+
+# **Install Granta Scriptting Toolkit**
+
+### Note: To install Granta Scriptting Toolkit (STK), download the `Granta MI Enterprise Product` from Ansys Customer Portal.
+### Granta STK file = "granta_miscriptingtoolkit-3.2.164-py3-none-any.whl"
+### Granta STK is part of licensed Granta MI Enterprise Product.
+
+# Upgrade pip with this command: 
+# !python.exe -m pip install --upgrade pip
+
+# Install Granta Scriptting Toolkit with this command: 
+# !pip install "C:\userpath\granta_miscriptingtoolkit-3.2.164-py3-none-any.whl"
 
 # +
 ###################################################################################
 # Define function to import material from Granta MI Server
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-import os
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Use matlabplotlib to display the images.
-cwd = os.path.join(os.getcwd(), "out")
+cwd = server_dir
 
 def getMaterial(name,output):
 
     from GRANTA_MIScriptingToolkit import granta as mpy
     mi = mpy.connect('http://azeww22sim01/mi_servicelayer', autologon=True)
-    #db = mi.get_db(db_key='MI_Pro')
-    #table = db.get_table('MaterialUniverse')
     db = mi.get_db('MaterialUniverse')
     table = db.get_table('MaterialUniverse')
 
@@ -48,13 +64,10 @@ def getMaterial(name,output):
         exit()
     material_card = exporter.run_exporter([rec], parameter_defs=parameters_required)
 
-    #path_to_save = "./"
-    path_to_save = os.path.join(client_dir + "/")
-    exporter.save(path_to_save, file_name=name)
+    path_to_save = os.path.join(os.path.join(workdir.absolute()) + '/')
+    exporter.save(file_path=path_to_save, file_name=name)
     file_extension = exporter.default_file_extension
     print("Exporter output saved to \"{}{}.{}\"".format(path_to_save, name, file_extension))
-
-
 # -
 
 # Export required material in xml file format to import in Mechanical
@@ -64,27 +77,20 @@ for nmat in imp_materials:
     getMaterial(nmat,'gradeA')
 
 # +
-# upload input files from example data repo
-wb.upload_file(str(agdb / "axisymmetric_model.agdb"))
-wb.upload_file(str(pmdb / "blade-geometry.pmdb"))
-wb.upload_file(str(csv / "results.csv"))
-wb.upload_file(str(txt / "temperature-data.txt"))
+# upload input files from example data repo to the server working directory
+wb.upload_file_from_example_repo("blade-geometry.pmdb","grantami-integration/pmdb")
+wb.upload_file_from_example_repo("results.csv","grantami-integration/csv")
+wb.upload_file_from_example_repo("temperature-data.txt","grantami-integration/txt")
 
 # upload input files from client working directory to server working directory
 wb.upload_file("Structural steel, ASTM A500 Grade A.xml")
-wb.upload_file(str(scripts / "mechanical.py"))
-
-# Upload project files
-wb.upload_file(str(pmdb / "blade-geometry.pmdb"))
-wb.upload_file(str(agdb / "rotor_3d_model.agdb"))
-wb.upload_file(str(scripts / "axisymmetric_rotor.py"))
-wb.upload_file(str(scripts / "rotor_3d.py"))
+wb.upload_file(str(scripts / "nasa_rotor_67_fan_blade_inverse_solve.py"))
 # -
 
 # run a Workbench script to define the project and load geometry
-export_path = os.path.join(client_dir, 'wb_log_file.log')
+export_path = 'wb_log_file.log'
 wb.set_log_file(export_path)
-sys_name = wb.run_script_file('example_06_geom_prep.wbjn', log_level='info')
+sys_name = wb.run_script_file(str((assets / "project.wbjn").absolute()), log_level='info')
 print(sys_name)
 
 # +
@@ -98,7 +104,7 @@ print(mechanical.project_directory)
 # -
 
 # run a Mechanical python script via PyMechanical to mesh and solve the model
-with open (os.path.join(client_dir, "example_6_Mech.py")) as sf:
+with open (os.path.join(server_dir, "nasa_rotor_67_fan_blade_inverse_solve.py")) as sf:
     mech_script = sf.read()
 mech_output = mechanical.run_python_script(mech_script)
 print(mech_output)
@@ -128,9 +134,6 @@ os.remove(solve_out_local_path)
 
 # +
 # Download postprocess/output images from PyMechanical working directory and display
-
-from matplotlib import image as mpimg
-from matplotlib import pyplot as plt
 
 #Specify Mechanical directory path
 mechanical.run_python_script(f"image_dir=ExtAPI.DataModel.AnalysisList[0].WorkingDir")
@@ -174,7 +177,7 @@ import shutil
 import glob
 
 current_working_directory = os.getcwd()
-destination_dir = client_dir
+destination_dir = server_dir
 # Verify the target path to copy the files.
 print(f"Download the files from server path to: {destination_dir}")
 
