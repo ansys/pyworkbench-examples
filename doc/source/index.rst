@@ -3,13 +3,13 @@ PyWorkbench Examples
 
 .. grid:: 2
 
-    .. grid-item-card:: Basic examples :fa:`person-running`
+    .. grid-item-card:: Basic examples :fa:`code`
         :link: basic-examples
         :link-type: doc
 
         Basic examples to get you started with PyWorkbench.
 
-    .. grid-item-card:: Advanced examples:fa:`book-open-reader`
+    .. grid-item-card:: Advanced examples :fa:`code`
         :link: advanced-examples
         :link-type: doc
 
