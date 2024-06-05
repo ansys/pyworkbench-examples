@@ -1,5 +1,9 @@
-PyWorkbench Examples
-####################
+PyWorkbench Examples |version|
+##############################
+
+The following examples are available to help you get started with PyWorkbench.
+Different showcases are provided to guide you step by step through the process
+of interfacing with other Ansys products thanks to Workbench.
 
 .. grid:: 2
 
