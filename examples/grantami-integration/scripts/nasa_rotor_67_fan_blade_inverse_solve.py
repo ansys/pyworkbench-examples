@@ -1,48 +1,38 @@
-""" .. _ref_example_5_td_055:
-
-Inverse-Solving Analysis of a Rotor Fan Blade with Disk
----------------------------------------------------------------------------------------
-Description:
-The NASA Rotor 67 fan bladed disk is a subsystem of a turbo fan compressor set used
-in aerospace engine applications. This sector model, representing a challenging industrial
-example for which the detailed geometry and flow information is available in the public
-domain, consists of a disk and a fan blade with a sector angle of 16.364 degrees.
-The sector model represents the running condition or hot geometry of the blade. It is
-already optimized at the running condition under loading. The primary objective is to
-obtain the cold geometry (for manufacturing) from the given hot geometry using inverse solving.
+# %%
+"""
+ .. _ref_example_5_td_055:
 
 """
 
 import os
 import os.path
 
-# Use matlabplotlib to display the images.
+# specify working directory
 cwd = os.path.join(os.getcwd(), "out")
 
-client_dir = r'D:\GPS_Team\Engagements_2023\PyAnsys\PyWorkbench\Examples\Tech_demo_55\client_dir'
+# %%
 ###############################################################################
 # Download required geometry files
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Download the required files. Print the file path for the Mechdat file.
 
-geometry_path = os.path.join(client_dir +'/'+ "example_6_td_055_Rotor_Blade_Geom.pmdb")
+#geometry_path = os.path.join(server_dir +'/'+ "blade-geometry.pmdb")
 
 ###############################################################################
 # Download required CFX Pressure file
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Download the required files. Print the file path for the CFX Pressure Data.
 
-cfx_data_path = os.path.join(client_dir +'/'+ "example_6_CFX_ExportResults_FT_10P_EO2.csv")
+#cfx_data_path = os.path.join(server_dir +'/'+ "results.csv")
 ###############################################################################
 # Download required Temperature file
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Download the required files. Print the file path for the Temperature Data.
 
-temp_data_path = os.path.join(client_dir +'/'+ "example_6_Temperature_Data.txt")
+#temp_data_path = os.path.join(server_dir +'/'+ "temperature-data.txt")
 ###################################################################################
 # Configure graphics for image export
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-cwd = os.path.join(os.getcwd(), "out")
 ExtAPI.Graphics.Camera.SetSpecificViewOrientation(
     Ansys.Mechanical.DataModel.Enums.ViewOrientationType.Iso
 )
@@ -509,10 +499,10 @@ Graphics.ExportImage(export_path, GraphicsImageExportFormat.PNG)
 # Cleanup
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Save project
-#app.save(os.path.join(cwd, "blade_inverse.mechdat"))
-#app.new()
+# app.save(os.path.join(cwd, "blade_inverse.mechdat"))
+# app.new()
 
 ###################################################################################
 # Delete example file
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#delete_downloads()
+# delete_downloads()
