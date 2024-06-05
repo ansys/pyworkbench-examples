@@ -21,6 +21,7 @@
 # # ~~~~~~~~~~~~~~~~~~~~~~~~
 
 import os
+import pathlib
 from ansys.workbench.core import launch_workbench
 
 import ansys.fluent.core as pyfluent
@@ -30,13 +31,9 @@ from ansys.fluent.visualization.pyvista import Graphics
 # # Specify client and server directories and launch WB service (This example launches WB locally)
 
 # +
-client_dir = r'D:\users\mvani\PyWB\PyWB-examples\pyfluent_mixing_elbow\client_work_dir'
-server_dir = r'D:\users\mvani\PyWB\PyWB-examples\pyfluent_mixing_elbow\server_work_dir'
+workdir = pathlib.Path("__file__").parent
 
-host = 'localhost'
-release = '241'
-
-wb = launch_workbench(release=release, server_workdir=server_dir, client_workdir=client_dir)
+wb = launch_workbench(release="241", server_workdir=str(workdir.absolute()), client_workdir=str(workdir.absolute()))
 # -
 
 # # Get the input file from example data and upload to server directory
@@ -47,7 +44,7 @@ wb.upload_file(import_filename)
 # +
 # run a Workbench script to define the project and load geometry
 
-export_path = os.path.join(client_dir, 'wb_log_file.log')
+export_path = 'wb_log_file.log'
 wb.set_log_file(export_path)
 wb.run_script_string('template1 = GetTemplate(TemplateName="FLUENT")', log_level='info')
 wb.run_script_string('system1 = template1.CreateSystem()')
@@ -72,7 +69,7 @@ fluent_session = pyfluent.connect_to_fluent(server_info_filepath= server_info_fi
 # # in the mesh are reported. Ensure that the minimum volume is not negative because
 # # Fluent cannot begin a calculation when this is the case.
 
-import_filename = os.path.join(server_dir, 'mixing_elbow.msh.h5')
+import_filename = os.path.join(workdir, 'mixing_elbow.msh.h5')
 fluent_session.file.read(file_type="case", file_name= import_filename)
 
 ###############################################################################
@@ -202,13 +199,13 @@ fluent_session.solution.report_definitions.compute(report_defs=["mass_flow_rate"
 
 # # Save project
 
-file_path = os.path.join(server_dir, "mixing_elbow.wbpj")
+file_path = os.path.join(workdir, "mixing_elbow.wbpj")
 save_string = "Save(FilePath=\"" + file_path + "\"," + "Overwrite=True)"
 # wb.run_script_string('Save(FilePath="mixing_elbow1.wbpj", Overwrite=True)')
 wb.run_script_string(save_string)
 
 
-file_path = os.path.join(server_dir, "mixing_elbow.wbpz")
+file_path = os.path.join(workdir, "mixing_elbow.wbpz")
 archive_string = "Archive(FilePath=\"" + file_path + "\")"
 wb.run_script_string(archive_string)
 

@@ -63,19 +63,19 @@ client_dir = str(workdir.absolute())
 # ### Upgrade pip with this command: 
 
 # +
-# #!python.exe -m pip install --upgrade pip
+# python -m pip install --upgrade pip
 # -
 
 # ### Install Granta Scriptting Toolkit with this command: 
 
 # +
-#python -m pip install "C:\userpath\granta_miscriptingtoolkit-3.2.164-py3-none-any.whl"
+#python -m pip install granta_miscriptingtoolkit-3.2.164-py3-none-any.whl
 # -
 
 # ### Granta MI STK Workflow
 # ### Define function to import material from Granta MI Server
 #
-# ### Connect to Granta MI Service Layer ('http://azeww22sim01/mi_servicelayer/')
+# ### Connect to Granta MI Service Layer
 #
 # ### Write a material card specific to selected Solver
 #
@@ -83,11 +83,18 @@ client_dir = str(workdir.absolute())
 #
 # ### Note: In order to access the Granta service layer instance deployed for ACE, you must have the necessary permissions. Additionally, this instance can only be accessed through a VPN in case of remote access. Ensure that your VPN is active before proceeding.
 
+GRANTAMI_ENDPOINT = os.getenv('GRANTA_ENDPOINT', None)
+if not GRANTAMI_ENDPOINT:
+    raise ValueError("GRANTA_ENDPOINT environment variable not set")
+
+# Use matlabplotlib to display the images.
+cwd = os.path.join(os.getcwd(), "out")
+
 # Use matlabplotlib to display the images.
 def getMaterial(name,output):
 
     from GRANTA_MIScriptingToolkit import granta as mpy
-    mi = mpy.connect('http://azeww22sim01/mi_servicelayer', autologon=True)
+    mi = mpy.connect(GRANTAMI_ENDPOINT, autologon=True)
     db = mi.get_db('MaterialUniverse')
     table = db.get_table('MaterialUniverse')
 
@@ -261,6 +268,5 @@ for file in glob.glob(source_dir + '/*'):
 
 # ### Shutdown the Workbench client and service
 
+mechanical.exit()
 wb.exit()
-
-

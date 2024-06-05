@@ -9,14 +9,21 @@ import sphinx
 from sphinx.util import logging
 from sphinx.util.display import status_iterator
 
-from ansys_sphinx_theme import pyansys_logo_black as logo
+from ansys_sphinx_theme import pyansys_logo_black as logo, get_version_match, convert_version_to_pymeilisearch
 
 
 # Project information
 project = "pymechanical-multiworkflow-examples"
 copyright = f"(c) {datetime.now().year} ANSYS, Inc. All rights reserved"
 author = "ANSYS, Inc."
-release = version = "0.1.dev0"
+
+# Read version from VERSION file in base root directory
+source_dir = pathlib.Path(__file__).parent.resolve().absolute()
+version_file = source_dir / "../../VERSION"
+with open(str(version_file), "r") as file:
+    __version__ = file.read().splitlines()[0]
+release = version = __version__
+
 cname = os.getenv("DOCUMENTATION_CNAME", "docs.pyansys.com")
 
 # -- General configuration ---------------------------------------------------
@@ -37,10 +44,14 @@ extensions = [
 
 
 templates_path = ['_templates']
-exclude_examples = []
-exclude_patterns = ["conf.py", "examples/**/scripts/*.py"]
-
-print(f"EXCLUDE_PATTERNS: {exclude_patterns}")
+exclude_examples = ["grantami-integration"]
+exclude_patterns = [
+    "conf.py", 
+    "examples/**/scripts/*.py",
+    "examples/grantami-integration/*",
+    "examples/logging/alternative_target_dir/*.py",
+    "examples/pyfluent-mixing-elbow/*",
+]
 
 source_suffix = {
     ".rst": "restructuredtext",
@@ -64,7 +75,23 @@ html_theme_options = {
     "additional_breadcrumbs": [
         ("PyAnsys", "https://docs.pyansys.com/"),
     ],
+    "switcher": {
+        "json_url": f"https://{cname}/versions.json",
+        "version_match": get_version_match(version),
+    },
+    "check_switcher": False,
+    "use_meilisearch": {
+        "api_key": os.getenv("MEILISEARCH_PUBLIC_API_KEY", ""),
+        "index_uids": {
+            f"pyworkbench-examples-v{convert_version_to_pymeilisearch(version)}": "pyworkbench-examples",  # noqa: E501
+        },
+    },
 }
+
+html_static_path = ["_static"]
+html_css_files = [
+    "css/custom.css"
+]
 
 # Configuration for nbsphinx
 nbsphinx_execute = "always"
@@ -73,6 +100,16 @@ nbsphinx_custom_formats = {
     ".py": ["jupytext.reads", {"fmt": ""}],
 }
 nbsphinx_prompt_width = ""
+nbsphinx_thumbnails = {
+    # Basic examples
+    "examples/logging/main": "_static/thumbnails/default.png",
+    "examples/ansys-fluent-workflow/main": "_static/thumbnails/default.png",
+    "examples/pymechanical-integration/main": "_static/thumbnails/default.png",
+    # Advanced examples
+    "examples/cooled-turbine-blade/main": "_static/thumbnails/default.png",
+    "examples/cyclic-symmetry-analysis/main": "_static/thumbnails/default.png",
+    "examples/axisymmetric-rotor/main": "_static/thumbnails/axisymmetric-rotor.png",
+}
 
 
 # -- Sphinx application setup ------------------------------------------------
