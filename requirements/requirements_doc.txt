@@ -1,5 +1,5 @@
 ansys-sphinx-theme==0.16.5
-jupyterlab==4.2.1
+jupyterlab==4.2.2
 jupytext==1.16.2
 jupyter-server==2.14.1
 myst-parser==3.0.1
