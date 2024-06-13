@@ -151,10 +151,10 @@ wb.run_script_string("solutionComponent1 = system1.GetComponent(Name=\"Solution\
 wb.run_script_string("solutionComponent1.Update(AllDependencies=True)")
 
 # ## Postprocessing
-# Create and display velocity vectors on the ``symmetry-xyplane`` plane
+# Create and display velocity vectors on the ``symmetry-xyplane`` plane.
 
 # ## Configure graphics picture export
-# Since Fluent is being run without the GUI, we will need to export plots as picture files. Edit the picture settings to use a custom resolution so that the images are large enough.
+# Since Fluent is being run without the GUI, you must to export plots as picture files. Edit the picture settings to use a custom resolution so that the images are large enough.
 
 graphics = fluent_session.results.graphics
 if graphics.picture.use_window_resolution.is_active():
