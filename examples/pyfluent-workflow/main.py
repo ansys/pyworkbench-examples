@@ -164,7 +164,7 @@ wb.run_script_string("system1 = GetSystem(Name=\"FLU\")")
 wb.run_script_string("solutionComponent1 = system1.GetComponent(Name=\"Solution\")")
 wb.run_script_string("solutionComponent1.Update(AllDependencies=True)")
 
-# ## Post processing
+# ## Postprocessing
 # Create and display velocity vectors on the ``symmetry-xyplane`` plane
 
 # ## Configure graphics picture export
