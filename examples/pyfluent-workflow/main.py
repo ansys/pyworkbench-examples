@@ -26,15 +26,16 @@ from ansys.workbench.core import launch_workbench
 
 import ansys.fluent.core as pyfluent
 from ansys.fluent.core import examples
-from ansys.fluent.visualization.pyvista import Graphics
 
 # # Specify client and server directories and launch WB service (This example launches WB locally)
 
 # +
 workdir = pathlib.Path("__file__").parent
 
-wb = launch_workbench(release="241", server_workdir=str(workdir.absolute()), client_workdir=str(workdir.absolute()))
-# -
+server_workdir = workdir / 'server_workdir'  
+server_workdir.mkdir(exist_ok=True)  
+
+wb = launch_workbench(release="241", server_workdir=str(server_workdir.absolute()), client_workdir=str(workdir.absolute()))
 
 # # Get the input file from example data and upload to server directory
 
@@ -69,16 +70,16 @@ fluent_session = pyfluent.connect_to_fluent(server_info_filepath= server_info_fi
 # # in the mesh are reported. Ensure that the minimum volume is not negative because
 # # Fluent cannot begin a calculation when this is the case.
 
-import_filename = os.path.join(workdir, 'mixing_elbow.msh.h5')
-fluent_session.file.read(file_type="case", file_name= import_filename)
+import_filename = os.path.join(server_workdir.absolute(), 'mixing_elbow.msh.h5')
+fluent_session.file.read_mesh(file_name= import_filename)
+fluent_session.mesh.check()
 
-###############################################################################
-# # Set working units for mesh
-# # ~~~~~~~~~~~~~~~~~~~~~~~~~~
-# # Set the working units for the mesh to inches. Because the default SI units are
-# # used for everything except length, you do not have to change any other units
-# # in this example. If you want working units for length to be other than inches
-# # (for example, millimeters), make the appropriate change.
+# ## Set working units for mesh
+
+# Set the working units for the mesh to inches. Because the default SI units are
+# used for everything except length, you do not have to change any other units
+# in this example. If you want working units for length to be other than inches
+# (for example, millimeters), make the appropriate change.
 
 fluent_session.tui.define.units("length", "in")
 
@@ -155,7 +156,7 @@ fluent_session.setup.boundary_conditions.pressure_outlet["outlet"].turbulence.tu
 
 # # Set 150 iterations for solution
 
-fluent_session.solution.run_calculation.iter_count = 150
+fluent_session.solution.run_calculation.iterate(iter_count=150)
 
 # # Update Solution using WB Journal Command
 
@@ -163,26 +164,41 @@ wb.run_script_string("system1 = GetSystem(Name=\"FLU\")")
 wb.run_script_string("solutionComponent1 = system1.GetComponent(Name=\"Solution\")")
 wb.run_script_string("solutionComponent1.Update(AllDependencies=True)")
 
-###############################################################################
-# # Create velocity vectors
-# # ~~~~~~~~~~~~~~~~~~~~~~~
-# # Create and display velocity vectors on the ``symmetry-xyplane`` plane
+# ## Post processing
+# Create and display velocity vectors on the ``symmetry-xyplane`` plane
 
-###############################################################################
-# # Post processing with PyVista (3D visualization)
-# # =============================================
+# ## Configure graphics picture export
+# Since Fluent is being run without the GUI, we will need to export plots as picture files. Edit the picture settings to use a custom resolution so that the images are large enough.
 
-graphics_session_vec = Graphics(fluent_session)
-velocity_vector = graphics_session_vec.Vectors["velocity-vector"]
-velocity_vector.field = "temperature"
-velocity_vector.surfaces_list = ["symmetry-xyplane"]
-velocity_vector.scale = 2
-velocity_vector.display()
+graphics = fluent_session.results.graphics
+# use_window_resolution option not active inside containers or Ansys Lab environment
+if graphics.picture.use_window_resolution.is_active():
+    graphics.picture.use_window_resolution = False
+graphics.picture.x_resolution = 1920
+graphics.picture.y_resolution = 1440
 
-###############################################################################
-# # Compute mass flow rate
-# # ~~~~~~~~~~~~~~~~~~~~~~
-# # Compute the mass flow rate.
+# ## Create velocity vectors
+# Create and display velocity vectors on the 'symmetry-xyplane' plane, then export the image for inspection.
+
+graphics = fluent_session.results.graphics
+
+graphics.vector["velocity_vector_symmetry"] = {}
+velocity_symmetry = fluent_session.results.graphics.vector["velocity_vector_symmetry"]
+velocity_symmetry.print_state()
+velocity_symmetry.field = "velocity-magnitude"
+velocity_symmetry.surfaces_list = [
+    "symmetry-xyplane",
+]
+velocity_symmetry.scale.scale_f = 4
+velocity_symmetry.style = "arrow"
+velocity_symmetry.display()
+
+graphics.views.restore_view(view_name="front")
+graphics.views.auto_scale()
+graphics.picture.save_picture(file_name="velocity_vector_symmetry.png")
+
+# ## Compute mass flow rate
+# Compute the mass flow rate.
 
 # +
 fluent_session.solution.report_definitions.flux["mass_flow_rate"] = {}
@@ -199,17 +215,17 @@ fluent_session.solution.report_definitions.compute(report_defs=["mass_flow_rate"
 
 # # Save project
 
-file_path = os.path.join(workdir, "mixing_elbow.wbpj")
+file_path = os.path.join(server_workdir.absolute(), "mixing_elbow.wbpj")
 save_string = "Save(FilePath=\"" + file_path + "\"," + "Overwrite=True)"
 # wb.run_script_string('Save(FilePath="mixing_elbow1.wbpj", Overwrite=True)')
 wb.run_script_string(save_string)
 
 
-file_path = os.path.join(workdir, "mixing_elbow.wbpz")
+file_path = os.path.join(server_workdir.absolute(), "mixing_elbow.wbpz")
 archive_string = "Archive(FilePath=\"" + file_path + "\")"
 wb.run_script_string(archive_string)
 
-# # Download the WB archived project
+# ## Download the archived project which has all simulation data and results.
 
 wb.download_file("mixing_elbow.wbpz")
 
