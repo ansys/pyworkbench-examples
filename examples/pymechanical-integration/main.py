@@ -50,12 +50,12 @@ print(mechanical.run_python_script(mech_script))
 
 # Fetch output files (`*solve.out` and `*deformation.png`) from the solver directory to the client's working directory using the `download` method.
 
-mechanical.download("*solve.out", target_dir=wb.client_workdir)
-mechanical.download("*deformation.png", target_dir=wb.client_workdir)
+mechanical.download("*solve.out", target_dir=str(workdir.absolute()))
+mechanical.download("*deformation.png", target_dir=str(workdir.absolute()))
 
 # Read and print the content of the solver output file (`solve.out`) to the console.
 
-with open(os.path.join(wb.client_workdir, "solve.out"), "r") as f:
+with open(os.path.join(str(workdir.absolute()), "solve.out"), "r") as f:
     print(f.read())
 
 # Plot the deformation result (`deformation.png`) using `pyvista`. 
@@ -63,7 +63,7 @@ with open(os.path.join(wb.client_workdir, "solve.out"), "r") as f:
 # The plot is then displayed.
 
 pl = pv.Plotter()
-pl.add_background_image(os.path.join(wb.client_workdir, "deformation.png"))
+pl.add_background_image(os.path.join(str(workdir.absolute()), "deformation.png"))
 pl.show()
 
 # Finally, the `exit` method is called on both the PyMechanical and Workbench clients to gracefully shut down the services, ensuring that all resources are properly released.
