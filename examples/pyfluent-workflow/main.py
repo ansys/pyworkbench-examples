@@ -168,7 +168,7 @@ wb.run_script_string("solutionComponent1.Update(AllDependencies=True)")
 # Create and display velocity vectors on the ``symmetry-xyplane`` plane
 
 # ## Configure graphics picture export
-# Since Fluent is being run without the GUI, we will need to export plots as picture files. Edit the picture settings to use a custom resolution so that the images are large enough.
+# Since Fluent is being run without the GUI, you must export plots as picture files. Edit the picture settings to use a custom resolution so that the images are large enough.
 
 graphics = fluent_session.results.graphics
 # use_window_resolution option not active inside containers or Ansys Lab environment
