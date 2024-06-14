@@ -1,0 +1,4 @@
+User-agent: *
+
+
+Sitemap: https://examples.workbench.docs.pyansys.com/sitemap.xml
