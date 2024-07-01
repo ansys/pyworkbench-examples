@@ -1,5 +1,5 @@
-# # Integrating PyFluent with PyWorkbench: 
-# This example showcases how to use PyFluent workflow together with PyWorkbench - (Python client scripting for Ansys Workbench).
+# # Integrating PyFluent with PyWorkbench 
+# This example shows how to use the PyFluent workflow together with PyWorkbench - (Python client scripting for Ansys Workbench).
 #
 # This example sets up and solves a three-dimensional turbulent fluid flow
 # and heat transfer problem in a mixing elbow, which is common in piping
