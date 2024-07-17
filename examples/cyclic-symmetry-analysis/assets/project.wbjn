@@ -4,7 +4,8 @@ import string
 import os.path
 
 work_dir = GetServerWorkingDirectory()
-arg_CDBFile = os.path.join(work_dir, "cdb", "sector_model.cdb")
+#arg_CDBFile = os.path.join(work_dir, "cdb", "sector_model.cdb")
+arg_CDBFile = os.path.join(work_dir, "sector_model.cdb")
 
 # Import CDB file and update External model
 template1 = GetTemplate(TemplateName="External Model")

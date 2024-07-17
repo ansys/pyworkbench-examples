@@ -27,17 +27,15 @@ assets = workdir / "assets"
 scripts = workdir / "scripts"
 wbpz = workdir / "wbpz"
 
-# -
+# Launch Workbench as a service; using some options
 
-# ### Launch Workbench as a service; using some options
-
-# +
 wb = launch_workbench(release="241", server_workdir=str(server_workdir.absolute()), client_workdir=str(workdir.absolute()))
-
-# Upload project files to the server using the `upload_file` method. 
+# Upload Project files to the server using the `upload_file` method. 
 # The files uploaded are `cooled_turbine_blade.wbpz` and `cooled_turbine_blade.py`.
 
-wb.upload_file(str(wbpz / "cooled_turbine_blade.wbpz"))
+
+#wb.upload_file(str(wbpz / "cooled_turbine_blade.wbpz"))
+wb.upload_file_from_example_repo("cooled_turbine_blade.wbpz","cooled-turbine-blade/wbpz")
 wb.upload_file(str(scripts / "cooled_turbine_blade.py"))
 
 # Execute a Workbench script (`project.wbjn`) to define the project and load the geometry using the `run_script_file` method. 
@@ -53,10 +51,12 @@ print(sys_name)
 # Create a PyMechanical client session connected to this server using `launch_mechanical`. 
 # The project directory is printed to verify the connection.
 
+# +
 server_port = wb.start_mechanical_server(system_name=sys_name)
 mechanical = launch_mechanical(start_instance=False, ip='localhost', port=server_port)
 
 print(mechanical.project_directory)
+# -
 
 # Read and execute the script `cooled_turbine_blade.py` via the PyMechanical client using `run_python_script`. 
 # This script typically contains commands to mesh and solve the turbine blade model. 
@@ -71,6 +71,7 @@ print(mech_output)
 # The path where all solver files are stored on the server is printed. 
 # Download the solver output file (`solve.out`) from the server to the client's current working directory and print its contents.
 
+# +
 mechanical.run_python_script(f"solve_dir=ExtAPI.DataModel.AnalysisList[1].WorkingDir")
 
 result_solve_dir_server = mechanical.run_python_script(f"solve_dir")
@@ -89,11 +90,13 @@ mechanical.download(solve_out_path, target_dir=current_working_directory)
 solve_out_local_path = os.path.join(current_working_directory, "solve.out")
 write_file_contents_to_console(solve_out_local_path)
 os.remove(solve_out_local_path)
+# -
 
 # Specify the Mechanical directory path for images and run a script to fetch the directory path. 
 # The path where images are stored on the server is printed. 
 # Download an image file (`stress.png`) from the server to the client's current working directory and display it using `matplotlib`.
 
+# +
 from matplotlib import image as mpimg
 from matplotlib import pyplot as plt
 
@@ -126,10 +129,12 @@ if image_path_server != "":
     print(f"Local image path : {image_local_path}")
     
     display_image(image_local_path)
+# -
 
 # Download all the files from the server to the current working directory. 
 # Verify the target and source paths and copy all files from the server to the client.
 
+# +
 import shutil
 import glob
 
@@ -144,8 +149,11 @@ destination_dir = target_dir2
 
 for file in glob.glob(source_dir + '/*'):
     shutil.copy(file, destination_dir)
+# -
 
 # Finally, the `exit` method is called on both the PyMechanical and Workbench clients to gracefully shut down the services, ensuring that all resources are properly released.
 
 mechanical.exit()
 wb.exit()
+
+
