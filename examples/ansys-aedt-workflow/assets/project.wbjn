@@ -7,6 +7,7 @@ work_dir = GetServerWorkingDirectory()
 arg_wbpj_file = os.path.join(work_dir, "wbpz", "TVR14471_V.wbpz") 
 Unarchive(
     ArchivePath=arg_wbpj_file,
+    ProjectPath=GetAbsoluteUserPathName(work_dir + "/wbpj2/TVR14471_V.wbpj"),
     Overwrite = True)
 Extensions.UnloadExtension(
     Id="5e7e01a6-8601-11e8-9f8c-28f10e13ffe6",

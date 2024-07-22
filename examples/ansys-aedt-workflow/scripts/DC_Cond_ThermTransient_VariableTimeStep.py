@@ -199,13 +199,13 @@ def CopyFiles(counter):
 		os.remove(Setting.UserDir+'\\file.LDHI')
 	if File.Exists(Setting.UserDir+'\\file.rth'):
 		os.remove(Setting.UserDir+'\\file.rth')
-	if File.Exists(Setting.UserDir+'\\file0.r'+string_prev):
-		os.remove(Setting.UserDir+'\\file0.r'+string_prev)
+	if File.Exists(Setting.UserDir+'\\file.r'+string_prev):
+		os.remove(Setting.UserDir+'\\file.r'+string_prev)
 
 	shutil.copyfile(Setting.ThermSystemDir+'\\file.rdb', Setting.UserDir+'\\file.rdb')
 	shutil.copyfile(Setting.ThermSystemDir+'\\file.LDHI', Setting.UserDir+'\\file.LDHI')
 	shutil.copyfile(Setting.ThermSystemDir+'\\file.rth', Setting.UserDir+'\\file.rth')
-	shutil.copyfile(Setting.ThermSystemDir+'\\file0.r'+string, Setting.UserDir+'\\file0.r'+string)
+	shutil.copyfile(Setting.ThermSystemDir+'\\file.r'+string, Setting.UserDir+'\\file.r'+string)
 	
 def ClearUserDir(counter):
 	global Setting
@@ -230,7 +230,7 @@ mxwl_design_var_name = 'I_pulse'
 # read the CSV file path # write a wbjn file to read the csv file path
 # csv_file_name = r"D:\2024_Projects\PyAnsys\pyWorkbenchExample-2\pyWorkbenchExample\ansys-aedt-workflow\10_1000_Pulse.csv"
 input_values = csv.reader(open(csv_file_name))
-logging.info("Project cleanup")
+
 pulse_list_row = []
 for row in input_values:
     pulse_list_row.append(row)
