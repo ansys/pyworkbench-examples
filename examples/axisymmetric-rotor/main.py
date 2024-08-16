@@ -18,7 +18,7 @@ assets = workdir / "assets"
 scripts = workdir / "scripts"
 agdb = workdir / "agdb"
 
-wb = launch_workbench(release="251", client_workdir=str(workdir.absolute()))
+wb = launch_workbench(client_workdir=str(workdir.absolute()))
 
 # Upload the project files to the server using the `upload_file` method.
 # The files uploaded are `axisymmetric_model.agdb`, `rotor_3d_model.agdb`.

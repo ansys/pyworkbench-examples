@@ -23,7 +23,7 @@ assets = workdir / "assets"
 scripts = workdir / "scripts"
 wbpz = workdir / "wbpz"
 
-wb = launch_workbench(release="251", client_workdir=str(workdir.absolute()))
+wb = launch_workbench(client_workdir=str(workdir.absolute()))
 
 # Upload project files to the server using the `upload_file` method. 
 # The file to upload is `cooled_turbine_blade.wbpz`.

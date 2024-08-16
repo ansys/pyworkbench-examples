@@ -33,7 +33,7 @@ from ansys.fluent.visualization.pyvista import Graphics
 # +
 workdir = pathlib.Path("__file__").parent
 
-wb = launch_workbench(release="251", client_workdir=str(workdir.absolute()))
+wb = launch_workbench(client_workdir=str(workdir.absolute()))
 # -
 
 # # Get the input file from example data and upload to server directory
