@@ -21,7 +21,7 @@ workdir = pathlib.Path("__file__").parent
 assets = workdir / "assets"
 scripts = workdir / "scripts"
 agdb = workdir / "agdb"
-wb = launch_workbench(release="241", server_workdir=str(workdir.absolute()), client_workdir=str(workdir.absolute()))
+wb = launch_workbench(release="251", client_workdir=str(workdir.absolute()))
 
 # Upload a geometry file (`two_pipes.agdb`) from the client to the server using the `upload_file` method.
 
