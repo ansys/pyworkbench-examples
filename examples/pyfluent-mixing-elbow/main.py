@@ -28,12 +28,12 @@ import ansys.fluent.core as pyfluent
 from ansys.fluent.core import examples
 from ansys.fluent.visualization.pyvista import Graphics
 
-# # Specify client and server directories and launch WB service (This example launches WB locally)
+# # Specify client directory and launch WB service (This example launches WB locally)
 
 # +
 workdir = pathlib.Path("__file__").parent
 
-wb = launch_workbench(release="241", server_workdir=str(workdir.absolute()), client_workdir=str(workdir.absolute()))
+wb = launch_workbench(client_workdir=str(workdir.absolute()))
 # -
 
 # # Get the input file from example data and upload to server directory
@@ -58,7 +58,7 @@ wb.run_script_string('system1 = template1.CreateSystem()')
 # # two processors.
 
 server_info_file = wb.start_fluent_server(system_name= "FLU")
-fluent_session = pyfluent.connect_to_fluent(server_info_filepath= server_info_file)
+fluent_session = pyfluent.connect_to_fluent(server_info_file_name= server_info_file)
 
 ###############################################################################
 # # Import mesh and perform mesh check
@@ -201,7 +201,6 @@ fluent_session.solution.report_definitions.compute(report_defs=["mass_flow_rate"
 
 file_path = os.path.join(workdir, "mixing_elbow.wbpj")
 save_string = "Save(FilePath=\"" + file_path + "\"," + "Overwrite=True)"
-# wb.run_script_string('Save(FilePath="mixing_elbow1.wbpj", Overwrite=True)')
 wb.run_script_string(save_string)
 
 

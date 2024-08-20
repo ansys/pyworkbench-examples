@@ -46,7 +46,7 @@ assets = workdir / "assets"
 # ### Launch Workbench as a service; using some options
 
 # +
-wb = launch_workbench(release="242", server_workdir=str(server_workdir.absolute()), client_workdir=str(workdir.absolute()))
+wb = launch_workbench(server_workdir=str(server_workdir.absolute()), client_workdir=str(workdir.absolute()))
 
 server_dir = str(server_workdir.absolute())
 client_dir = str(workdir.absolute())
