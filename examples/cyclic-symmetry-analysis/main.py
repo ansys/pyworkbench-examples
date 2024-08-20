@@ -26,13 +26,13 @@ cdb = workdir / "cdb"
 
 # ### Launch Workbench as a service; using some options
 
-wb = launch_workbench(release="241", server_workdir=str(server_workdir.absolute()), client_workdir=str(workdir.absolute()))
+wb = launch_workbench(release="242", server_workdir=str(server_workdir.absolute()), client_workdir=str(workdir.absolute()))
 
 # Upload project files to the server using the `upload_file` method. 
 # The files uploaded are `sector_model.cdb` and `cyclic_symmetry_analysis.py`.
 
 #wb.upload_file(str(cdb / "sector_model.cdb"))
-wb.upload_file_from_example_repo("sector_model.cdb","cyclic-symmetry-analysis/cdb")
+wb.upload_file_from_example_repo("cyclic-symmetry-analysis/cdb/sector_model.cdb")
 wb.upload_file(str(scripts / "cyclic_symmetry_analysis.py"))
 
 # Execute a Workbench script (`project.wbjn`) to define the project and load the geometry using the `run_script_file` method. 

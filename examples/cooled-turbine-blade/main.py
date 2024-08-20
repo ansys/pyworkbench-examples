@@ -29,13 +29,13 @@ wbpz = workdir / "wbpz"
 
 # Launch Workbench as a service; using some options
 
-wb = launch_workbench(release="241", server_workdir=str(server_workdir.absolute()), client_workdir=str(workdir.absolute()))
+wb = launch_workbench(release="242", server_workdir=str(server_workdir.absolute()), client_workdir=str(workdir.absolute()))
 # Upload Project files to the server using the `upload_file` method. 
 # The files uploaded are `cooled_turbine_blade.wbpz` and `cooled_turbine_blade.py`.
 
 
 #wb.upload_file(str(wbpz / "cooled_turbine_blade.wbpz"))
-wb.upload_file_from_example_repo("cooled_turbine_blade.wbpz","cooled-turbine-blade/wbpz")
+wb.upload_file_from_example_repo("cooled-turbine-blade/wbpz/cooled_turbine_blade.wbpz")
 wb.upload_file(str(scripts / "cooled_turbine_blade.py"))
 
 # Execute a Workbench script (`project.wbjn`) to define the project and load the geometry using the `run_script_file` method. 

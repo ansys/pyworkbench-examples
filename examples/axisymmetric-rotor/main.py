@@ -24,14 +24,14 @@ agdb = workdir / "agdb"
 
 # ### Launch Workbench as a service; using some options
 
-wb = launch_workbench(release="241", server_workdir=str(server_workdir.absolute()), client_workdir=str(workdir.absolute()))
+wb = launch_workbench(release="242", server_workdir=str(server_workdir.absolute()), client_workdir=str(workdir.absolute()))
 # Upload the project files to the server using the `upload_file` method.
 # The files uploaded are `axisymmetric_model.agdb`, `rotor_3d_model.agdb`, `axisymmetric_rotor.py`, and `rotor_3d.py`.
 
 #wb.upload_file(str(agdb / "axisymmetric_model.agdb"))
 #wb.upload_file(str(agdb / "rotor_3d_model.agdb"))
-wb.upload_file_from_example_repo("axisymmetric_model.agdb","axisymmetric-rotor/agdb")
-wb.upload_file_from_example_repo("rotor_3d_model.agdb","axisymmetric-rotor/agdb")
+wb.upload_file_from_example_repo("axisymmetric-rotor/agdb/axisymmetric_model.agdb")
+wb.upload_file_from_example_repo("axisymmetric-rotor/agdb/rotor_3d_model.agdb")
 wb.upload_file(str(scripts / "axisymmetric_rotor.py"))
 wb.upload_file(str(scripts / "rotor_3d.py"))
 
