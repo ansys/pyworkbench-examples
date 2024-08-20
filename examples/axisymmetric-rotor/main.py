@@ -11,22 +11,20 @@ from ansys.mechanical.core import launch_mechanical
 
 # Launch the Workbench service on the local machine using specific options.
 # Define the working directory and subdirectories for assets, scripts, and geometry databases (agdb).
-# The `launch_workbench` function starts a Workbench session with the specified directories.
+# The `launch_workbench` function starts a Workbench session with the specified directory.
 
 workdir = pathlib.Path("__file__").parent
 assets = workdir / "assets"
 scripts = workdir / "scripts"
 agdb = workdir / "agdb"
 
-wb = launch_workbench(release="241", server_workdir=str(workdir.absolute()), client_workdir=str(workdir.absolute()))
+wb = launch_workbench(client_workdir=str(workdir.absolute()))
 
 # Upload the project files to the server using the `upload_file` method.
-# The files uploaded are `axisymmetric_model.agdb`, `rotor_3d_model.agdb`, `axisymmetric_rotor.py`, and `rotor_3d.py`.
+# The files uploaded are `axisymmetric_model.agdb`, `rotor_3d_model.agdb`.
 
 wb.upload_file(str(agdb / "axisymmetric_model.agdb"))
 wb.upload_file(str(agdb / "rotor_3d_model.agdb"))
-wb.upload_file(str(scripts / "axisymmetric_rotor.py"))
-wb.upload_file(str(scripts / "rotor_3d.py"))
 
 # Execute a Workbench script (`project.wbjn`) to define the project and load the geometry.
 # The log file is set to `wb_log_file.log` and the name of the system created is stored in `sys_name` and printed.
