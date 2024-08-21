@@ -20,16 +20,13 @@ from ansys.mechanical.core import launch_mechanical
 
 workdir = pathlib.Path("__file__").parent
 
-server_workdir = workdir / 'server_workdir'  
-server_workdir.mkdir(exist_ok=True)
-
 assets = workdir / "assets"
 scripts = workdir / "scripts"
 wbpz = workdir / "wbpz"
 
-wb = launch_workbench(release="242", server_workdir=str(server_workdir.absolute()), client_workdir=str(workdir.absolute()))
+wb = launch_workbench(client_workdir=str(workdir.absolute()))
 
-# Upload project files to the server using the `upload_file` method. 
+# Upload the project files to the server using the `upload_file_from_example_repo` method. 
 # The file to upload is `cooled_turbine_blade.wbpz`.
 
 
