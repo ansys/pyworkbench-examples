@@ -19,16 +19,22 @@ from ansys.mechanical.core import launch_mechanical
 # The `launch_workbench` function is called to start a Workbench session with specified directory.
 
 workdir = pathlib.Path("__file__").parent
+
+server_workdir = workdir / 'server_workdir'  
+server_workdir.mkdir(exist_ok=True)
+
 assets = workdir / "assets"
 scripts = workdir / "scripts"
 wbpz = workdir / "wbpz"
 
-wb = launch_workbench(client_workdir=str(workdir.absolute()))
+wb = launch_workbench(release="242", server_workdir=str(server_workdir.absolute()), client_workdir=str(workdir.absolute()))
 
 # Upload project files to the server using the `upload_file` method. 
 # The file to upload is `cooled_turbine_blade.wbpz`.
 
-wb.upload_file(str(wbpz / "cooled_turbine_blade.wbpz"))
+
+wb.upload_file_from_example_repo("cooled-turbine-blade/wbpz/cooled_turbine_blade.wbpz")
+wb.upload_file(str(scripts / "cooled_turbine_blade.py"))
 
 # Execute a Workbench script (`project.wbjn`) to define the project and load the geometry using the `run_script_file` method. 
 # The `set_log_file` method is used to direct the logs to `wb_log_file.log`. 
