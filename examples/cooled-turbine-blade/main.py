@@ -22,7 +22,6 @@ workdir = pathlib.Path("__file__").parent
 
 assets = workdir / "assets"
 scripts = workdir / "scripts"
-wbpz = workdir / "wbpz"
 
 wb = launch_workbench(client_workdir=str(workdir.absolute()))
 
