@@ -25,8 +25,6 @@ wb = launch_workbench(client_workdir=str(workdir.absolute()))
 
 wb.upload_file_from_example_repo("axisymmetric-rotor/agdb/axisymmetric_model.agdb")
 wb.upload_file_from_example_repo("axisymmetric-rotor/agdb/rotor_3d_model.agdb")
-wb.upload_file(str(scripts / "axisymmetric_rotor.py"))
-wb.upload_file(str(scripts / "rotor_3d.py"))
 
 # Execute a Workbench script (`project.wbjn`) to define the project and load the geometry.
 # The log file is set to `wb_log_file.log` and the name of the system created is stored in `sys_name` and printed.
@@ -243,5 +241,3 @@ for file in glob.glob(source_dir + '/*'):
 
 mechanical.exit()
 wb.exit()
-
-

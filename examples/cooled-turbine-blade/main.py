@@ -30,7 +30,6 @@ wb = launch_workbench(client_workdir=str(workdir.absolute()))
 
 
 wb.upload_file_from_example_repo("cooled-turbine-blade/wbpz/cooled_turbine_blade.wbpz")
-wb.upload_file(str(scripts / "cooled_turbine_blade.py"))
 
 # Execute a Workbench script (`project.wbjn`) to define the project and load the geometry using the `run_script_file` method. 
 # The `set_log_file` method is used to direct the logs to `wb_log_file.log`. 

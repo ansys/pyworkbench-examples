@@ -26,7 +26,6 @@ wb = launch_workbench(client_workdir=str(workdir.absolute()))
 # The file to upload is `sector_model.cdb`.
 
 wb.upload_file_from_example_repo("cyclic-symmetry-analysis/cdb/sector_model.cdb")
-wb.upload_file(str(scripts / "cyclic_symmetry_analysis.py"))
 
 # Execute a Workbench script (`project.wbjn`) to define the project and load the geometry using the `run_script_file` method. 
 # The `set_log_file` method is used to direct the logs to `wb_log_file.log`. 
