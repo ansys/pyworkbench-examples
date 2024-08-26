@@ -24,13 +24,11 @@ wbpz = workdir / "wbpz"
 wb = launch_workbench(release="241", client_workdir=str(workdir.absolute()))
 
 # Upload the project files to the server using the `upload_file` method.
-# The files uploaded are `project.wbjn`, `TVR14471_V.wbpz`, `10_1000_Pulse.csv`, `DC_Cond_ThermTransient_VariableTimeStep.py`
+# The files uploaded are `TVR14471_V.wbpz`, `10_1000_Pulse.csv`
 
 
-# wb.upload_file(str(assets / "project.wbjn"))
 wb.upload_file(str(wbpz / "TVR14471_V.wbpz"))
 wb.upload_file(str(assets / "10_1000_Pulse.csv"))
-# wb.upload_file(str(scripts / "DC_Cond_ThermTransient_VariableTimeStep.py"))
 
 # Execute a Workbench script (`project.wbjn`) to define the project and load the geometry using the `run_script_file` method. 
 # The `set_log_file` method is used to direct the logs to `wb_log_file.log`. 
@@ -41,7 +39,6 @@ csv_path = str((assets / "10_1000_Pulse.csv").absolute())
 csv_path = csv_path.replace("\\", "/")
 
 wb.run_script_file(str((assets / "project.wbjn").absolute()), log_level='info')
-# wb.run_script_file(f""" 'csv_path'={csv_path}""")
 with open(str((assets / "pulse_data.wbjn").absolute()), "w") as f:
     f.write(f"""csv_file_name=r'{csv_path}' """)
 
