@@ -228,8 +228,9 @@ mxwl_design_name  = 'Maxwell3DDesign1'
 mxwl_design_var_name = 'I_pulse'
 
 # read the CSV file path # write a wbjn file to read the csv file path
-# csv_file_name = r"D:\2024_Projects\PyAnsys\pyWorkbenchExample-2\pyWorkbenchExample\ansys-aedt-workflow\10_1000_Pulse.csv"
-input_values = csv.reader(open(csv_file_name))
+work_dir = GetServerWorkingDirectory()
+csv_file = os.path.join(work_dir, "10_1000_Pulse.csv") 
+input_values = csv.reader(open(csv_file))
 
 pulse_list_row = []
 for row in input_values:

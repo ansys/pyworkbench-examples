@@ -19,7 +19,7 @@ assets = workdir / "assets"
 scripts = workdir / "scripts"
 
 
-wb = launch_workbench(client_workdir=str(workdir.absolute()), server_workdir=str(workdir.absolute()))
+wb = launch_workbench(client_workdir=str(workdir.absolute()))
 
 # Upload the project files to the server using the `upload_file` method.
 # The files uploaded are `TVR14471_V.wbpz`, `10_1000_Pulse.csv`
@@ -33,15 +33,7 @@ wb.upload_file(str(assets / "10_1000_Pulse.csv"))
 
 export_path = 'wb_log_file.log'
 wb.set_log_file(export_path)
-csv_path = str((assets / "10_1000_Pulse.csv").absolute())
-csv_path = csv_path.replace("\\", "/")
-
 wb.run_script_file(str((assets / "project.wbjn").absolute()), log_level='info')
-
-with open(str((workdir / "pulse_data.wbjn").absolute()), "w") as f:
-    f.write(f"""csv_file_name=r'{csv_path}' """)
-
-wb.run_script_file(str((workdir / "pulse_data.wbjn").absolute()), log_level='info')
 
 # Start a Mechanical and AEDT client sessions to solve the Transient Electro-Thermal Simulation.
 # Both MECHANICAL and AEDT sessions will be started
