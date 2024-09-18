@@ -37,7 +37,7 @@ jou = assets / "jou"
 
 # ## Launch the workbench session with specified Ansys release version, server and client working directories
 
-wb = launch_workbench(release="241", server_workdir=str(server_workdir.absolute()), client_workdir=str(workdir.absolute()))
+wb = launch_workbench(server_workdir=str(server_workdir.absolute()), client_workdir=str(workdir.absolute()))
 
 # ## Uploading the input data
 # Upload several input files (Geometry, Ansys Fluent simulation setup and solve journal files ), which will be transferred to the host.
