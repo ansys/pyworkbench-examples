@@ -207,6 +207,10 @@ mass_flow_rate.print_state()
 fluent_session.solution.report_definitions.compute(report_defs=["mass_flow_rate"])
 # -
 
+# ## Exit Fluent Session
+
+fluent_session.exit()
+
 # ## Save project
 
 save_string = """import os
@@ -227,7 +231,6 @@ wb.run_script_string(archive_string)
 
 wb.download_file("mixing_elbow.wbpz")
 
-# ## Exit Fluent & Workbench Sessions.
+# ## Exit Workbench Session.
 
-fluent_session.exit()
 wb.exit()
