@@ -174,7 +174,7 @@ graphics.picture.x_resolution = 1920
 graphics.picture.y_resolution = 1440
 
 # ## Create velocity vectors
-# Create and display velocity vectors on the 'symmetry-xyplane' plane, then export the image for inspection.
+# Create and display velocity vectors on the ``symmetry-xyplane`` plane. Then, export the image for inspection.
 
 graphics = fluent_session.results.graphics
 

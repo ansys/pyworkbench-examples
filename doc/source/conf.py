@@ -106,8 +106,8 @@ nbsphinx_thumbnails = {
     "examples/ansys-fluent-workflow/main": "_static/thumbnails/default.png",
     "examples/pymechanical-integration/main": "_static/thumbnails/default.png",
     # Advanced examples
-    "examples/cooled-turbine-blade/main": "_static/thumbnails/default.png",
-    "examples/cyclic-symmetry-analysis/main": "_static/thumbnails/default.png",
+    "examples/cooled-turbine-blade/main": "_static/thumbnails/cooled-turbine-blade.png",
+    "examples/cyclic-symmetry-analysis/main": "_static/thumbnails/cyclic-symmetry-analysis.png",
     "examples/axisymmetric-rotor/main": "_static/thumbnails/axisymmetric-rotor.png",
 }
 
