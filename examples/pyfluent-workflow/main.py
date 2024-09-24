@@ -144,7 +144,6 @@ fluent_session.solution.initialization.hybrid_initialize()
 # ## Solve for 150 iterations
 # Setting iteration count to 150 to solve the model.
 
-dir()
 fluent_session.solution.run_calculation.iter_count = 100
 
 
@@ -224,9 +223,9 @@ path = os.path.join(workdir, "mixing_elbow.wbpz")
 Archive(FilePath=path , IncludeExternalImportedFiles=True)"""  
 wb.run_script_string(archive_string)
 
-# ## Download the saved project which has all simulation data and results.
+# ## Download the archived project which has all simulation data and results.
 
-wb.download_file("mixing_elbow.wbpj")
+wb.download_file("mixing_elbow.wbpz")
 
 # ## Exit Fluent & Workbench Sessions.
 
