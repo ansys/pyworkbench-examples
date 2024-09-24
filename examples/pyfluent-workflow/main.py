@@ -61,10 +61,7 @@ fluent_session = pyfluent.connect_to_fluent(server_info_file_name=server_info_fi
 # check also reports a number of other mesh features that are checked. Any errors
 # in the mesh are reported. Ensure that the minimum volume is not negative because
 # Fluent cannot begin a calculation when this is the case.
-get_wb_server_dir = r"""work_dir = GetServerWorkingDirectory()"""
-server_workdir = wb.run_script_string(get_wb_server_dir)
 
-import_filename = os.path.join(server_workdir, "mixing_elbow.msh.h5")
 fluent_session.file.read_mesh(file_name=import_filename)
 fluent_session.mesh.check()
 
@@ -95,7 +92,7 @@ fluent_session.setup.materials.database.copy_by_name(type="fluid", name="water-l
 # Set up the cell zone conditions for the fluid zone (``elbow-fluid``). Set ``material``
 # to ``"water-liquid"``.
 
-fluent_session.setup.cell_zone_conditions.fluid["elbow-fluid"].material = "water-liquid"
+fluent_session.setup.cell_zone_conditions.fluid['elbow-fluid'].general.material = "water-liquid"
 
 # ## Set up boundary conditions for CFD analysis
 
@@ -138,7 +135,7 @@ hot_inlet.thermal.t.value = 313.15
 
 fluent_session.setup.boundary_conditions.pressure_outlet[
     "outlet"
-].turbulence.turbulent_viscosity_ratio_real = 4
+].turbulence.backflow_turbulent_viscosity_ratio = 4
 
 # ## Initialize flow field
 
@@ -147,7 +144,9 @@ fluent_session.solution.initialization.hybrid_initialize()
 # ## Solve for 150 iterations
 # Setting iteration count to 150 to solve the model.
 
-fluent_session.solution.run_calculation.iterate(iter_count=150)
+dir()
+fluent_session.solution.run_calculation.iter_count = 100
+
 
 # ## Update Solution using Workbench Journal Commands
 
@@ -211,19 +210,23 @@ fluent_session.solution.report_definitions.compute(report_defs=["mass_flow_rate"
 
 # ## Save project
 
-save_string = """workdir = GetServerWorkingDirectory()  
-Save(FilePath=workdir + "mixing_elbow.wbpj", Overwrite=True)"""  
+save_string = """import os
+workdir = GetServerWorkingDirectory()
+path = os.path.join(workdir, "mixing_elbow.wbpj")
+Save(FilePath=path , Overwrite=True)"""  
 wb.run_script_string(save_string)
 
 # ## Archive Project
 
-archive_string = """workdir = GetServerWorkingDirectory()
-Archive(FilePath=workdir + "mixing_elbow.wbpz")"""
+archive_string ="""import os
+workdir = GetServerWorkingDirectory()
+path = os.path.join(workdir, "mixing_elbow.wbpz")
+Archive(FilePath=path , IncludeExternalImportedFiles=True)"""  
 wb.run_script_string(archive_string)
 
 # ## Download the archived project which has all simulation data and results.
 
-wb.download_file("mixing_elbow.wbpz")
+wb.download_file("mixing_elbow.wbpj")
 
 # ## Exit Fluent & Workbench Sessions.
 
