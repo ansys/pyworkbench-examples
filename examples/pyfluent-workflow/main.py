@@ -1,4 +1,4 @@
-# # Integrating PyFluent with PyWorkbench: 
+# # Integrating PyFluent with PyWorkbench:
 # This example showcases how to use PyFluent workflow together with PyWorkbench - (Python client scripting for Ansys Workbench).
 #
 # This example sets up and solves a three-dimensional turbulent fluid flow
@@ -30,10 +30,8 @@ from ansys.fluent.core import examples
 
 workdir = pathlib.Path("__file__").parent
 
-server_workdir = workdir / 'server_workdir'  
-server_workdir.mkdir(exist_ok=True)  
 
-wb = launch_workbench(release="241", server_workdir=str(server_workdir.absolute()), client_workdir=str(workdir.absolute()))
+wb = launch_workbench(client_workdir=str(workdir.absolute()))
 
 # ## Download the input file from example data and upload to server directory.
 
@@ -42,30 +40,35 @@ wb.upload_file(import_filename)
 
 # ## Generate a "FLUENT" System using Ansys Workbench Scripting API (used for Journaling) and parse it to the PyWorkbench API.
 
-export_path = 'wb_log_file.log'
+export_path = "wb_log_file.log"
 wb.set_log_file(export_path)
-wb.run_script_string('template1 = GetTemplate(TemplateName="FLUENT")', log_level='info')
-wb.run_script_string('system1 = template1.CreateSystem()')
+wb.run_script_string('template1 = GetTemplate(TemplateName="FLUENT")', log_level="info")
+wb.run_script_string("system1 = template1.CreateSystem()")
 
 
 # ## Launch Fluent & Connect to Fluent
 # Launch Fluent as server with PyWorkbench API and and connect to Pyfluent session
 
-server_info_file = wb.start_fluent_server(system_name = "FLU")
-fluent_session = pyfluent.connect_to_fluent(server_info_file_name= server_info_file)
+server_info_file = wb.start_fluent_server(system_name="FLU")
+fluent_session = pyfluent.connect_to_fluent(server_info_file_name=server_info_file)
 
 
 # ## Import mesh and perform mesh check
 
+# +
 # Import the mesh and perform a mesh check, which lists the minimum and maximum
 # x, y, and z values from the mesh in the default SI units of meters. The mesh
 # check also reports a number of other mesh features that are checked. Any errors
 # in the mesh are reported. Ensure that the minimum volume is not negative because
 # Fluent cannot begin a calculation when this is the case.
+get_wb_server_dir = r"""work_dir = GetServerWorkingDirectory()"""
+server_workdir = wb.run_script_string(get_wb_server_dir)
 
-import_filename = os.path.join(server_workdir.absolute(), 'mixing_elbow.msh.h5')
-fluent_session.file.read_mesh(file_name= import_filename)
+import_filename = os.path.join(server_workdir, "mixing_elbow.msh.h5")
+fluent_session.file.read_mesh(file_name=import_filename)
 fluent_session.mesh.check()
+
+# -
 
 # ## Set working units for mesh
 
@@ -111,7 +114,7 @@ cold_inlet.get_state()
 cold_inlet.momentum.velocity.value = 0.4
 cold_inlet.turbulence.turbulent_specification = "Intensity and Hydraulic Diameter"
 cold_inlet.turbulence.turbulent_intensity = 0.05
-cold_inlet.turbulence. hydraulic_diameter = "4 [in]"
+cold_inlet.turbulence.hydraulic_diameter = "4 [in]"
 cold_inlet.thermal.t.value = 293.15
 
 # - hot inlet (hot-inlet), Setting: Value:
@@ -126,14 +129,16 @@ hot_inlet = fluent_session.setup.boundary_conditions.velocity_inlet["hot-inlet"]
 hot_inlet.momentum.velocity.value = 1.2
 hot_inlet.turbulence.turbulent_specification = "Intensity and Hydraulic Diameter"
 hot_inlet.turbulence.turbulent_intensity = 0.05
-hot_inlet.turbulence. hydraulic_diameter = "1 [in]"
+hot_inlet.turbulence.hydraulic_diameter = "1 [in]"
 hot_inlet.thermal.t.value = 313.15
 
 # - pressure outlet (outlet), Setting: Value:
 # - Backflow Turbulent Intensity: 5 [%]
 # - Backflow Turbulent Viscosity Ratio: 4
 
-fluent_session.setup.boundary_conditions.pressure_outlet["outlet"].turbulence.turbulent_viscosity_ratio_real = 4
+fluent_session.setup.boundary_conditions.pressure_outlet[
+    "outlet"
+].turbulence.turbulent_viscosity_ratio_real = 4
 
 # ## Initialize flow field
 
@@ -146,9 +151,15 @@ fluent_session.solution.run_calculation.iterate(iter_count=150)
 
 # ## Update Solution using Workbench Journal Commands
 
-wb.run_script_string("system1 = GetSystem(Name=\"FLU\")")
-wb.run_script_string("solutionComponent1 = system1.GetComponent(Name=\"Solution\")")
-wb.run_script_string("solutionComponent1.Update(AllDependencies=True)")
+script_string = """
+solutionComponent1 = system1.GetComponent(Name="Solution")
+system1 = GetSystem(Name="FLU")
+solutionComponent1 = system1.GetComponent(Name="Solution")
+solutionComponent1.Update(AllDependencies=True)
+"""
+
+wb.run_script_string(script_string)
+
 
 # ## Postprocessing
 # Create and display velocity vectors on the ``symmetry-xyplane`` plane.
@@ -200,14 +211,14 @@ fluent_session.solution.report_definitions.compute(report_defs=["mass_flow_rate"
 
 # ## Save project
 
-file_path = os.path.join(server_workdir.absolute(), "mixing_elbow.wbpj")
-save_string = "Save(FilePath=\"" + file_path + "\"," + "Overwrite=True)"
+save_string = """workdir = GetServerWorkingDirectory()  
+Save(FilePath=workdir + "mixing_elbow.wbpj", Overwrite=True)"""  
 wb.run_script_string(save_string)
 
 # ## Archive Project
 
-file_path = os.path.join(server_workdir.absolute(), "mixing_elbow.wbpz")
-archive_string = "Archive(FilePath=\"" + file_path + "\")"
+archive_string = """workdir = GetServerWorkingDirectory()
+Archive(FilePath=workdir + "mixing_elbow.wbpz")"""
 wb.run_script_string(archive_string)
 
 # ## Download the archived project which has all simulation data and results.
