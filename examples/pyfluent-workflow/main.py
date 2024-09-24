@@ -224,7 +224,7 @@ path = os.path.join(workdir, "mixing_elbow.wbpz")
 Archive(FilePath=path , IncludeExternalImportedFiles=True)"""  
 wb.run_script_string(archive_string)
 
-# ## Download the archived project which has all simulation data and results.
+# ## Download the saved project which has all simulation data and results.
 
 wb.download_file("mixing_elbow.wbpj")
 
