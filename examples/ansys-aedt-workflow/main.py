@@ -13,7 +13,7 @@ from ansys.workbench.core import launch_workbench
 # The `launch_workbench` function starts a Workbench session with the specified directories.
 
 
-workdir = pathlib.Path(__file__).parent
+workdir = pathlib.Path("__file__").parent
 
 assets = workdir / "assets"
 scripts = workdir / "scripts"
@@ -37,5 +37,9 @@ wb.run_script_file(str((assets / "project.wbjn").absolute()), log_level='info')
 
 # Start a Mechanical and AEDT client sessions to solve the Transient Electro-Thermal Simulation.
 # Both MECHANICAL and AEDT sessions will be started
-# Note: Disable the Distribution of the solution in Ansys Mechanical.
+#
+# **Note: Disable the Distribution of the solution in Ansys Mechanical.**
+
 wb.run_script_file(str((scripts / "DC_Cond_ThermTransient_VariableTimeStep.py").absolute()), log_level='info')
+
+
