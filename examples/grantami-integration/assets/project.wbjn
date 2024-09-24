@@ -29,6 +29,5 @@ model1 = system2.GetContainer(ComponentName="Model")
 model1.Edit()
 
 # output geometry component state
-#result = "System names are "
 result = system2.Name
 wb_script_result = json.dumps(result)

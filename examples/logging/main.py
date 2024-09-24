@@ -8,7 +8,7 @@ from ansys.workbench.core import launch_workbench
 
 # First, import the necessary modules. We import `pathlib` for handling filesystem paths and `os` for interacting with the operating system. The `launch_workbench` function from `ansys.workbench.core` is imported to start a Workbench session.
 
-# Next, launch a Workbench session using PyWorkbench. Different directories are declared, including the working directory and the server directory. Both of them are set to be the current working directory.
+# Next, launch a Workbench session using PyWorkbench. Different directories are declared, including the client and server working directories, which should NOT be the same.
 
 workdir = pathlib.Path("__file__").parent
 server_workdir = workdir / "server_workdir"
@@ -16,12 +16,12 @@ client_workdir = workdir / "client_workdir"
 alternative_target_dir = workdir / "alternative_target_dir"
 
 # Here, we define several directories that will be used during the session. 
-# `workdir` is set to the parent directory of the current file. 
+# `workdir` is set to the directory containing the current file. 
 # `server_workdir`, `client_workdir`, and `alternative_target_dir` are subdirectories within the working directory.
 
 # Launch Workbench using previous directories:
 
-wb = launch_workbench(release="241", server_workdir=str(server_workdir.absolute()), client_workdir=str(client_workdir.absolute()))
+wb = launch_workbench(server_workdir=str(server_workdir.absolute()), client_workdir=str(client_workdir.absolute()))
 
 # The `launch_workbench` function is called to start a Workbench session. 
 # The `release` parameter specifies the version of Workbench to launch. 
