@@ -4,7 +4,7 @@ import os
 
 SetScriptVersion(Version="24.1.144")
 work_dir = GetServerWorkingDirectory()
-arg_wbpj_file = os.path.join(work_dir, "TVR14471_V.wbpz") 
+arg_wbpj_file = os.path.join(work_dir, "TVR14471_V_short.wbpz") 
 Unarchive(
     ArchivePath=arg_wbpj_file,
     ProjectPath=GetAbsoluteUserPathName(work_dir + "/wbpj/TVR14471_V.wbpj"),

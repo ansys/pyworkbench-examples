@@ -229,7 +229,7 @@ mxwl_design_var_name = 'I_pulse'
 
 # read the CSV file path # write a wbjn file to read the csv file path
 work_dir = GetServerWorkingDirectory()
-csv_file = os.path.join(work_dir, "10_1000_Pulse.csv") 
+csv_file = os.path.join(work_dir, "10_1000_Pulse_Short.csv") 
 input_values = csv.reader(open(csv_file))
 
 pulse_list_row = []

@@ -22,14 +22,19 @@ scripts = workdir / "scripts"
 wb = launch_workbench(client_workdir=str(workdir.absolute()))
 
 # Upload the project files to the server using the `upload_file` method.
-# The files uploaded are `TVR14471_V.wbpz`, `10_1000_Pulse.csv`
+# The files uploaded are `TVR14471_V_short.wbpz`, `10_1000_Pulse_short.csv`
+#
+# **Note**: use 10_1000_Pulse.csv for fullscale simulation
 
 
-wb.upload_file_from_example_repo("ansys-aedt-workflow/wbpz/TVR14471_V.wbpz")
-wb.upload_file(str(assets / "10_1000_Pulse.csv"))
+# wb.upload_file_from_example_repo("ansys-aedt-workflow/wbpz/TVR14471_V.wbpz")
+wb.upload_file(str(assets / "TVR14471_V_short.wbpz"))
+wb.upload_file(str(assets / "10_1000_Pulse_short.csv"))
 
 # Execute a Workbench script (`project.wbjn`) to define the project and load the geometry using the `run_script_file` method. 
 # The `set_log_file` method is used to direct the logs to `wb_log_file.log`. 
+#
+# **Note**: For full-scale simulation use `TVR14471_V.wbpz` in line 7 of `project.wbjn`
 
 export_path = 'wb_log_file.log'
 wb.set_log_file(export_path)
@@ -38,8 +43,11 @@ wb.run_script_file(str((assets / "project.wbjn").absolute()), log_level='info')
 # Start a Mechanical and AEDT client sessions to solve the Transient Electro-Thermal Simulation.
 # Both MECHANICAL and AEDT sessions will be started
 #
-# **Note: Disable the Distribution of the solution in Ansys Mechanical.**
+# **Note**: Disable the Distribution of the solution in Ansys Mechanical. For Full scale simulation use `10_1000_Pulse.csv` in line 232 of `DC_Cond_ThermTransient_VariableTimeStep.py`
+#
 
 wb.run_script_file(str((scripts / "DC_Cond_ThermTransient_VariableTimeStep.py").absolute()), log_level='info')
+
+
 
 
