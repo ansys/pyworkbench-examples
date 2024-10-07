@@ -17,12 +17,12 @@ workdir = pathlib.Path("__file__").parent
 
 assets = workdir / "assets"
 
-wb = launch_workbench(show_gui=True, client_workdir=str(workdir.absolute()))
+wb = launch_workbench(client_workdir=str(workdir.absolute()))
 
 # Upload the project files to the server using the `upload_file_from_example_repo` method. 
 # The file to upload is `MatDesigner.wbpz`.
 
-wb.upload_file_from_example_repo("material-designer/wbpz/MatDesigner.wbpz")
+wb.upload_file_from_example_repo(dirname="material-designer-workflow/wbpz",filename='MatDesigner.wbpz')
 
 # Execute a Workbench script (`project.wbjn`) to define the project and load the geometry using the `run_script_file` method. 
 # The `set_log_file` method is used to direct the logs to `wb_log_file.log`.
