@@ -6,12 +6,8 @@ import os.path
 work_dir = GetServerWorkingDirectory()
 arg_ProjectArchive = os.path.join(work_dir, "MatDesigner.wbpz")
 
-# Description="Insert Steady State Thermal linked with Static Structural system and define blade and fluid materials"
+# Description="Upzip the archived example project file"
 Unarchive(
     ArchivePath=arg_ProjectArchive,
     ProjectPath=GetAbsoluteUserPathName(work_dir + "wbpj\MatDesigner.wbpj"),
     Overwrite=True)
-
-# output system name
-#result = system.Name
-#wb_script_result = json.dumps(result)
