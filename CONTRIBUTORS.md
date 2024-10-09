@@ -10,4 +10,5 @@
 * [Abhishek Chitwar](https://github.com/abhishekchitwar)
 * [Manoj Vani](https://github.com/mkvani)
 * [Jorge Martinez](https://github.com/jorgepiloto)
+* [Jimmy He](https://github.com/JimmyHe0527)
 
