@@ -1,0 +1,1446 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Integrating PyFluent with PyWorkbench: &#8212; PyWorkbench Examples</title>
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css\ansys_sphinx_theme.css?v=d2ac875c" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.nerdfonts.com/assets/css/webfont.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=80ee211d" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+ 
+<link href="../../_static/css/breadcrumbs.css" rel="stylesheet" />
+
+    <script src="../../_static/documentation_options.js?v=a4d987d4"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js\table.js?v=b64f5182"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/pyfluent-workflow/main';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://examples.workbench.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Advanced examples" href="../../advanced-examples.html" />
+    <link rel="prev" title="PyMechanical integration" href="../pymechanical-integration/main.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <link rel="canonical" href="https://examples.workbench.docs.pyansys.com/version/stable/examples/pyfluent-workflow/main.html" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container"><!-- Debugging: html_theme_options =  -->
+
+  
+  <!-- Include the MeiliSearch CSS stylesheet only if theme present -->
+  <link href="../../_static/css/meilisearch.css" rel="stylesheet" />
+  <!-- Create a search bar form with a text input and a dropdown selector for the search index -->
+  <form class="bd-search d-flex align-items-center"
+  action="../../search.html"
+  method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+    class="form-control"
+    name="q"
+    placeholder="Search the docs ..."
+    aria-label="Search the docs ..."
+    autocomplete="off"
+    autocorrect="off"
+    autocapitalize="off"
+    spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+  <!-- Conditionally display the dropdown selector if there are multiple indices -->
+  
+  <!-- Include the MeiliSearch JavaScript library for the search bar -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+  
+    
+  
+  <script>
+  var HOST_URL = "https://backend.search.pyansys.com/";
+  var API_KEY = "";
+  // Iterates of the dictionary of index_uids and index_names to get the first child dicts
+  // and then the first key of the child dict to get the index_uid
+  var indexUid = "pyworkbench-examples-vdev";
+
+  // Function to check if the MeiliSearch host URL is reachable
+  function checkMeiliSearchHost(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('HEAD', url, true);
+    xhr.onload = function () {
+      if (xhr.status === 404) {
+        callback(false);
+      } else {
+        callback(true);
+      }
+    };
+    xhr.onerror = function () {
+      callback(false);
+    };
+    xhr.send();
+  }
+
+  // Check the MeiliSearch host URL and load the appropriate search script
+  checkMeiliSearchHost(HOST_URL, function (isReachable) {
+    if (isReachable) {
+      var script = document.createElement('script');
+      script.src = "../../_static/js/meilisearch_theme_wrap.js";
+      document.head.appendChild(script);
+      // create an env value that the url is reachable to use in another script
+      const ACTIVE_MEILI_BACKEND = true;
+    }
+    });
+  </script>
+  </form>
+</div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+   
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/pyansys_logo_transparent_black.png" class="logo__image only-light" alt="PyWorkbench Examples - Home"/>
+    <script>document.write(`<img src="../../_static/pyansys_logo_transparent_white.png" class="logo__image only-dark" alt="PyWorkbench Examples - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../basic-examples.html">
+    Basic examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../advanced-examples.html">
+    Advanced examples
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyworkbench-examples" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(
+      (text) => (document.getElementById("announcement_msg").innerHTML = text),
+    )
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../basic-examples.html">
+    Basic examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../advanced-examples.html">
+    Advanced examples
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyworkbench-examples" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../logging/main.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ansys-fluent-workflow/main.html">Ansys Fluent workflow</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../pymechanical-integration/main.html">PyMechanical integration</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Integrating PyFluent with PyWorkbench:</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+         
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="https://docs.pyansys.com/" class="nav-link">PyAnsys</a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a
+        href="../../index.html"
+        class="nav-link"
+        aria-label="Home"
+      >
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="../../basic-examples.html" class="nav-link">Basic examples</a>
+    </li>
+      
+    <li class="breadcrumb-item active" aria-current="page">Integrating PyFluent with PyWorkbench:</li>
+    
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="Integrating-PyFluent-with-PyWorkbench:">
+<h1>Integrating PyFluent with PyWorkbench:<a class="headerlink" href="#Integrating-PyFluent-with-PyWorkbench:" title="Link to this heading">#</a></h1>
+<p>This example showcases how to use PyFluent workflow together with PyWorkbench - (Python client scripting for Ansys Workbench).</p>
+<p>This example sets up and solves a three-dimensional turbulent fluid flow and heat transfer problem in a mixing elbow, which is common in piping systems in power plants and process industries. Predicting the flow field and temperature field in the area of the mixing region is important to designing the junction properly.</p>
+<p>This example uses Pyfluent settings objects API’s.</p>
+<section id="Problem-description">
+<h2>Problem description<a class="headerlink" href="#Problem-description" title="Link to this heading">#</a></h2>
+<p>A cold fluid at 20 deg C flows into the pipe through a large inlet. It then mixes with a warmer fluid at 40 deg C that enters through a smaller inlet located at the elbow. The pipe dimensions are in inches, and the fluid properties and boundary conditions are given in SI units. Because the Reynolds number for the flow at the larger inlet is <code class="docutils literal notranslate"><span class="pre">50,800</span></code>, a turbulent flow model is required.</p>
+</section>
+<section id="Performed-required-imports">
+<h2>Performed required imports<a class="headerlink" href="#Performed-required-imports" title="Link to this heading">#</a></h2>
+<p>Performing essential imports for Ansys Workbench, Fluent Pythonic Interface and for downloading examples data.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="kn">from</span> <span class="nn">ansys.workbench.core</span> <span class="kn">import</span> <span class="n">launch_workbench</span>
+<span class="kn">import</span> <span class="nn">ansys.fluent.core</span> <span class="k">as</span> <span class="nn">pyfluent</span>
+<span class="kn">from</span> <span class="nn">ansys.fluent.core</span> <span class="kn">import</span> <span class="n">examples</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">ModuleNotFoundError</span>                       Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[1], line 3</span>
+<span class="ansi-green-fg">      1</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> <span class="ansi-bold" style="color: rgb(0,0,255)">os</span>
+<span class="ansi-green-fg">      2</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> <span class="ansi-bold" style="color: rgb(0,0,255)">pathlib</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 3</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">ansys</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">workbench</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">core</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> launch_workbench
+<span class="ansi-green-fg">      4</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> <span class="ansi-bold" style="color: rgb(0,0,255)">ansys</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">fluent</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">core</span> <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> <span class="ansi-bold" style="color: rgb(0,0,255)">pyfluent</span>
+<span class="ansi-green-fg">      5</span> <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">ansys</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">fluent</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">core</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> examples
+
+<span class="ansi-red-intense-fg ansi-bold">ModuleNotFoundError</span>: No module named &#39;ansys&#39;
+</pre></div></div>
+</div>
+</section>
+<section id="Specify-client-and-server-directories-with-launch-WB-service.">
+<h2>Specify client and server directories with launch WB service.<a class="headerlink" href="#Specify-client-and-server-directories-with-launch-WB-service." title="Link to this heading">#</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workdir</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;__file__&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wb</span> <span class="o">=</span> <span class="n">launch_workbench</span><span class="p">(</span><span class="n">client_workdir</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">workdir</span><span class="o">.</span><span class="n">absolute</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[3], line 1</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span> wb <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">launch_workbench</span>(client_workdir<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(0,135,0)">str</span>(workdir<span style="color: rgb(98,98,98)">.</span>absolute()))
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;launch_workbench&#39; is not defined
+</pre></div></div>
+</div>
+</section>
+<section id="Download-the-input-file-from-example-data-and-upload-to-server-directory.">
+<h2>Download the input file from example data and upload to server directory.<a class="headerlink" href="#Download-the-input-file-from-example-data-and-upload-to-server-directory." title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">import_filename</span> <span class="o">=</span> <span class="n">examples</span><span class="o">.</span><span class="n">download_file</span><span class="p">(</span><span class="s2">&quot;mixing_elbow.msh.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;pyfluent/mixing_elbow&quot;</span><span class="p">)</span>
+<span class="n">wb</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span><span class="n">import_filename</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[4], line 1</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span> import_filename <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">examples</span><span style="color: rgb(98,98,98)">.</span>download_file(<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">mixing_elbow.msh.h5</span><span style="color: rgb(175,0,0)">&#34;</span>, <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">pyfluent/mixing_elbow</span><span style="color: rgb(175,0,0)">&#34;</span>)
+<span class="ansi-green-fg">      2</span> wb<span style="color: rgb(98,98,98)">.</span>upload_file(import_filename)
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;examples&#39; is not defined
+</pre></div></div>
+</div>
+</section>
+<section id="Generate-a-%22FLUENT%22-System-using-Ansys-Workbench-Scripting-API-(used-for-Journaling)-and-parse-it-to-the-PyWorkbench-API.">
+<h2>Generate a “FLUENT” System using Ansys Workbench Scripting API (used for Journaling) and parse it to the PyWorkbench API.<a class="headerlink" href="#Generate-a-%22FLUENT%22-System-using-Ansys-Workbench-Scripting-API-(used-for-Journaling)-and-parse-it-to-the-PyWorkbench-API." title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">export_path</span> <span class="o">=</span> <span class="s2">&quot;wb_log_file.log&quot;</span>
+<span class="n">wb</span><span class="o">.</span><span class="n">set_log_file</span><span class="p">(</span><span class="n">export_path</span><span class="p">)</span>
+<span class="n">wb</span><span class="o">.</span><span class="n">run_script_string</span><span class="p">(</span><span class="s1">&#39;template1 = GetTemplate(TemplateName=&quot;FLUENT&quot;)&#39;</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+<span class="n">wb</span><span class="o">.</span><span class="n">run_script_string</span><span class="p">(</span><span class="s2">&quot;system1 = template1.CreateSystem()&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[5], line 2</span>
+<span class="ansi-green-fg">      1</span> export_path <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">wb_log_file.log</span><span style="color: rgb(175,0,0)">&#34;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 2</span> <span class="ansi-yellow-bg">wb</span><span style="color: rgb(98,98,98)">.</span>set_log_file(export_path)
+<span class="ansi-green-fg">      3</span> wb<span style="color: rgb(98,98,98)">.</span>run_script_string(<span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">template1 = GetTemplate(TemplateName=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">FLUENT</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">)</span><span style="color: rgb(175,0,0)">&#39;</span>, log_level<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">info</span><span style="color: rgb(175,0,0)">&#34;</span>)
+<span class="ansi-green-fg">      4</span> wb<span style="color: rgb(98,98,98)">.</span>run_script_string(<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">system1 = template1.CreateSystem()</span><span style="color: rgb(175,0,0)">&#34;</span>)
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;wb&#39; is not defined
+</pre></div></div>
+</div>
+</section>
+<section id="Launch-Fluent-&amp;-Connect-to-Fluent">
+<h2>Launch Fluent &amp; Connect to Fluent<a class="headerlink" href="#Launch-Fluent-&-Connect-to-Fluent" title="Link to this heading">#</a></h2>
+<p>Launch Fluent as server with PyWorkbench API and and connect to Pyfluent session</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">server_info_file</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">start_fluent_server</span><span class="p">(</span><span class="n">system_name</span><span class="o">=</span><span class="s2">&quot;FLU&quot;</span><span class="p">)</span>
+<span class="n">fluent_session</span> <span class="o">=</span> <span class="n">pyfluent</span><span class="o">.</span><span class="n">connect_to_fluent</span><span class="p">(</span><span class="n">server_info_file_name</span><span class="o">=</span><span class="n">server_info_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[6], line 1</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span> server_info_file <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">wb</span><span style="color: rgb(98,98,98)">.</span>start_fluent_server(system_name<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">FLU</span><span style="color: rgb(175,0,0)">&#34;</span>)
+<span class="ansi-green-fg">      2</span> fluent_session <span style="color: rgb(98,98,98)">=</span> pyfluent<span style="color: rgb(98,98,98)">.</span>connect_to_fluent(server_info_file_name<span style="color: rgb(98,98,98)">=</span>server_info_file)
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;wb&#39; is not defined
+</pre></div></div>
+</div>
+</section>
+<section id="Import-mesh-and-perform-mesh-check">
+<h2>Import mesh and perform mesh check<a class="headerlink" href="#Import-mesh-and-perform-mesh-check" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import the mesh and perform a mesh check, which lists the minimum and maximum</span>
+<span class="c1"># x, y, and z values from the mesh in the default SI units of meters. The mesh</span>
+<span class="c1"># check also reports a number of other mesh features that are checked. Any errors</span>
+<span class="c1"># in the mesh are reported. Ensure that the minimum volume is not negative because</span>
+<span class="c1"># Fluent cannot begin a calculation when this is the case.</span>
+
+<span class="n">fluent_session</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">read_mesh</span><span class="p">(</span><span class="n">file_name</span><span class="o">=</span><span class="n">import_filename</span><span class="p">)</span>
+<span class="n">fluent_session</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">check</span><span class="p">()</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[7], line 7</span>
+<span class="ansi-green-fg">      1</span> <span style="color: rgb(95,135,135)"># Import the mesh and perform a mesh check, which lists the minimum and maximum</span>
+<span class="ansi-green-fg">      2</span> <span style="color: rgb(95,135,135)"># x, y, and z values from the mesh in the default SI units of meters. The mesh</span>
+<span class="ansi-green-fg">      3</span> <span style="color: rgb(95,135,135)"># check also reports a number of other mesh features that are checked. Any errors</span>
+<span class="ansi-green-fg">      4</span> <span style="color: rgb(95,135,135)"># in the mesh are reported. Ensure that the minimum volume is not negative because</span>
+<span class="ansi-green-fg">      5</span> <span style="color: rgb(95,135,135)"># Fluent cannot begin a calculation when this is the case.</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 7</span> <span class="ansi-yellow-bg">fluent_session</span><span style="color: rgb(98,98,98)">.</span>file<span style="color: rgb(98,98,98)">.</span>read_mesh(file_name<span style="color: rgb(98,98,98)">=</span>import_filename)
+<span class="ansi-green-fg">      8</span> fluent_session<span style="color: rgb(98,98,98)">.</span>mesh<span style="color: rgb(98,98,98)">.</span>check()
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;fluent_session&#39; is not defined
+</pre></div></div>
+</div>
+</section>
+<section id="Set-working-units-for-mesh">
+<h2>Set working units for mesh<a class="headerlink" href="#Set-working-units-for-mesh" title="Link to this heading">#</a></h2>
+<p>Set the working units for the mesh to inches. Because the default SI units are used for everything except length, you do not have to change any other units in this example. If you want working units for length to be other than inches (for example, millimeters), make the appropriate change.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fluent_session</span><span class="o">.</span><span class="n">tui</span><span class="o">.</span><span class="n">define</span><span class="o">.</span><span class="n">units</span><span class="p">(</span><span class="s2">&quot;length&quot;</span><span class="p">,</span> <span class="s2">&quot;in&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[8], line 1</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span> <span class="ansi-yellow-bg">fluent_session</span><span style="color: rgb(98,98,98)">.</span>tui<span style="color: rgb(98,98,98)">.</span>define<span style="color: rgb(98,98,98)">.</span>units(<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">length</span><span style="color: rgb(175,0,0)">&#34;</span>, <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">in</span><span style="color: rgb(175,0,0)">&#34;</span>)
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;fluent_session&#39; is not defined
+</pre></div></div>
+</div>
+</section>
+<section id="Enable-heat-transfer">
+<h2>Enable heat transfer<a class="headerlink" href="#Enable-heat-transfer" title="Link to this heading">#</a></h2>
+<p>Enable heat transfer by activating the energy equation.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fluent_session</span><span class="o">.</span><span class="n">setup</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">energy</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[9], line 1</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span> <span class="ansi-yellow-bg">fluent_session</span><span style="color: rgb(98,98,98)">.</span>setup<span style="color: rgb(98,98,98)">.</span>models<span style="color: rgb(98,98,98)">.</span>energy<span style="color: rgb(98,98,98)">.</span>enabled <span style="color: rgb(98,98,98)">=</span> <span class="ansi-bold" style="color: rgb(0,135,0)">True</span>
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;fluent_session&#39; is not defined
+</pre></div></div>
+</div>
+</section>
+<section id="Create-material">
+<h2>Create material<a class="headerlink" href="#Create-material" title="Link to this heading">#</a></h2>
+<p>Create a material named <code class="docutils literal notranslate"><span class="pre">&quot;water-liquid&quot;</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fluent_session</span><span class="o">.</span><span class="n">setup</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">copy_by_name</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;fluid&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;water-liquid&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[10], line 1</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span> <span class="ansi-yellow-bg">fluent_session</span><span style="color: rgb(98,98,98)">.</span>setup<span style="color: rgb(98,98,98)">.</span>materials<span style="color: rgb(98,98,98)">.</span>database<span style="color: rgb(98,98,98)">.</span>copy_by_name(<span style="color: rgb(0,135,0)">type</span><span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">fluid</span><span style="color: rgb(175,0,0)">&#34;</span>, name<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">water-liquid</span><span style="color: rgb(175,0,0)">&#34;</span>)
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;fluent_session&#39; is not defined
+</pre></div></div>
+</div>
+</section>
+<section id="Set-up-cell-zone-conditions">
+<h2>Set up cell zone conditions<a class="headerlink" href="#Set-up-cell-zone-conditions" title="Link to this heading">#</a></h2>
+<p>Set up the cell zone conditions for the fluid zone (<code class="docutils literal notranslate"><span class="pre">elbow-fluid</span></code>). Set <code class="docutils literal notranslate"><span class="pre">material</span></code> to <code class="docutils literal notranslate"><span class="pre">&quot;water-liquid&quot;</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fluent_session</span><span class="o">.</span><span class="n">setup</span><span class="o">.</span><span class="n">cell_zone_conditions</span><span class="o">.</span><span class="n">fluid</span><span class="p">[</span><span class="s1">&#39;elbow-fluid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">general</span><span class="o">.</span><span class="n">material</span> <span class="o">=</span> <span class="s2">&quot;water-liquid&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[11], line 1</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span> <span class="ansi-yellow-bg">fluent_session</span><span style="color: rgb(98,98,98)">.</span>setup<span style="color: rgb(98,98,98)">.</span>cell_zone_conditions<span style="color: rgb(98,98,98)">.</span>fluid[<span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">elbow-fluid</span><span style="color: rgb(175,0,0)">&#39;</span>]<span style="color: rgb(98,98,98)">.</span>general<span style="color: rgb(98,98,98)">.</span>material <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">water-liquid</span><span style="color: rgb(175,0,0)">&#34;</span>
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;fluent_session&#39; is not defined
+</pre></div></div>
+</div>
+</section>
+<section id="Set-up-boundary-conditions-for-CFD-analysis">
+<h2>Set up boundary conditions for CFD analysis<a class="headerlink" href="#Set-up-boundary-conditions-for-CFD-analysis" title="Link to this heading">#</a></h2>
+<p>Set up the boundary conditions for the inlets, outlet, and walls for CFD analysis. - cold inlet (cold-inlet), Setting: Value: - Velocity Specification Method: Magnitude, Normal to Boundary - Velocity Magnitude: 0.4 [m/s] - Specification Method: Intensity and Hydraulic Diameter - Turbulent Intensity: 5 [%] - Hydraulic Diameter: 4 [inch] - Temperature: 293.15 [K]</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cold_inlet</span> <span class="o">=</span> <span class="n">fluent_session</span><span class="o">.</span><span class="n">setup</span><span class="o">.</span><span class="n">boundary_conditions</span><span class="o">.</span><span class="n">velocity_inlet</span><span class="p">[</span><span class="s2">&quot;cold-inlet&quot;</span><span class="p">]</span>
+<span class="n">cold_inlet</span><span class="o">.</span><span class="n">get_state</span><span class="p">()</span>
+<span class="n">cold_inlet</span><span class="o">.</span><span class="n">momentum</span><span class="o">.</span><span class="n">velocity</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mf">0.4</span>
+<span class="n">cold_inlet</span><span class="o">.</span><span class="n">turbulence</span><span class="o">.</span><span class="n">turbulent_specification</span> <span class="o">=</span> <span class="s2">&quot;Intensity and Hydraulic Diameter&quot;</span>
+<span class="n">cold_inlet</span><span class="o">.</span><span class="n">turbulence</span><span class="o">.</span><span class="n">turbulent_intensity</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="n">cold_inlet</span><span class="o">.</span><span class="n">turbulence</span><span class="o">.</span><span class="n">hydraulic_diameter</span> <span class="o">=</span> <span class="s2">&quot;4 [in]&quot;</span>
+<span class="n">cold_inlet</span><span class="o">.</span><span class="n">thermal</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mf">293.15</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[12], line 1</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span> cold_inlet <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">fluent_session</span><span style="color: rgb(98,98,98)">.</span>setup<span style="color: rgb(98,98,98)">.</span>boundary_conditions<span style="color: rgb(98,98,98)">.</span>velocity_inlet[<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">cold-inlet</span><span style="color: rgb(175,0,0)">&#34;</span>]
+<span class="ansi-green-fg">      2</span> cold_inlet<span style="color: rgb(98,98,98)">.</span>get_state()
+<span class="ansi-green-fg">      3</span> cold_inlet<span style="color: rgb(98,98,98)">.</span>momentum<span style="color: rgb(98,98,98)">.</span>velocity<span style="color: rgb(98,98,98)">.</span>value <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(98,98,98)">0.4</span>
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;fluent_session&#39; is not defined
+</pre></div></div>
+</div>
+<ul class="simple">
+<li><p>hot inlet (hot-inlet), Setting: Value:</p></li>
+<li><p>Velocity Specification Method: Magnitude, Normal to Boundary</p></li>
+<li><p>Velocity Magnitude: 1.2 [m/s]</p></li>
+<li><p>Specification Method: Intensity and Hydraulic Diameter</p></li>
+<li><p>Turbulent Intensity: 5 [%]</p></li>
+<li><p>Hydraulic Diameter: 1 [inch]</p></li>
+<li><p>Temperature: 313.15 [K]</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hot_inlet</span> <span class="o">=</span> <span class="n">fluent_session</span><span class="o">.</span><span class="n">setup</span><span class="o">.</span><span class="n">boundary_conditions</span><span class="o">.</span><span class="n">velocity_inlet</span><span class="p">[</span><span class="s2">&quot;hot-inlet&quot;</span><span class="p">]</span>
+<span class="n">hot_inlet</span><span class="o">.</span><span class="n">momentum</span><span class="o">.</span><span class="n">velocity</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mf">1.2</span>
+<span class="n">hot_inlet</span><span class="o">.</span><span class="n">turbulence</span><span class="o">.</span><span class="n">turbulent_specification</span> <span class="o">=</span> <span class="s2">&quot;Intensity and Hydraulic Diameter&quot;</span>
+<span class="n">hot_inlet</span><span class="o">.</span><span class="n">turbulence</span><span class="o">.</span><span class="n">turbulent_intensity</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="n">hot_inlet</span><span class="o">.</span><span class="n">turbulence</span><span class="o">.</span><span class="n">hydraulic_diameter</span> <span class="o">=</span> <span class="s2">&quot;1 [in]&quot;</span>
+<span class="n">hot_inlet</span><span class="o">.</span><span class="n">thermal</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mf">313.15</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[13], line 1</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span> hot_inlet <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">fluent_session</span><span style="color: rgb(98,98,98)">.</span>setup<span style="color: rgb(98,98,98)">.</span>boundary_conditions<span style="color: rgb(98,98,98)">.</span>velocity_inlet[<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">hot-inlet</span><span style="color: rgb(175,0,0)">&#34;</span>]
+<span class="ansi-green-fg">      2</span> hot_inlet<span style="color: rgb(98,98,98)">.</span>momentum<span style="color: rgb(98,98,98)">.</span>velocity<span style="color: rgb(98,98,98)">.</span>value <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(98,98,98)">1.2</span>
+<span class="ansi-green-fg">      3</span> hot_inlet<span style="color: rgb(98,98,98)">.</span>turbulence<span style="color: rgb(98,98,98)">.</span>turbulent_specification <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">Intensity and Hydraulic Diameter</span><span style="color: rgb(175,0,0)">&#34;</span>
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;fluent_session&#39; is not defined
+</pre></div></div>
+</div>
+<ul class="simple">
+<li><p>pressure outlet (outlet), Setting: Value:</p></li>
+<li><p>Backflow Turbulent Intensity: 5 [%]</p></li>
+<li><p>Backflow Turbulent Viscosity Ratio: 4</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fluent_session</span><span class="o">.</span><span class="n">setup</span><span class="o">.</span><span class="n">boundary_conditions</span><span class="o">.</span><span class="n">pressure_outlet</span><span class="p">[</span>
+    <span class="s2">&quot;outlet&quot;</span>
+<span class="p">]</span><span class="o">.</span><span class="n">turbulence</span><span class="o">.</span><span class="n">backflow_turbulent_viscosity_ratio</span> <span class="o">=</span> <span class="mi">4</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[14], line 1</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span> <span class="ansi-yellow-bg">fluent_session</span><span style="color: rgb(98,98,98)">.</span>setup<span style="color: rgb(98,98,98)">.</span>boundary_conditions<span style="color: rgb(98,98,98)">.</span>pressure_outlet[
+<span class="ansi-green-fg">      2</span>     <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">outlet</span><span style="color: rgb(175,0,0)">&#34;</span>
+<span class="ansi-green-fg">      3</span> ]<span style="color: rgb(98,98,98)">.</span>turbulence<span style="color: rgb(98,98,98)">.</span>backflow_turbulent_viscosity_ratio <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(98,98,98)">4</span>
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;fluent_session&#39; is not defined
+</pre></div></div>
+</div>
+</section>
+<section id="Initialize-flow-field">
+<h2>Initialize flow field<a class="headerlink" href="#Initialize-flow-field" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fluent_session</span><span class="o">.</span><span class="n">solution</span><span class="o">.</span><span class="n">initialization</span><span class="o">.</span><span class="n">hybrid_initialize</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[15], line 1</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span> <span class="ansi-yellow-bg">fluent_session</span><span style="color: rgb(98,98,98)">.</span>solution<span style="color: rgb(98,98,98)">.</span>initialization<span style="color: rgb(98,98,98)">.</span>hybrid_initialize()
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;fluent_session&#39; is not defined
+</pre></div></div>
+</div>
+</section>
+<section id="Solve-for-150-iterations">
+<h2>Solve for 150 iterations<a class="headerlink" href="#Solve-for-150-iterations" title="Link to this heading">#</a></h2>
+<p>Setting iteration count to 150 to solve the model.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fluent_session</span><span class="o">.</span><span class="n">solution</span><span class="o">.</span><span class="n">run_calculation</span><span class="o">.</span><span class="n">iter_count</span> <span class="o">=</span> <span class="mi">100</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[16], line 1</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span> <span class="ansi-yellow-bg">fluent_session</span><span style="color: rgb(98,98,98)">.</span>solution<span style="color: rgb(98,98,98)">.</span>run_calculation<span style="color: rgb(98,98,98)">.</span>iter_count <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(98,98,98)">100</span>
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;fluent_session&#39; is not defined
+</pre></div></div>
+</div>
+</section>
+<section id="Update-Solution-using-Workbench-Journal-Commands">
+<h2>Update Solution using Workbench Journal Commands<a class="headerlink" href="#Update-Solution-using-Workbench-Journal-Commands" title="Link to this heading">#</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">script_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">solutionComponent1 = system1.GetComponent(Name=&quot;Solution&quot;)</span>
+<span class="s2">system1 = GetSystem(Name=&quot;FLU&quot;)</span>
+<span class="s2">solutionComponent1 = system1.GetComponent(Name=&quot;Solution&quot;)</span>
+<span class="s2">solutionComponent1.Update(AllDependencies=True)</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wb</span><span class="o">.</span><span class="n">run_script_string</span><span class="p">(</span><span class="n">script_string</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[18], line 1</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span> <span class="ansi-yellow-bg">wb</span><span style="color: rgb(98,98,98)">.</span>run_script_string(script_string)
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;wb&#39; is not defined
+</pre></div></div>
+</div>
+</section>
+<section id="Postprocessing">
+<h2>Postprocessing<a class="headerlink" href="#Postprocessing" title="Link to this heading">#</a></h2>
+<p>Create and display velocity vectors on the <code class="docutils literal notranslate"><span class="pre">symmetry-xyplane</span></code> plane.</p>
+</section>
+<section id="Configure-graphics-picture-export">
+<h2>Configure graphics picture export<a class="headerlink" href="#Configure-graphics-picture-export" title="Link to this heading">#</a></h2>
+<p>Since Fluent is being run without the GUI, you must to export plots as picture files. Edit the picture settings to use a custom resolution so that the images are large enough.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">graphics</span> <span class="o">=</span> <span class="n">fluent_session</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">graphics</span>
+<span class="k">if</span> <span class="n">graphics</span><span class="o">.</span><span class="n">picture</span><span class="o">.</span><span class="n">use_window_resolution</span><span class="o">.</span><span class="n">is_active</span><span class="p">():</span>
+    <span class="n">graphics</span><span class="o">.</span><span class="n">picture</span><span class="o">.</span><span class="n">use_window_resolution</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">graphics</span><span class="o">.</span><span class="n">picture</span><span class="o">.</span><span class="n">x_resolution</span> <span class="o">=</span> <span class="mi">1920</span>
+<span class="n">graphics</span><span class="o">.</span><span class="n">picture</span><span class="o">.</span><span class="n">y_resolution</span> <span class="o">=</span> <span class="mi">1440</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[19], line 1</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span> graphics <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">fluent_session</span><span style="color: rgb(98,98,98)">.</span>results<span style="color: rgb(98,98,98)">.</span>graphics
+<span class="ansi-green-fg">      2</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> graphics<span style="color: rgb(98,98,98)">.</span>picture<span style="color: rgb(98,98,98)">.</span>use_window_resolution<span style="color: rgb(98,98,98)">.</span>is_active():
+<span class="ansi-green-fg">      3</span>     graphics<span style="color: rgb(98,98,98)">.</span>picture<span style="color: rgb(98,98,98)">.</span>use_window_resolution <span style="color: rgb(98,98,98)">=</span> <span class="ansi-bold" style="color: rgb(0,135,0)">False</span>
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;fluent_session&#39; is not defined
+</pre></div></div>
+</div>
+</section>
+<section id="Create-velocity-vectors">
+<h2>Create velocity vectors<a class="headerlink" href="#Create-velocity-vectors" title="Link to this heading">#</a></h2>
+<p>Create and display velocity vectors on the <code class="docutils literal notranslate"><span class="pre">symmetry-xyplane</span></code> plane. Then, export the image for inspection.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">graphics</span> <span class="o">=</span> <span class="n">fluent_session</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">graphics</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[20], line 1</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span> graphics <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">fluent_session</span><span style="color: rgb(98,98,98)">.</span>results<span style="color: rgb(98,98,98)">.</span>graphics
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;fluent_session&#39; is not defined
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">graphics</span><span class="o">.</span><span class="n">vector</span><span class="p">[</span><span class="s2">&quot;velocity_vector_symmetry&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">velocity_symmetry</span> <span class="o">=</span> <span class="n">fluent_session</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">graphics</span><span class="o">.</span><span class="n">vector</span><span class="p">[</span><span class="s2">&quot;velocity_vector_symmetry&quot;</span><span class="p">]</span>
+<span class="n">velocity_symmetry</span><span class="o">.</span><span class="n">print_state</span><span class="p">()</span>
+<span class="n">velocity_symmetry</span><span class="o">.</span><span class="n">field</span> <span class="o">=</span> <span class="s2">&quot;velocity-magnitude&quot;</span>
+<span class="n">velocity_symmetry</span><span class="o">.</span><span class="n">surfaces_list</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;symmetry-xyplane&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">velocity_symmetry</span><span class="o">.</span><span class="n">scale</span><span class="o">.</span><span class="n">scale_f</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">velocity_symmetry</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="s2">&quot;arrow&quot;</span>
+<span class="n">velocity_symmetry</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[21], line 1</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span> <span class="ansi-yellow-bg">graphics</span><span style="color: rgb(98,98,98)">.</span>vector[<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">velocity_vector_symmetry</span><span style="color: rgb(175,0,0)">&#34;</span>] <span style="color: rgb(98,98,98)">=</span> {}
+<span class="ansi-green-fg">      2</span> velocity_symmetry <span style="color: rgb(98,98,98)">=</span> fluent_session<span style="color: rgb(98,98,98)">.</span>results<span style="color: rgb(98,98,98)">.</span>graphics<span style="color: rgb(98,98,98)">.</span>vector[<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">velocity_vector_symmetry</span><span style="color: rgb(175,0,0)">&#34;</span>]
+<span class="ansi-green-fg">      3</span> velocity_symmetry<span style="color: rgb(98,98,98)">.</span>print_state()
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;graphics&#39; is not defined
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">graphics</span><span class="o">.</span><span class="n">views</span><span class="o">.</span><span class="n">restore_view</span><span class="p">(</span><span class="n">view_name</span><span class="o">=</span><span class="s2">&quot;front&quot;</span><span class="p">)</span>
+<span class="n">graphics</span><span class="o">.</span><span class="n">views</span><span class="o">.</span><span class="n">auto_scale</span><span class="p">()</span>
+<span class="n">graphics</span><span class="o">.</span><span class="n">picture</span><span class="o">.</span><span class="n">save_picture</span><span class="p">(</span><span class="n">file_name</span><span class="o">=</span><span class="s2">&quot;velocity_vector_symmetry.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[22], line 1</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span> <span class="ansi-yellow-bg">graphics</span><span style="color: rgb(98,98,98)">.</span>views<span style="color: rgb(98,98,98)">.</span>restore_view(view_name<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">front</span><span style="color: rgb(175,0,0)">&#34;</span>)
+<span class="ansi-green-fg">      2</span> graphics<span style="color: rgb(98,98,98)">.</span>views<span style="color: rgb(98,98,98)">.</span>auto_scale()
+<span class="ansi-green-fg">      3</span> graphics<span style="color: rgb(98,98,98)">.</span>picture<span style="color: rgb(98,98,98)">.</span>save_picture(file_name<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">velocity_vector_symmetry.png</span><span style="color: rgb(175,0,0)">&#34;</span>)
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;graphics&#39; is not defined
+</pre></div></div>
+</div>
+</section>
+<section id="Compute-mass-flow-rate">
+<h2>Compute mass flow rate<a class="headerlink" href="#Compute-mass-flow-rate" title="Link to this heading">#</a></h2>
+<p>Compute the mass flow rate.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fluent_session</span><span class="o">.</span><span class="n">solution</span><span class="o">.</span><span class="n">report_definitions</span><span class="o">.</span><span class="n">flux</span><span class="p">[</span><span class="s2">&quot;mass_flow_rate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="n">mass_flow_rate</span> <span class="o">=</span> <span class="n">fluent_session</span><span class="o">.</span><span class="n">solution</span><span class="o">.</span><span class="n">report_definitions</span><span class="o">.</span><span class="n">flux</span><span class="p">[</span><span class="s2">&quot;mass_flow_rate&quot;</span><span class="p">]</span>
+<span class="n">mass_flow_rate</span><span class="o">.</span><span class="n">boundaries</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;cold-inlet&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;hot-inlet&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;outlet&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">mass_flow_rate</span><span class="o">.</span><span class="n">print_state</span><span class="p">()</span>
+<span class="n">fluent_session</span><span class="o">.</span><span class="n">solution</span><span class="o">.</span><span class="n">report_definitions</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">report_defs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mass_flow_rate&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[23], line 1</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span> <span class="ansi-yellow-bg">fluent_session</span><span style="color: rgb(98,98,98)">.</span>solution<span style="color: rgb(98,98,98)">.</span>report_definitions<span style="color: rgb(98,98,98)">.</span>flux[<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">mass_flow_rate</span><span style="color: rgb(175,0,0)">&#34;</span>] <span style="color: rgb(98,98,98)">=</span> {}
+<span class="ansi-green-fg">      3</span> mass_flow_rate <span style="color: rgb(98,98,98)">=</span> fluent_session<span style="color: rgb(98,98,98)">.</span>solution<span style="color: rgb(98,98,98)">.</span>report_definitions<span style="color: rgb(98,98,98)">.</span>flux[<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">mass_flow_rate</span><span style="color: rgb(175,0,0)">&#34;</span>]
+<span class="ansi-green-fg">      4</span> mass_flow_rate<span style="color: rgb(98,98,98)">.</span>boundaries <span style="color: rgb(98,98,98)">=</span> [
+<span class="ansi-green-fg">      5</span>     <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">cold-inlet</span><span style="color: rgb(175,0,0)">&#34;</span>,
+<span class="ansi-green-fg">      6</span>     <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">hot-inlet</span><span style="color: rgb(175,0,0)">&#34;</span>,
+<span class="ansi-green-fg">      7</span>     <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">outlet</span><span style="color: rgb(175,0,0)">&#34;</span>,
+<span class="ansi-green-fg">      8</span> ]
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;fluent_session&#39; is not defined
+</pre></div></div>
+</div>
+</section>
+<section id="Exit-Fluent-Session">
+<h2>Exit Fluent Session<a class="headerlink" href="#Exit-Fluent-Session" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fluent_session</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[24], line 1</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span> <span class="ansi-yellow-bg">fluent_session</span><span style="color: rgb(98,98,98)">.</span>exit()
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;fluent_session&#39; is not defined
+</pre></div></div>
+</div>
+</section>
+<section id="Save-project">
+<h2>Save project<a class="headerlink" href="#Save-project" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">save_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;import os</span>
+<span class="s2">workdir = GetServerWorkingDirectory()</span>
+<span class="s2">path = os.path.join(workdir, &quot;mixing_elbow.wbpj&quot;)</span>
+<span class="s2">Save(FilePath=path , Overwrite=True)&quot;&quot;&quot;</span>
+<span class="n">wb</span><span class="o">.</span><span class="n">run_script_string</span><span class="p">(</span><span class="n">save_string</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[25], line 5</span>
+<span class="ansi-green-fg">      1</span> save_string <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(175,0,0)">&#34;&#34;&#34;</span><span style="color: rgb(175,0,0)">import os</span>
+<span class="ansi-green-fg">      2</span> <span style="color: rgb(175,0,0)">workdir = GetServerWorkingDirectory()</span>
+<span class="ansi-green-fg">      3</span> <span style="color: rgb(175,0,0)">path = os.path.join(workdir, </span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">mixing_elbow.wbpj</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">)</span>
+<span class="ansi-green-fg">      4</span> <span style="color: rgb(175,0,0)">Save(FilePath=path , Overwrite=True)</span><span style="color: rgb(175,0,0)">&#34;&#34;&#34;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 5</span> <span class="ansi-yellow-bg">wb</span><span style="color: rgb(98,98,98)">.</span>run_script_string(save_string)
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;wb&#39; is not defined
+</pre></div></div>
+</div>
+</section>
+<section id="Archive-Project">
+<h2>Archive Project<a class="headerlink" href="#Archive-Project" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">archive_string</span> <span class="o">=</span><span class="s2">&quot;&quot;&quot;import os</span>
+<span class="s2">workdir = GetServerWorkingDirectory()</span>
+<span class="s2">path = os.path.join(workdir, &quot;mixing_elbow.wbpz&quot;)</span>
+<span class="s2">Archive(FilePath=path , IncludeExternalImportedFiles=True)&quot;&quot;&quot;</span>
+<span class="n">wb</span><span class="o">.</span><span class="n">run_script_string</span><span class="p">(</span><span class="n">archive_string</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[26], line 5</span>
+<span class="ansi-green-fg">      1</span> archive_string <span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#34;&#34;&#34;</span><span style="color: rgb(175,0,0)">import os</span>
+<span class="ansi-green-fg">      2</span> <span style="color: rgb(175,0,0)">workdir = GetServerWorkingDirectory()</span>
+<span class="ansi-green-fg">      3</span> <span style="color: rgb(175,0,0)">path = os.path.join(workdir, </span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">mixing_elbow.wbpz</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">)</span>
+<span class="ansi-green-fg">      4</span> <span style="color: rgb(175,0,0)">Archive(FilePath=path , IncludeExternalImportedFiles=True)</span><span style="color: rgb(175,0,0)">&#34;&#34;&#34;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 5</span> <span class="ansi-yellow-bg">wb</span><span style="color: rgb(98,98,98)">.</span>run_script_string(archive_string)
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;wb&#39; is not defined
+</pre></div></div>
+</div>
+</section>
+<section id="Download-the-archived-project-which-has-all-simulation-data-and-results.">
+<h2>Download the archived project which has all simulation data and results.<a class="headerlink" href="#Download-the-archived-project-which-has-all-simulation-data-and-results." title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wb</span><span class="o">.</span><span class="n">download_file</span><span class="p">(</span><span class="s2">&quot;mixing_elbow.wbpz&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[27], line 1</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span> <span class="ansi-yellow-bg">wb</span><span style="color: rgb(98,98,98)">.</span>download_file(<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">mixing_elbow.wbpz</span><span style="color: rgb(175,0,0)">&#34;</span>)
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;wb&#39; is not defined
+</pre></div></div>
+</div>
+</section>
+<section id="Exit-Workbench-Session.">
+<h2>Exit Workbench Session.<a class="headerlink" href="#Exit-Workbench-Session." title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wb</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[28], line 1</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span> <span class="ansi-yellow-bg">wb</span><span style="color: rgb(98,98,98)">.</span>exit()
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;wb&#39; is not defined
+</pre></div></div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../pymechanical-integration/main.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">PyMechanical integration</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../advanced-examples.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Advanced examples</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Problem-description">Problem description</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Performed-required-imports">Performed required imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Specify-client-and-server-directories-with-launch-WB-service.">Specify client and server directories with launch WB service.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Download-the-input-file-from-example-data-and-upload-to-server-directory.">Download the input file from example data and upload to server directory.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Generate-a-%22FLUENT%22-System-using-Ansys-Workbench-Scripting-API-(used-for-Journaling)-and-parse-it-to-the-PyWorkbench-API.">Generate a “FLUENT” System using Ansys Workbench Scripting API (used for Journaling) and parse it to the PyWorkbench API.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Launch-Fluent-&amp;-Connect-to-Fluent">Launch Fluent &amp; Connect to Fluent</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Import-mesh-and-perform-mesh-check">Import mesh and perform mesh check</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Set-working-units-for-mesh">Set working units for mesh</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Enable-heat-transfer">Enable heat transfer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Create-material">Create material</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Set-up-cell-zone-conditions">Set up cell zone conditions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Set-up-boundary-conditions-for-CFD-analysis">Set up boundary conditions for CFD analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Initialize-flow-field">Initialize flow field</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Solve-for-150-iterations">Solve for 150 iterations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Update-Solution-using-Workbench-Journal-Commands">Update Solution using Workbench Journal Commands</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Postprocessing">Postprocessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Configure-graphics-picture-export">Configure graphics picture export</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Create-velocity-vectors">Create velocity vectors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Compute-mass-flow-rate">Compute mass flow rate</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Exit-Fluent-Session">Exit Fluent Session</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Save-project">Save project</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Archive-Project">Archive Project</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Download-the-archived-project-which-has-all-simulation-data-and-results.">Download the archived project which has all simulation data and results.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Exit-Workbench-Session.">Exit Workbench Session.</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+<!-- If there is no fix edit button function, use the PyData edit-this-button-->
+</div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../../_sources/examples/pyfluent-workflow/main.py.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright (c) 2024 ANSYS, Inc. All rights reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the
+  <a href="https://sphinxdocs.ansys.com/version/stable/index.html"
+    >Ansys Sphinx Theme</a
+  >
+  1.0.5. <br />Last updated on
+  <span id="date"></span>
+</p>
+<script>
+  var options = { day: "numeric", month: "long", year: "numeric" };
+  var lastModifiedDate = new Date(document.lastModified);
+  var date = lastModifiedDate.toLocaleDateString("en-US", options);
+  document.getElementById("date").innerHTML = date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
