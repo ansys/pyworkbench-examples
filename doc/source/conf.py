@@ -111,6 +111,7 @@ nbsphinx_thumbnails = {
     "examples/cooled-turbine-blade/main": "_static/thumbnails/cooled-turbine-blade.png",
     "examples/cyclic-symmetry-analysis/main": "_static/thumbnails/cyclic-symmetry-analysis.png",
     "examples/axisymmetric-rotor/main": "_static/thumbnails/axisymmetric-rotor.png",
+    "examples/ansys-aedt-workflow/main": "_static/thumbnails/ansys-aedt-workflow.png",
 }
 
 
