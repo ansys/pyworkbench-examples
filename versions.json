@@ -1,0 +1,12 @@
+[
+  {
+    "name": "dev",
+    "version": "dev",
+    "url": "https://examples.workbench.docs.pyansys.com/version/dev/"
+  },
+  {
+    "name": "0.4 (stable)",
+    "version": "0.4",
+    "url": "https://examples.workbench.docs.pyansys.com/version/stable/"
+  }
+]

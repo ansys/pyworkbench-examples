@@ -1,0 +1,14 @@
+import os
+import json
+
+# the path to the geometry file
+work_dir = GetServerWorkingDirectory()
+geometry_file = os.path.join(work_dir, "2pipes.agdb")
+
+# create a mechanical system with the given geometry
+template = GetTemplate(TemplateName="Static Structural", Solver="ANSYS")
+system = CreateSystemFromTemplate(Template=template, Name="Static Structural (ANSYS)")
+system.GetContainer(ComponentName="Geometry").SetFile(FilePath=geometry_file)
+
+# output system name
+wb_script_result = json.dumps(system.Name)
