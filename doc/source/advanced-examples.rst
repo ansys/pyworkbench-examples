@@ -10,4 +10,5 @@ and other PyAnsys libraries.
    examples/cooled-turbine-blade/main
    examples/cyclic-symmetry-analysis/main
    examples/axisymmetric-rotor/main
+   examples/material-designer-workflow/main
    examples/ansys-aedt-workflow/main

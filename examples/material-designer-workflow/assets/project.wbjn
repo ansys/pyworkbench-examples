@@ -1,0 +1,13 @@
+import os
+import json
+import string
+import os.path
+
+work_dir = GetServerWorkingDirectory()
+arg_ProjectArchive = os.path.join(work_dir, "MatDesigner.wbpz")
+
+# Description="Upzip the archived example project file"
+Unarchive(
+    ArchivePath=arg_ProjectArchive,
+    ProjectPath=GetAbsoluteUserPathName(work_dir + "wbpj\MatDesigner.wbpj"),
+    Overwrite=True)
