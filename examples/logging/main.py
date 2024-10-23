@@ -24,7 +24,6 @@ alternative_target_dir = workdir / "alternative_target_dir"
 wb = launch_workbench(server_workdir=str(server_workdir.absolute()), client_workdir=str(client_workdir.absolute()))
 
 # The `launch_workbench` function is called to start a Workbench session. 
-# The `release` parameter specifies the version of Workbench to launch. 
 # `server_workdir` and `client_workdir` are set to their absolute paths to avoid any ambiguity in directory locations.
 
 downloaded1 = wb.download_file('server1.*')
