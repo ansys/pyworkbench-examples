@@ -23,9 +23,9 @@ scripts = workdir / "scripts"
 agdb = workdir / "agdb"
 wb = launch_workbench(client_workdir=str(workdir.absolute()))
 
-# Upload a geometry file (`two_pipes.agdb`) from the client to the server using the `upload_file` method.
+# Upload a geometry file (`two_pipes.agdb`) from the example database to the server using the `upload_file_from_example_repo` method.
 
-wb.upload_file(str(agdb / "two_pipes.agdb"))
+wb.upload_file_from_example_repo("pymechanical-integration/agdb/two_pipes.agdb")
 
 # Execute a Workbench script (`project.wbjn`) to create a mechanical system and load the geometry using the `run_script_file` method. 
 # The name of the system created is stored in `system_name`.
