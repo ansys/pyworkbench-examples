@@ -35,7 +35,7 @@ scdoc = assets /"scdoc"
 jou = assets / "jou"
 # -
 
-# ## Launch the workbench session with specified Ansys release version, server and client working directories
+# ## Launch the workbench session with specified server and client working directories
 
 wb = launch_workbench(server_workdir=str(server_workdir.absolute()), client_workdir=str(workdir.absolute()))
 
