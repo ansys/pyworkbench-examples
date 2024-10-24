@@ -9,7 +9,7 @@ import sphinx
 from sphinx.util import logging
 from sphinx.util.display import status_iterator
 
-from ansys_sphinx_theme import pyansys_logo_black as logo, get_version_match, convert_version_to_pymeilisearch
+from ansys_sphinx_theme import get_version_match
 
 
 # Project information
@@ -46,7 +46,7 @@ extensions = [
 templates_path = ['_templates']
 exclude_examples = ["grantami-integration"]
 exclude_patterns = [
-    "conf.py", 
+    "conf.py",
     "examples/**/scripts/*.py",
     "examples/grantami-integration/*",
     "examples/logging/alternative_target_dir/*.py",
@@ -63,7 +63,6 @@ source_suffix = {
 # -- Options for HTML output -------------------------------------------------
 
 # Select desired logo, theme, and declare the html title
-html_logo = logo
 html_theme = "ansys_sphinx_theme"
 html_short_title = html_title = "PyWorkbench Examples"
 
@@ -79,13 +78,7 @@ html_theme_options = {
         "json_url": f"https://{cname}/versions.json",
         "version_match": get_version_match(version),
     },
-    "check_switcher": False,
-    "use_meilisearch": {
-        "api_key": os.getenv("MEILISEARCH_PUBLIC_API_KEY", ""),
-        "index_uids": {
-            f"pyworkbench-examples-v{convert_version_to_pymeilisearch(version)}": "pyworkbench-examples",  # noqa: E501
-        },
-    },
+    "logo" : "pyansys",
 }
 
 html_static_path = ["_static"]
@@ -164,16 +157,16 @@ def copy_examples_to_output_dir(app: sphinx.application.Sphinx, exception: Excep
     examples = [file for file in all_examples if f"{file.name}" not in exclude_examples]
 
     for file in status_iterator(
-            examples, 
+            examples,
             f"Copying example to doc/_build/{app.builder.name}/",
-            "green", 
+            "green",
             len(examples),
             verbosity=1,
             stringify_func=(lambda x: x.name),
     ):
         destination_file = OUTPUT_EXAMPLES / file.name
         destination_file.write_text(file.read_text())
-    
+
 
 def remove_examples_from_source_dir(app: sphinx.application.Sphinx, exception: Exception):
     """

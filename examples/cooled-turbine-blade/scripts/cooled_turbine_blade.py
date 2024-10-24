@@ -7,16 +7,16 @@ Unit System: MKS.
 
 Coverage:
 3D Thermal-Stress Analysis of a Cooled Turbine Blade.
-Convection, Mass Flow Rate, Temperatures are applied 
+Convection, Mass Flow Rate, Temperatures are applied
 to Thermal Fluid bodies. Adiabatic surfaces are fixed.
 Solved Thermal Stress analysis.
 
 Validation:
-Validated Solid Region Temperature Distribution, 
-Fluid Temperatures, Solid Surface Temperatures, 
+Validated Solid Region Temperature Distribution,
+Fluid Temperatures, Solid Surface Temperatures,
 Fluid Temperature Along Path of Hole Number 1,
 Solid Temperature Along Path of Hole Number 1.
-Validated maximum Von Mises Stresses for Solid Region, 
+Validated maximum Von Mises Stresses for Solid Region,
 Von Mises Stress Along Path of Hole Number 1.
 
 """

@@ -36,7 +36,7 @@ from matplotlib import pyplot as plt
 # +
 workdir = pathlib.Path("__file__").parent
 
-server_workdir = workdir / 'server_workdir'  
+server_workdir = workdir / 'server_workdir'
 server_workdir.mkdir(exist_ok=True)
 
 scripts = workdir / "scripts"
@@ -60,13 +60,13 @@ client_dir = str(workdir.absolute())
 # ### Granta STK file = "granta_miscriptingtoolkit-3.2.164-py3-none-any.whl"
 # ### Granta STK is part of licensed Granta MI Enterprise Product.
 
-# ### Upgrade pip with this command: 
+# ### Upgrade pip with this command:
 
 # +
 # python -m pip install --upgrade pip
 # -
 
-# ### Install Granta Scriptting Toolkit with this command: 
+# ### Install Granta Scriptting Toolkit with this command:
 
 # +
 #python -m pip install granta_miscriptingtoolkit-3.2.164-py3-none-any.whl
@@ -166,7 +166,7 @@ temp_data_path = download_file("example_10_Temperature_Data.txt", "pymechanical"
 
 geometry_path = geometry_path.replace("\\",r"/")
 cfx_data_path = cfx_data_path.replace("\\",r"/")
-temp_data_path = temp_data_path.replace("\\",r"/")  
+temp_data_path = temp_data_path.replace("\\",r"/")
 
 # ### Pass this vairable info to the PyMechanical instance
 
@@ -186,7 +186,7 @@ print(mech_output)
 # ### Download output files from PyMechanical working directory and print contents
 
 # +
-# Specify Mechanical directory 
+# Specify Mechanical directory
 mechanical.run_python_script(f"solve_dir=ExtAPI.DataModel.AnalysisList[0].WorkingDir")
 
 result_solve_dir_server = mechanical.run_python_script(f"solve_dir")
@@ -242,7 +242,7 @@ if image_path_server != "":
     )
     image_local_path = local_file_path_list[0]
     print(f"Local image path : {image_local_path}")
-    
+
     display_image(image_local_path)
 # -
 

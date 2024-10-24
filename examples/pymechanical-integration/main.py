@@ -1,9 +1,9 @@
 # # PyMechanical integration
 
-# This example demonstrates how to use PyWorkbench and PyMechanical together to upload geometry, run simulations, and visualize results. 
+# This example demonstrates how to use PyWorkbench and PyMechanical together to upload geometry, run simulations, and visualize results.
 # It covers launching services, running scripts, and handling files between the client and server.
 
-# First, import the necessary modules. We import `pathlib` for handling filesystem paths, `os` for interacting with the operating system, and `pyvista` for visualization. 
+# First, import the necessary modules. We import `pathlib` for handling filesystem paths, `os` for interacting with the operating system, and `pyvista` for visualization.
 # The `launch_workbench` function from `ansys.workbench.core` is imported to start a Workbench session, and `launch_mechanical` from `ansys.mechanical.core` to start a Mechanical session.
 
 import os
@@ -12,9 +12,9 @@ import pyvista as pv
 from ansys.workbench.core import launch_workbench
 from ansys.mechanical.core import launch_mechanical
 
-# Define several directories that will be used during the session. 
-# `workdir` is set to the parent directory of the current file. 
-# `assets`, `scripts`, and `agdb` are subdirectories within the working directory. 
+# Define several directories that will be used during the session.
+# `workdir` is set to the parent directory of the current file.
+# `assets`, `scripts`, and `agdb` are subdirectories within the working directory.
 # The `launch_workbench` function is called to start a Workbench session with specified directories.
 
 workdir = pathlib.Path("__file__").parent
@@ -27,21 +27,21 @@ wb = launch_workbench(client_workdir=str(workdir.absolute()))
 
 wb.upload_file_from_example_repo("pymechanical-integration/agdb/two_pipes.agdb")
 
-# Execute a Workbench script (`project.wbjn`) to create a mechanical system and load the geometry using the `run_script_file` method. 
+# Execute a Workbench script (`project.wbjn`) to create a mechanical system and load the geometry using the `run_script_file` method.
 # The name of the system created is stored in `system_name`.
 
 system_name = wb.run_script_file(str((assets / "project.wbjn").absolute()))
 
-# Start a PyMechanical service for the specified system using the `start_mechanical_server` method. 
-# Create a PyMechanical client connected to this service using `launch_mechanical`. 
+# Start a PyMechanical service for the specified system using the `start_mechanical_server` method.
+# Create a PyMechanical client connected to this service using `launch_mechanical`.
 # The project directory is printed to verify the connection.
 
 pymech_port = wb.start_mechanical_server(system_name=system_name)
 mechanical = launch_mechanical(start_instance=False, ip='localhost', port=pymech_port)
 print(mechanical.project_directory)
 
-# Read and execute the script `solve.py` via the PyMechanical client using `run_python_script`. 
-# This script typically contains commands to mesh and solve the model. 
+# Read and execute the script `solve.py` via the PyMechanical client using `run_python_script`.
+# This script typically contains commands to mesh and solve the model.
 # The output of the script is printed.
 
 with open(scripts / "solve.py") as sf:
@@ -58,8 +58,8 @@ mechanical.download("*deformation.png", target_dir=wb.client_workdir)
 with open(os.path.join(wb.client_workdir, "solve.out"), "r") as f:
     print(f.read())
 
-# Plot the deformation result (`deformation.png`) using `pyvista`. 
-# A `Plotter` object is created, and the image is added as a background. 
+# Plot the deformation result (`deformation.png`) using `pyvista`.
+# A `Plotter` object is created, and the image is added as a background.
 # The plot is then displayed.
 
 pl = pv.Plotter()

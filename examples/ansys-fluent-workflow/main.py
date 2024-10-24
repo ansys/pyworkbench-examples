@@ -27,8 +27,8 @@ from ansys.workbench.core import launch_workbench
 # +
 workdir = pathlib.Path("__file__").parent
 
-server_workdir = workdir / 'server_workdir'  
-server_workdir.mkdir(exist_ok=True)  
+server_workdir = workdir / 'server_workdir'
+server_workdir.mkdir(exist_ok=True)
 
 assets = workdir / "assets"
 scdoc = assets /"scdoc"
@@ -46,7 +46,7 @@ wb.upload_file(str(scdoc / "mixing_elbow.scdoc"))
 wb.upload_file(str(jou / "setup.jou"))
 wb.upload_file(str(jou / "solve.jou"))
 
-# ## Executing a workbench script 
+# ## Executing a workbench script
 # This will configure the workbench project schematic. This file is Ansys Workbench recorded journal file (Python Script). This can be easily configured as per requirement.
 # >Note: For a better understanding of how meshing, setup, and solve workflows are being utilized, please refer to the project.wbjn file.
 
