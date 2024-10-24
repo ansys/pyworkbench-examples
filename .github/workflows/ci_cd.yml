@@ -62,7 +62,7 @@ jobs:
     runs-on: [self-hosted, pyworkbench]
     needs: [doc-style]
     steps:
-        
+
       - name: "Checkout project"
         uses: actions/checkout@v4
         with:
@@ -78,7 +78,7 @@ jobs:
         run: |
           Copy-Item -Path "data\pyworkbench\*" -Destination "pyworkbench-examples\examples" -Recurse -Force
           Get-ChildItem -Path "pyworkbench-examples\examples" -Recurse
-      
+
       - name: "Install Python ${{ env.MAIN_PYTHON_VERSION }}"
         uses: actions/setup-python@v5
         with:
@@ -116,10 +116,10 @@ jobs:
         run: |
           $processNames = @("ANSYS", "ANSYS241", "AnsysWBU", "AnsysFWW", "RunWB2")
           $foundAnyProcess = $false
-          
+
           foreach ($processName in $processNames) {
               $process = Get-Process -Name $processName -ErrorAction SilentlyContinue
-          
+
               if ($process) {
                   $process | Stop-Process -Force
                   $foundAnyProcess = $true
@@ -127,7 +127,7 @@ jobs:
                   Write-Output "No process named '$processName' was found."
               }
           }
-          
+
           if (-not $foundAnyProcess) {
               Write-Output "No specified processes were found."
           }

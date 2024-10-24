@@ -1,6 +1,6 @@
 # # Transient Electro-Thermal Simulation of Transient Voltage Suppression (TVS) Diodes
 
-# This notebook demonstrates the process of running a Workbench service with Electronic Desktop on a local machine to solve highly non-linear Diode response subjected to high thermal load and mechanical stresses.  
+# This notebook demonstrates the process of running a Workbench service with Electronic Desktop on a local machine to solve highly non-linear Diode response subjected to high thermal load and mechanical stresses.
 # It includes steps for uploading project files, executing scripts.
 
 
@@ -30,8 +30,8 @@ wb = launch_workbench(client_workdir=str(workdir.absolute()))
 wb.upload_file_from_example_repo("ansys-aedt-workflow/wbpz/TVR14471_V_short.wbpz")
 wb.upload_file(str(assets / "10_1000_Pulse_short.csv"))
 
-# Execute a Workbench script (`project.wbjn`) to define the project and load the geometry using the `run_script_file` method. 
-# The `set_log_file` method is used to direct the logs to `wb_log_file.log`. 
+# Execute a Workbench script (`project.wbjn`) to define the project and load the geometry using the `run_script_file` method.
+# The `set_log_file` method is used to direct the logs to `wb_log_file.log`.
 #
 # **Note**: For full-scale simulation use `TVR14471_V.wbpz` in line 7 of `project.wbjn`
 

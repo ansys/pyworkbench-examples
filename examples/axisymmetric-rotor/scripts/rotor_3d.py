@@ -6,13 +6,13 @@ Rotordynamics of a shaft assembly based on a representative model of Nelson-Vaug
 UNIT System: NMM TON and RPM
 
 Coverage:
-Modal analyses of the 3D solid model with and without gyroscopic 
+Modal analyses of the 3D solid model with and without gyroscopic
 effects are solved.
 Campbell diagram analyses are performed for the 3D solid model.
 Unbalance response analyses are solved for the 3D solid model.
 
 Validation:
-Frequency response and total deformation results are compared 
+Frequency response and total deformation results are compared
 between the general axisymmetric model and 3D solid model.
 
 """
@@ -295,7 +295,7 @@ TOT_DEF12.CreateParameter("ReportedFrequency")
 SOLN1.Activate()
 SOLN1.ClearGeneratedData()
 SOLN1.Solve(True)
-	
+
 FREQ_1_MODAL1 = SOLN1.TabularData.Values[1][0]
 FREQ_2_MODAL1 = SOLN1.TabularData.Values[1][1]
 FREQ_3_MODAL1 = SOLN1.TabularData.Values[1][2]
@@ -398,7 +398,7 @@ TOT_DEF2_12.CreateParameter("ReportedFrequency")
 SOLN2.Activate()
 SOLN2.ClearGeneratedData()
 SOLN2.Solve(True)
-	
+
 FREQ_1_MODAL2 = SOLN2.TabularData.Values[1][0]
 FREQ_2_MODAL2 = SOLN2.TabularData.Values[1][1]
 FREQ_3_MODAL2 = SOLN2.TabularData.Values[1][2]
@@ -501,7 +501,7 @@ export_path = os.path.join(mechdir, "tot_deform_3D.png")
 Tree.Activate([TOT_DEF3_1])
 ExtAPI.Graphics.ViewOptions.ResultPreference.ExtraModelDisplay=Ansys.Mechanical.DataModel.MechanicalEnums.Graphics.ExtraModelDisplay.NoWireframe
 ExtAPI.Graphics.ExportImage(export_path, image_export_format, settings_720p)
-	
+
 FREQ_1_MODAL3 = SOLN3.TabularData.Values[3][18]
 FREQ_2_MODAL3 = SOLN3.TabularData.Values[3][19]
 FREQ_3_MODAL3 = SOLN3.TabularData.Values[3][20]
@@ -611,6 +611,6 @@ TOT_DEF4_2.Activate()
 # Reset Number of Processors
 # MODAL1.SolveConfiguration.SolveProcessSettings.MaxNumberOfCores=testval2
 
-results = { "Total Deformation": str(TOT_DEF4_1.Maximum), 
+results = { "Total Deformation": str(TOT_DEF4_1.Maximum),
             "Total Deformation 2": str(TOT_DEF4_2.Maximum)}
 json.dumps(results)

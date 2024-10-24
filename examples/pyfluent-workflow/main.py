@@ -216,7 +216,7 @@ fluent_session.exit()
 save_string = """import os
 workdir = GetServerWorkingDirectory()
 path = os.path.join(workdir, "mixing_elbow.wbpj")
-Save(FilePath=path , Overwrite=True)"""  
+Save(FilePath=path , Overwrite=True)"""
 wb.run_script_string(save_string)
 
 # ## Archive Project
@@ -224,7 +224,7 @@ wb.run_script_string(save_string)
 archive_string ="""import os
 workdir = GetServerWorkingDirectory()
 path = os.path.join(workdir, "mixing_elbow.wbpz")
-Archive(FilePath=path , IncludeExternalImportedFiles=True)"""  
+Archive(FilePath=path , IncludeExternalImportedFiles=True)"""
 wb.run_script_string(archive_string)
 
 # ## Download the archived project which has all simulation data and results.

@@ -12,13 +12,13 @@
 ;###############################################################################
 ;#----------------------------Physics Models------------------------------------
 ;# Energy Modelling
-/define/models/energy y n n n yes 
+/define/models/energy y n n n yes
 ;###############################################################################
 ;#----------------------------Materials-----------------------------------------
 ;# Copy Material from the Fluent database
 /define/materials/copy fluid water-liquid
 ;# assigned copied material to fluid zone
-/define/boundary-conditions/fluid fluid yes water-liquid no no no no 0. no 0. no 0. no 0 no 0 no 1 no no no no no 
+/define/boundary-conditions/fluid fluid yes water-liquid no no no no 0. no 0. no 0. no 0 no 0 no 1 no no no no no
 ;###############################################################################
 ;#----------------------------Modify BCs----------------------------------------
 ;# Set/Modify Boundary-Conditions to the right zones

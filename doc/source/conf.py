@@ -46,7 +46,7 @@ extensions = [
 templates_path = ['_templates']
 exclude_examples = ["grantami-integration"]
 exclude_patterns = [
-    "conf.py", 
+    "conf.py",
     "examples/**/scripts/*.py",
     "examples/grantami-integration/*",
     "examples/logging/alternative_target_dir/*.py",
@@ -157,16 +157,16 @@ def copy_examples_to_output_dir(app: sphinx.application.Sphinx, exception: Excep
     examples = [file for file in all_examples if f"{file.name}" not in exclude_examples]
 
     for file in status_iterator(
-            examples, 
+            examples,
             f"Copying example to doc/_build/{app.builder.name}/",
-            "green", 
+            "green",
             len(examples),
             verbosity=1,
             stringify_func=(lambda x: x.name),
     ):
         destination_file = OUTPUT_EXAMPLES / file.name
         destination_file.write_text(file.read_text())
-    
+
 
 def remove_examples_from_source_dir(app: sphinx.application.Sphinx, exception: Exception):
     """

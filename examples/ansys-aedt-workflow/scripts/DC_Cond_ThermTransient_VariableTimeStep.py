@@ -13,7 +13,7 @@
 # 3.	For each time point from the *.csv file:
 #       •	Update the value of current in the Maxwell design
 #       •	Run Maxwell Design
-#       •	Pass power Loss Density to Mechanical 
+#       •	Pass power Loss Density to Mechanical
 #       •	Run a time step in Mechanical
 # 4.	For each time step in Mechanical transient, the temperature from the precious time step must be preserved and the fields saved (restart)
 
@@ -56,12 +56,12 @@ def RefreshReport(step):
 	PrjFullName = GetProjectFile()
 	Setting.PrjPath=os.path.dirname(PrjFullName)
 	Setting.UserDir=Project.GetUserFilesDirectory()
-	
+
 	shutil.copyfile(step.Extension.InstallDir+'\\help\\report.html', Setting.UserDir+'\\report.html')
 	report = step.UserInterface.GetComponent("Report")
 	report.SetHtmlContent(Setting.UserDir+'\\report.html')
 	report.Refresh()
-    
+
 def EmptyReset(step):
     pass
 
@@ -158,7 +158,7 @@ def ChangeStep(ThermCompSetup, StepEndTime, MinTimeStep, MaxTimeStep, counter,Ns
 		commandText+=\"antype,transient,rest\\n\";
 		commandText+=\"rescontrol,define,last,last\\n\";
 		commandText+=\"thopt,full\\n\";
-        commandText+=\"nsubst,'''+str(Nsubsteps)+'''\\n\";        
+        commandText+=\"nsubst,'''+str(Nsubsteps)+'''\\n\";
 		commandText+=\"time,\"+endTime.toString()+\"\\n\";
 		commandText+=\"/input,loss,dat\\n\";
 		commandText+=\"save\\n\";
@@ -169,7 +169,7 @@ def ChangeStep(ThermCompSetup, StepEndTime, MinTimeStep, MaxTimeStep, counter,Ns
 	fTempFile.close()
 	s2 = os.path.join(Setting.UserDir, "temp.js").replace("\\","\\\\")
 	ThermCompSetup.SendCommand(Command="WB.AppletList.Applet(\"DSApplet\").App.Script.doToolsRunMacro(\""+s2+"\")")
-  
+
 def Remove_APDL_Command(ThermCompSetup):
 	global Setting
 	fTempFile = open(os.path.join(Setting.UserDir, "temp.js"),"w")
@@ -206,7 +206,7 @@ def CopyFiles(counter):
 	shutil.copyfile(Setting.ThermSystemDir+'\\file.LDHI', Setting.UserDir+'\\file.LDHI')
 	shutil.copyfile(Setting.ThermSystemDir+'\\file.rth', Setting.UserDir+'\\file.rth')
 	shutil.copyfile(Setting.ThermSystemDir+'\\file.r'+string, Setting.UserDir+'\\file.r'+string)
-	
+
 def ClearUserDir(counter):
 	global Setting
 	string_prev = str(counter-1).zfill(3)
@@ -219,7 +219,7 @@ def ClearUserDir(counter):
 	if File.Exists(Setting.UserDir+'\\file.r'+string_prev):
 		os.remove(Setting.UserDir+'\\file.r'+string_prev)
 	if File.Exists(Setting.UserDir+'\\temp.js'):
-		os.remove(Setting.UserDir+'\\temp.js')	
+		os.remove(Setting.UserDir+'\\temp.js')
 
 # Variables Initialization
 
@@ -229,7 +229,7 @@ mxwl_design_var_name = 'I_pulse'
 
 # read the CSV file path # write a wbjn file to read the csv file path
 work_dir = GetServerWorkingDirectory()
-csv_file = os.path.join(work_dir, "10_1000_Pulse_Short.csv") 
+csv_file = os.path.join(work_dir, "10_1000_Pulse_Short.csv")
 input_values = csv.reader(open(csv_file))
 
 pulse_list_row = []
@@ -242,7 +242,7 @@ for n_row in range(len(pulse_list_row)):
     if len(pulse_list_row[n_row])==2: #integer only
         i_list.append(pulse_list_row[n_row][1].partition(';')[2])
     if len(pulse_list_row[n_row])==3: #float
-        i_list.append(pulse_list_row[n_row][1].partition(';')[2]+'.'+pulse_list_row[n_row][2]) 
+        i_list.append(pulse_list_row[n_row][1].partition(';')[2]+'.'+pulse_list_row[n_row][2])
 
 my_input_I = str(i_list[0])+"A"
 
@@ -272,12 +272,12 @@ Setting.LogFileName=os.path.join(Setting.PrjPath , Setting.PrjName + "_2way_log.
 
 if File.Exists(Setting.LogFileName):
     os.remove(Setting.LogFileName)
-    
+
 # Check analysis type (2D/3D)
 
 if "2D" in str(MaxwSolution):
     an_dim=2
-    
+
 if "3D" in str(MaxwSolution):
     an_dim=3
 
@@ -304,7 +304,7 @@ MechSolution.Clean()
 Remove_APDL_Command(ThermCompSetup)
 
 # First Coupling Step
-# Retrieve parameters from lists	
+# Retrieve parameters from lists
 StepEndTime = t_list[0]
 MinTimeStep = StepEndTime
 MaxTimeStep = StepEndTime #no substeps in mechanical
@@ -317,7 +317,7 @@ MaxwSys.SendAnsoftCommand(PyCommand="""oDesktop.SetActiveProject(\""""+mxwl_proj
 		[
 			\"NAME:LocalVariableTab\",
 			[
-				\"NAME:PropServers\", 
+				\"NAME:PropServers\",
 				\"LocalVariables\"
 			],
 			[
@@ -349,7 +349,7 @@ while counter < nSteps:
     logging.info("Step n." + " " + str(step_n) + " " + "- Copy files for new step")
     CopyFiles(counter)
     logging.info("Step n." + " " + str(step_n) + " " + "- Maxwell solution start")
-    
+
     my_input_I = str(i_list[counter])+"A"
     MaxwSys.SendAnsoftCommand(PyCommand="""oDesktop.SetActiveProject(\""""+mxwl_project_name+ """\").SetActiveDesign(\""""+mxwl_design_name+"""\").ChangeProperty(
 	[
@@ -357,7 +357,7 @@ while counter < nSteps:
 		[
 			\"NAME:LocalVariableTab\",
 			[
-				\"NAME:PropServers\", 
+				\"NAME:PropServers\",
 				\"LocalVariables\"
 			],
 			[
@@ -369,8 +369,8 @@ while counter < nSteps:
 			]
 		]
 	])""")
-    MaxwSys.SendAnsoftCommand(PyCommand="""oDesktop.AddMessage("""+"\""""+mxwl_project_name+"""","""+"\""""+mxwl_design_name+"""",0,"My Current is: """+my_input_I+"""")""")  
-    
+    MaxwSys.SendAnsoftCommand(PyCommand="""oDesktop.AddMessage("""+"\""""+mxwl_project_name+"""","""+"\""""+mxwl_design_name+"""",0,"My Current is: """+my_input_I+"""")""")
+
     Ansoft.ForceSolutionIntoUpdateRequiredState(System=MaxwSys)
     MaxwSolution.Update(AllDependencies=True)
     logging.info("Step n." + " " + str(step_n) + " " + "- Maxwell solution end")
@@ -393,15 +393,15 @@ while counter < nSteps:
             copy = False
             continue
         elif copy:
-            fLoss.write(line)         
-            
+            fLoss.write(line)
+
     fdsdat.close()
     fLoss.close()
     logging.info("Step n." + " " + str(step_n) + " " + "- Thermal solution start")
     time.sleep(2)
     MechSolution.Update(AllDependencies=True)
     logging.info("Step n." + " " + str(step_n) + " " + "- Thermal solution end")
-    
+
     counter = counter + 1
 
 logging.info("Coupled simulation end")
@@ -424,4 +424,4 @@ logging.info("Temperature plot extraction end")
 
 ClearUserDir(counter)
 logging.shutdown()
-	
+
