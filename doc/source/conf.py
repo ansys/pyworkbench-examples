@@ -9,7 +9,7 @@ import sphinx
 from sphinx.util import logging
 from sphinx.util.display import status_iterator
 
-from ansys_sphinx_theme import pyansys_logo_black as logo, get_version_match, convert_version_to_pymeilisearch
+from ansys_sphinx_theme import pyansys_logo_black as get_version_match
 
 
 # Project information
@@ -63,7 +63,6 @@ source_suffix = {
 # -- Options for HTML output -------------------------------------------------
 
 # Select desired logo, theme, and declare the html title
-html_logo = logo
 html_theme = "ansys_sphinx_theme"
 html_short_title = html_title = "PyWorkbench Examples"
 
@@ -79,13 +78,7 @@ html_theme_options = {
         "json_url": f"https://{cname}/versions.json",
         "version_match": get_version_match(version),
     },
-    "check_switcher": False,
-    "use_meilisearch": {
-        "api_key": os.getenv("MEILISEARCH_PUBLIC_API_KEY", ""),
-        "index_uids": {
-            f"pyworkbench-examples-v{convert_version_to_pymeilisearch(version)}": "pyworkbench-examples",  # noqa: E501
-        },
-    },
+    "logo" : "pyansys",
 }
 
 html_static_path = ["_static"]
