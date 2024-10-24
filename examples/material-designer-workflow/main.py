@@ -1,16 +1,16 @@
 # # Material Designer
 
-# This notebook demonstrates the process of sending user-defined parameter values to a parameterized analysis and receive the corresponding simulation output via a Workbench service on a local machine. 
+# This notebook demonstrates the process of sending user-defined parameter values to a parameterized analysis and receive the corresponding simulation output via a Workbench service on a local machine.
 
 import os
 import pathlib
 
 from ansys.workbench.core import launch_workbench
 
-# Launch the Workbench service on the local machine, using some options. 
-# Define several directories that will be used during the session. 
-# `workdir` is set to the parent directory of the current file. 
-# `assets`, `scripts`, and `wbpz` are subdirectories within the working directory. 
+# Launch the Workbench service on the local machine, using some options.
+# Define several directories that will be used during the session.
+# `workdir` is set to the parent directory of the current file.
+# `assets`, `scripts`, and `wbpz` are subdirectories within the working directory.
 # The `launch_workbench` function is called to start a Workbench session with specified directory.
 
 workdir = pathlib.Path("__file__").parent
@@ -19,12 +19,12 @@ assets = workdir / "assets"
 
 wb = launch_workbench(client_workdir=str(workdir.absolute()))
 
-# Upload the project files to the server using the `upload_file_from_example_repo` method. 
+# Upload the project files to the server using the `upload_file_from_example_repo` method.
 # The file to upload is `MatDesigner.wbpz`.
 
 wb.upload_file_from_example_repo('material-designer-workflow/wbpz/MatDesigner.wbpz')
 
-# Execute a Workbench script (`project.wbjn`) to define the project and load the geometry using the `run_script_file` method. 
+# Execute a Workbench script (`project.wbjn`) to define the project and load the geometry using the `run_script_file` method.
 # The `set_log_file` method is used to direct the logs to `wb_log_file.log`.
 
 export_path = 'wb_log_file.log'

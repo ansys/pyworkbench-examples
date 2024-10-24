@@ -10,7 +10,7 @@ model is composed of 13 primary blades and splitters located at a distance
 of 1 mm from the rigid wall at the start of the analysis.
 
 Coverage:
-Modal, perturbed prestressed modal with linear and nonlinear base static 
+Modal, perturbed prestressed modal with linear and nonlinear base static
 solution, full-harmonic are performed on the cyclic-sector model.
 Cyclic symmetry is applied.
 Pressure, Rotational Velocity and Thermal Condition are applied.
@@ -355,6 +355,6 @@ export_path = os.path.join(mechdir, "deformation.png")
 TOT_DEF4_1.Activate()
 Graphics.ExportImage(export_path, GraphicsImageExportFormat.PNG)
 
-results = { "Total Deformation": str(TOT_DEF4_1.Maximum), 
+results = { "Total Deformation": str(TOT_DEF4_1.Maximum),
             "Total Deformation 2": str(TOT_DEF4_2.Maximum)}
 json.dumps(results)

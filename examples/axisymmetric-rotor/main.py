@@ -1,6 +1,6 @@
 # # Axisymmetric rotor
 
-# This notebook demonstrates the process of running a Workbench service on a local machine to solve both 2D general axisymmetric rotor and 3D rotor models using PyMechanical. 
+# This notebook demonstrates the process of running a Workbench service on a local machine to solve both 2D general axisymmetric rotor and 3D rotor models using PyMechanical.
 # It includes steps for uploading project files, executing scripts, downloading results, and displaying output images.
 
 import os
@@ -20,8 +20,8 @@ scripts = workdir / "scripts"
 
 wb = launch_workbench(client_workdir=str(workdir.absolute()))
 
-# Upload the project files to the server using the `upload_file_from_example_repo` method. 
-# The files uploaded are `axisymmetric_model.agdb`, `rotor_3d_model.agdb`. 
+# Upload the project files to the server using the `upload_file_from_example_repo` method.
+# The files uploaded are `axisymmetric_model.agdb`, `rotor_3d_model.agdb`.
 
 wb.upload_file_from_example_repo("axisymmetric-rotor/agdb/axisymmetric_model.agdb")
 wb.upload_file_from_example_repo("axisymmetric-rotor/agdb/rotor_3d_model.agdb")
@@ -103,7 +103,7 @@ if image_path_server != "":
     )
     image_local_path = local_file_path_list[0]
     print(f"Local image path : {image_local_path}")
-    
+
     display_image(image_local_path)
 
 # Specify the Mechanical directory for the Unbalance Response Analysis and fetch the working directory path.
@@ -196,7 +196,7 @@ if image_path_server != "":
     )
     image_local_path = local_file_path_list[0]
     print(f"Local image path : {image_local_path}")
-    
+
     display_image(image_local_path)
 
 # Specify the Mechanical directory for the Unbalance Response Analysis and fetch the working directory path.
