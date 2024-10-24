@@ -9,7 +9,7 @@ import sphinx
 from sphinx.util import logging
 from sphinx.util.display import status_iterator
 
-from ansys_sphinx_theme import pyansys_logo_black as get_version_match
+from ansys_sphinx_theme import get_version_match
 
 
 # Project information
