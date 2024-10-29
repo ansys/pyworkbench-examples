@@ -2,6 +2,6 @@
 ansys-fluent-core==0.20.1
 ansys-fluent-visualization==0.14.0
 pyaedt == 0.11.2
-ansys-mechanical-core==0.11.7
+ansys-mechanical-core==0.11.9
 pyvista[jupyter]
 matplotlib==3.9.2
