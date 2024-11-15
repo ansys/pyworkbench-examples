@@ -1,4 +1,4 @@
-# ansys-workbench-core @ git+https://github.com/ansys/pyworkbench
+ansys-workbench-core @ git+https://github.com/ansys/pyworkbench
 ansys-fluent-core==0.20.1
 ansys-fluent-visualization==0.14.0
 pyaedt == 0.11.4
