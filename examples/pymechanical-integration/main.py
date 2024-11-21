@@ -4,13 +4,14 @@
 # It covers launching services, running scripts, and handling files between the client and server.
 
 # First, import the necessary modules. We import `pathlib` for handling filesystem paths, `os` for interacting with the operating system, and `pyvista` for visualization.
-# The `launch_workbench` function from `ansys.workbench.core` is imported to start a Workbench session, and `launch_mechanical` from `ansys.mechanical.core` to start a Mechanical session.
+# The `launch_workbench` function from `ansys.workbench.core` is imported to start a Workbench session, and `connect_to_mechanical` from `ansys.mechanical.core` to start a Mechanical session.
 
 import os
 import pathlib
 import pyvista as pv
+
 from ansys.workbench.core import launch_workbench
-from ansys.mechanical.core import launch_mechanical
+from ansys.mechanical.core import connect_to_mechanical
 
 # Define several directories that will be used during the session.
 # `workdir` is set to the parent directory of the current file.
@@ -21,6 +22,7 @@ workdir = pathlib.Path("__file__").parent
 assets = workdir / "assets"
 scripts = workdir / "scripts"
 agdb = workdir / "agdb"
+
 wb = launch_workbench(client_workdir=str(workdir.absolute()))
 
 # Upload a geometry file (`two_pipes.agdb`) from the example database to the server using the `upload_file_from_example_repo` method.
@@ -33,11 +35,12 @@ wb.upload_file_from_example_repo("pymechanical-integration/agdb/two_pipes.agdb")
 system_name = wb.run_script_file(str((assets / "project.wbjn").absolute()))
 
 # Start a PyMechanical service for the specified system using the `start_mechanical_server` method.
-# Create a PyMechanical client connected to this service using `launch_mechanical`.
+# Create a PyMechanical client connected to this service using `connect_to_mechanical` method.
 # The project directory is printed to verify the connection.
 
 pymech_port = wb.start_mechanical_server(system_name=system_name)
-mechanical = launch_mechanical(start_instance=False, ip='localhost', port=pymech_port)
+
+mechanical = connect_to_mechanical(ip='localhost', port=pymech_port)
 print(mechanical.project_directory)
 
 # Read and execute the script `solve.py` via the PyMechanical client using `run_python_script`.
@@ -50,12 +53,12 @@ print(mechanical.run_python_script(mech_script))
 
 # Fetch output files (`*solve.out` and `*deformation.png`) from the solver directory to the client's working directory using the `download` method.
 
-mechanical.download("*solve.out", target_dir=wb.client_workdir)
-mechanical.download("*deformation.png", target_dir=wb.client_workdir)
+mechanical.download("*solve.out", target_dir=str(workdir.absolute()))
+mechanical.download("*deformation.png", target_dir=str(workdir.absolute()))
 
 # Read and print the content of the solver output file (`solve.out`) to the console.
 
-with open(os.path.join(wb.client_workdir, "solve.out"), "r") as f:
+with open(os.path.join(str(workdir.absolute()), "solve.out"), "r") as f:
     print(f.read())
 
 # Plot the deformation result (`deformation.png`) using `pyvista`.
@@ -63,7 +66,7 @@ with open(os.path.join(wb.client_workdir, "solve.out"), "r") as f:
 # The plot is then displayed.
 
 pl = pv.Plotter()
-pl.add_background_image(os.path.join(wb.client_workdir, "deformation.png"))
+pl.add_background_image(os.path.join(str(workdir.absolute()), "deformation.png"))
 pl.show()
 
 # Finally, the `exit` method is called on both the PyMechanical and Workbench clients to gracefully shut down the services, ensuring that all resources are properly released.
