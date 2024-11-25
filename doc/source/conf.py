@@ -93,7 +93,7 @@ nbsphinx_custom_formats = {
     ".mystnb": ["jupytext.reads", {"fmt": "mystnb"}],
     ".py": ["jupytext.reads", {"fmt": ""}],
 }
-nbsphinx_allow_errors = True
+nbsphinx_allow_errors = False
 nbsphinx_prompt_width = ""
 nbsphinx_thumbnails = {
     # Basic examples
