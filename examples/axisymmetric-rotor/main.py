@@ -7,7 +7,7 @@ import os
 import pathlib
 
 from ansys.workbench.core import launch_workbench
-from ansys.mechanical.core import launch_mechanical
+from ansys.mechanical.core import connect_to_mechanical
 
 # Launch the Workbench service on the local machine using specific options.
 # Define the working directory and subdirectories for assets, scripts, and geometry databases (agdb).
@@ -38,7 +38,8 @@ print(sys_name)
 # The project directory is printed to verify the connection.
 
 server_port = wb.start_mechanical_server(system_name=sys_name[1])
-mechanical = launch_mechanical(start_instance=False, ip='localhost', port=server_port)
+
+mechanical = connect_to_mechanical(ip='localhost', port=server_port)
 
 print(mechanical.project_directory)
 
@@ -127,11 +128,18 @@ solve_out_local_path = os.path.join(current_working_directory, "solve.out")
 write_file_contents_to_console(solve_out_local_path)
 os.remove(solve_out_local_path)
 
+# You can save, archive and download the project using `download_project_archive()` method.
+
+# +
+#wb.download_project_archive("test_name", show_progress=True)
+# -
+
 # Start a PyMechanical server for the 3D rotor model system and create a PyMechanical client session.
 # The project directory is printed to verify the connection.
 
 server_port = wb.start_mechanical_server(system_name=sys_name[0])
-mechanical = launch_mechanical(start_instance=False, ip='localhost', port=server_port)
+
+mechanical = connect_to_mechanical(ip='localhost', port=server_port)
 
 print(mechanical.project_directory)
 

@@ -4,13 +4,13 @@
 # It also includes launching PyMechanical to solve models and visualize results.
 
 # First, import the necessary modules. We import `pathlib` for handling filesystem paths and `os` for interacting with the operating system.
-# The `launch_workbench` function from `ansys.workbench.core` is imported to start a Workbench session, and `launch_mechanical` from `ansys.mechanical.core` to start a Mechanical session.
+# The `launch_workbench` function from `ansys.workbench.core` is imported to start a Workbench session, and `connect_to_mechanical` from `ansys.mechanical.core` to start a Mechanical session.
 
 import os
 import pathlib
 
 from ansys.workbench.core import launch_workbench
-from ansys.mechanical.core import launch_mechanical
+from ansys.mechanical.core import connect_to_mechanical
 
 # Launch the Workbench service on the local machine, using some options.
 # Define several directories that will be used during the session.
@@ -23,7 +23,7 @@ workdir = pathlib.Path("__file__").parent
 assets = workdir / "assets"
 scripts = workdir / "scripts"
 
-wb = launch_workbench(client_workdir=str(workdir.absolute()))
+wb = launch_workbench(show_gui=True,client_workdir=str(workdir.absolute()))
 
 # Upload the project files to the server using the `upload_file_from_example_repo` method.
 # The file to upload is `cooled_turbine_blade.wbpz`.
@@ -41,11 +41,12 @@ sys_name = wb.run_script_file(str((assets / "project.wbjn").absolute()), log_lev
 print(sys_name)
 
 # Start a PyMechanical server for the system using the `start_mechanical_server` method.
-# Create a PyMechanical client session connected to this server using `launch_mechanical`.
+# Create a PyMechanical client session connected to this server using `connect_to_mechanical`.
 # The project directory is printed to verify the connection.
 
 server_port = wb.start_mechanical_server(system_name=sys_name)
-mechanical = launch_mechanical(start_instance=False, ip='localhost', port=server_port)
+
+mechanical = connect_to_mechanical(ip='localhost', port=server_port)
 
 print(mechanical.project_directory)
 

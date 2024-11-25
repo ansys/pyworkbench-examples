@@ -7,7 +7,7 @@ import os
 import pathlib
 
 from ansys.workbench.core import launch_workbench
-from ansys.mechanical.core import launch_mechanical
+from ansys.mechanical.core import connect_to_mechanical
 
 # Launch the Workbench service on a remote host machine, specifying the remote host machine name and user login credentials.
 # Define several directories that will be used during the session.
@@ -37,11 +37,12 @@ sys_name = wb.run_script_file(str((assets / "project.wbjn").absolute()), log_lev
 print(sys_name)
 
 # Start a PyMechanical server for the system using the `start_mechanical_server` method.
-# Create a PyMechanical client session connected to this server using `launch_mechanical`.
+# Create a PyMechanical client session connected to this server using `connect_to_mechanical`.
 # The project directory is printed to verify the connection.
 
 server_port = wb.start_mechanical_server(system_name=sys_name)
-mechanical = launch_mechanical(start_instance=False, ip='localhost', port=server_port)
+
+mechanical = connect_to_mechanical(ip='localhost', port=server_port)
 
 print(mechanical.project_directory)
 
