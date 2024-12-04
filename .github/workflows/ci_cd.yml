@@ -104,6 +104,8 @@ jobs:
         run: |
           .venv\Scripts\Activate.ps1
           python -m sphinx doc/source "doc/_build/html" --color -vW -b html
+        env:
+          REMOTING_SERVER_ADDRESS: "localhost"
 
       - name: "Upload HTML artifacts"
         uses: actions/upload-artifact@v4
