@@ -1,7 +1,7 @@
 ansys-workbench-core @ git+https://github.com/ansys/pyworkbench
 ansys-fluent-core==0.27.0
 ansys-fluent-visualization==0.14.0
-pyaedt == 0.11.4
+pyaedt == 0.12.0
 ansys-mechanical-core==0.11.10
 pyvista[jupyter]
 matplotlib==3.9.2
