@@ -44,7 +44,7 @@ extensions = [
 
 
 templates_path = ['_templates']
-exclude_examples = ["grantami-integration", "ansys-aedt-workflow"]
+exclude_examples = ["grantami-integration", "ansys-aedt-workflow", "pyfluent-workflow"]
 exclude_patterns = [
     "conf.py",
     "examples/**/scripts/*.py",
