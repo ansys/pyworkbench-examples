@@ -1,0 +1,5 @@
+User-agent: *
+
+Disallow: /version/0.4
+
+Sitemap: https://examples.workbench.docs.pyansys.com/sitemap.xml
