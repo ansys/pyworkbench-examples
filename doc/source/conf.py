@@ -121,12 +121,10 @@ def copytree(src: pathlib.Path, dst: pathlib.Path, excluded: List[str]):
         dst (Path): The destination directory to copy to.
 
     Raises:
-        ValueError: If the source is not a directory or the destination already exists.
+        ValueError: If the source is not a directory.
     """
     if not src.is_dir():
         raise ValueError(f"The source {src} is not a directory.")
-    if dst.exists():
-        raise ValueError(f"The destination {dst} already exists.")
 
     # Create the destination directory
     dst.mkdir(parents=True, exist_ok=True)
