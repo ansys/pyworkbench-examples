@@ -111,6 +111,37 @@ nbsphinx_thumbnails = {
 
 # -- Sphinx application setup ------------------------------------------------
 
+def copytree(src: pathlib.Path, dst: pathlib.Path, excluded: list):
+    """
+    Recursively copy a directory tree using pathlib.
+
+    Args:
+        src (Path): The source directory to copy from.
+        dst (Path): The destination directory to copy to.
+
+    Raises:
+        ValueError: If the source is not a directory or the destination already exists.
+    """
+    if not src.is_dir():
+        raise ValueError(f"The source {src} is not a directory.")
+    if dst.exists():
+        raise ValueError(f"The destination {dst} already exists.")
+
+    # Create the destination directory
+    dst.mkdir(parents=True, exist_ok=True)
+
+    # Recursively copy files and subdirectories
+    for item in src.iterdir():
+        if item.name in excluded:
+            continue
+        src_item = item
+        dst_item = dst / item.name
+        if src_item.is_dir():
+            copytree(src_item, dst_item, excluded)
+        else:
+            dst_item.write_bytes(src_item.read_bytes())
+
+
 def copy_examples_dir_to_source_dir(app: sphinx.application.Sphinx):
     """
     Copy the examples directory to the source directory of the documentation.
@@ -122,12 +153,12 @@ def copy_examples_dir_to_source_dir(app: sphinx.application.Sphinx):
 
     """
     SOURCE_EXAMPLES = pathlib.Path(app.srcdir) / "examples"
-    if not SOURCE_EXAMPLES.exists():
-        SOURCE_EXAMPLES.mkdir(parents=True, exist_ok=True)
+    SOURCE_EXAMPLES.mkdir(parents=True, exist_ok=True)
 
     EXAMPLES_DIRECTORY = SOURCE_EXAMPLES.parent.parent.parent / "examples"
 
-    shutil.copytree(EXAMPLES_DIRECTORY, SOURCE_EXAMPLES, dirs_exist_ok=True)
+    copytree(EXAMPLES_DIRECTORY, SOURCE_EXAMPLES, exclude_examples)
+
 
 def copy_examples_to_output_dir(app: sphinx.application.Sphinx, exception: Exception):
     """
