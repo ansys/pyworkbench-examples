@@ -104,6 +104,8 @@ jobs:
         run: |
           .venv\Scripts\Activate.ps1
           python -m sphinx doc/source "doc/_build/html" --color -vW -b html
+        env:
+          REMOTING_SERVER_ADDRESS: "localhost"
 
       - name: "Upload HTML artifacts"
         uses: actions/upload-artifact@v4
@@ -162,6 +164,7 @@ jobs:
         uses: ansys/actions/doc-deploy-stable@v8
         with:
           cname: ${{ env.DOCUMENTATION_CNAME }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
           bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
           bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}
+

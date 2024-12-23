@@ -4,6 +4,7 @@ from datetime import datetime
 import os
 import pathlib
 import shutil
+from typing import List
 
 import sphinx
 from sphinx.util import logging
@@ -44,7 +45,7 @@ extensions = [
 
 
 templates_path = ['_templates']
-exclude_examples = ["grantami-integration"]
+exclude_examples = ["grantami-integration", "ansys-aedt-workflow", "pyfluent-workflow"]
 exclude_patterns = [
     "conf.py",
     "examples/**/scripts/*.py",
@@ -93,7 +94,7 @@ nbsphinx_custom_formats = {
     ".mystnb": ["jupytext.reads", {"fmt": "mystnb"}],
     ".py": ["jupytext.reads", {"fmt": ""}],
 }
-nbsphinx_allow_errors = True
+nbsphinx_allow_errors = False
 nbsphinx_prompt_width = ""
 nbsphinx_thumbnails = {
     # Basic examples
@@ -111,6 +112,35 @@ nbsphinx_thumbnails = {
 
 # -- Sphinx application setup ------------------------------------------------
 
+def copytree(src: pathlib.Path, dst: pathlib.Path, excluded: List[str]):
+    """
+    Recursively copy a directory tree using pathlib.
+
+    Args:
+        src (Path): The source directory to copy from.
+        dst (Path): The destination directory to copy to.
+
+    Raises:
+        ValueError: If the source is not a directory.
+    """
+    if not src.is_dir():
+        raise ValueError(f"The source {src} is not a directory.")
+
+    # Create the destination directory
+    dst.mkdir(parents=True, exist_ok=True)
+
+    # Recursively copy files and subdirectories
+    for item in src.iterdir():
+        if item.name in excluded:
+            continue
+        src_item = item
+        dst_item = dst / item.name
+        if src_item.is_dir():
+            copytree(src_item, dst_item, excluded)
+        else:
+            shutil.copy2(src_item, dst_item)
+
+
 def copy_examples_dir_to_source_dir(app: sphinx.application.Sphinx):
     """
     Copy the examples directory to the source directory of the documentation.
@@ -122,12 +152,12 @@ def copy_examples_dir_to_source_dir(app: sphinx.application.Sphinx):
 
     """
     SOURCE_EXAMPLES = pathlib.Path(app.srcdir) / "examples"
-    if not SOURCE_EXAMPLES.exists():
-        SOURCE_EXAMPLES.mkdir(parents=True, exist_ok=True)
+    SOURCE_EXAMPLES.mkdir(parents=True, exist_ok=True)
 
     EXAMPLES_DIRECTORY = SOURCE_EXAMPLES.parent.parent.parent / "examples"
 
-    shutil.copytree(EXAMPLES_DIRECTORY, SOURCE_EXAMPLES, dirs_exist_ok=True)
+    copytree(EXAMPLES_DIRECTORY, SOURCE_EXAMPLES, exclude_examples)
+
 
 def copy_examples_to_output_dir(app: sphinx.application.Sphinx, exception: Exception):
     """
@@ -202,5 +232,5 @@ def setup(app: sphinx.application.Sphinx):
     # build has completed, no matter its success, the examples are removed from
     # the source directory.
     app.connect("builder-inited", copy_examples_dir_to_source_dir)
-    #app.connect("build-finished", remove_examples_from_source_dir)
+    app.connect("build-finished", remove_examples_from_source_dir)
     app.connect("build-finished", copy_examples_to_output_dir)
