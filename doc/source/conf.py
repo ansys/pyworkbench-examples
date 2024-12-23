@@ -4,6 +4,7 @@ from datetime import datetime
 import os
 import pathlib
 import shutil
+from typing import List
 
 import sphinx
 from sphinx.util import logging
@@ -111,7 +112,7 @@ nbsphinx_thumbnails = {
 
 # -- Sphinx application setup ------------------------------------------------
 
-def copytree(src: pathlib.Path, dst: pathlib.Path, excluded: list):
+def copytree(src: pathlib.Path, dst: pathlib.Path, excluded: List[str]):
     """
     Recursively copy a directory tree using pathlib.
 
@@ -139,7 +140,7 @@ def copytree(src: pathlib.Path, dst: pathlib.Path, excluded: list):
         if src_item.is_dir():
             copytree(src_item, dst_item, excluded)
         else:
-            dst_item.write_bytes(src_item.read_bytes())
+            shutil.copy2(src_item, dst_item)
 
 
 def copy_examples_dir_to_source_dir(app: sphinx.application.Sphinx):
@@ -233,5 +234,5 @@ def setup(app: sphinx.application.Sphinx):
     # build has completed, no matter its success, the examples are removed from
     # the source directory.
     app.connect("builder-inited", copy_examples_dir_to_source_dir)
-    #app.connect("build-finished", remove_examples_from_source_dir)
+    app.connect("build-finished", remove_examples_from_source_dir)
     app.connect("build-finished", copy_examples_to_output_dir)
