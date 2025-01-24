@@ -1,0 +1,15 @@
+;###############################################################################
+;#----------------------------General Info--------------------------------------
+;# Date				: 30/05/2023
+;# Description		: tui v24.4
+;# Purpose			: PyWorkbench Use Case
+;###############################################################################
+;#----------------------------Solution Methods----------------------------------
+/solve moni residual plot no
+/solve/iterate 150
+/display/set-win 1
+/display/set/picture/driver jpeg
+/display/save-pic residual.jpeg q
+/display/objects/ create contour contour_1 field temperature surfaces-list symmetry-xyplane () q
+/display/objects/display contour_1 q
+/display/save-pic contour_1.jpeg q
