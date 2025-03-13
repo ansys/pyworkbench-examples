@@ -79,25 +79,26 @@ jobs:
           Copy-Item -Path "data\pyworkbench\*" -Destination "pyworkbench-examples\examples" -Recurse -Force
           Get-ChildItem -Path "pyworkbench-examples\examples" -Recurse
 
-      - name: "Install Python ${{ env.MAIN_PYTHON_VERSION }}"
-        uses: actions/setup-python@v5
+      - name: "Setup uv with Python ${{ env.MAIN_PYTHON_VERSION }}"
+        uses: astral-sh/setup-uv@v5
         with:
+          enable-cache: true
+          cache-dependency-glob: |
+            **/requirements*.txt
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
 
       - name: "Install requirements"
         working-directory: pyworkbench-examples
         run: |
-          python -m venv .venv
-          .venv\Scripts\Activate.ps1
-          python -m pip install -r requirements/requirements_examples.txt
-          python -m pip install -r requirements/requirements_doc.txt
+          uv venv .venv --seed
+          uv pip install -r requirements/requirements_examples.txt
+          uv pip install -r requirements/requirements_doc.txt
 
       - name: "Configure graphic dependencies"
         working-directory: pyworkbench-examples
         run: |
-          .venv\Scripts\Activate.ps1
-          python -m pip uninstall --yes vtk
-          python -m pip install --extra-index-url https://wheels.vtk.org vtk-osmesa==${{ env.VTK_OSMESA_VERSION }}
+          uv pip uninstall --yes vtk
+          uv pip install --extra-index-url https://wheels.vtk.org vtk-osmesa==${{ env.VTK_OSMESA_VERSION }}
 
       - name: "Build HTML documentation"
         working-directory: pyworkbench-examples
