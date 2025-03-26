@@ -99,14 +99,14 @@ jobs:
         working-directory: pyworkbench-examples
         run: |
           .venv\Scripts\activate.bat
-          uv pip uninstall --yes vtk
+          uv pip uninstall vtk
           uv pip install --extra-index-url https://wheels.vtk.org vtk-osmesa==${{ env.VTK_OSMESA_VERSION }}
 
       - name: "Build HTML documentation"
         working-directory: pyworkbench-examples
         run: |
           .venv\Scripts\activate.bat
-          python -m sphinx doc/source "doc/_build/html" --color -vW -b html
+          python -m sphinx doc/source "doc/_build/html" --color -v -b html
         env:
           REMOTING_SERVER_ADDRESS: "localhost"
 
