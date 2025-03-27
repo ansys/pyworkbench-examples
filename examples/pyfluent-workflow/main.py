@@ -40,16 +40,24 @@ wb.upload_file(import_filename)
 
 # ## Generate a "FLUENT" System using Ansys Workbench Scripting API (used for Journaling) and parse it to the PyWorkbench API.
 
-export_path = "wb_log_file.log"
-wb.set_log_file(export_path)
-wb.run_script_string('template1 = GetTemplate(TemplateName="FLUENT")', log_level="info")
-wb.run_script_string("system1 = template1.CreateSystem()")
+# export_path = "wb_log_file.log"
+# wb.set_log_file(export_path)
+# wb.run_script_string('template1 = GetTemplate(TemplateName="FLUENT")', log_level="info")
+# wb.run_script_string("system1 = template1.CreateSystem()")
 
 
 # ## Launch Fluent & Connect to Fluent
 # Launch Fluent as server with PyWorkbench API and and connect to Pyfluent session
 
-server_info_file = wb.start_fluent_server(system_name="FLU")
+# server_info_file = wb.start_fluent_server(system_name="FLU")
+# fluent_session = pyfluent.connect_to_fluent(server_info_file_name=server_info_file)
+
+sys_name = wb.run_script_string(
+    r"""import json
+wb_script_result=json.dumps(GetTemplate(TemplateName="FLUENT").CreateSystem().Name)
+"""
+)
+server_info_file = wb.start_fluent_server(system_name=sys_name)
 fluent_session = pyfluent.connect_to_fluent(server_info_file_name=server_info_file)
 
 
