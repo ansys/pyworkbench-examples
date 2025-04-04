@@ -23,7 +23,7 @@ assets = workdir / "assets"
 scripts = workdir / "scripts"
 agdb = workdir / "agdb"
 
-wb = launch_workbench(client_workdir=str(workdir.absolute()), show_gui=False, version="251")
+wb = launch_workbench(client_workdir=str(workdir.absolute()))
 
 # Upload a geometry file (`two_pipes.agdb`) from the example database to the server using the `upload_file_from_example_repo` method.
 
