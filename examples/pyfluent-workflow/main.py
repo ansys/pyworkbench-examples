@@ -31,7 +31,7 @@ from ansys.fluent.core import examples
 workdir = pathlib.Path("__file__").parent
 
 
-wb = launch_workbench(client_workdir=str(workdir.absolute()))
+wb = launch_workbench(client_workdir=str(workdir.absolute()), show_gui=False, version="251")
 
 # ## Download the input file from example data and upload to server directory.
 
