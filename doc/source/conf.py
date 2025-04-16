@@ -60,7 +60,7 @@ exclude_examples = [
 exclude_patterns = [
     "conf.py",
     "examples/**/scripts/*.py",
-    "examples/grantami-integration/*",
+    #"examples/grantami-integration/*",
     "examples/logging/alternative_target_dir/*.py",
     "examples/pyfluent-mixing-elbow/*",
 ]
