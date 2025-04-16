@@ -91,20 +91,22 @@ jobs:
         working-directory: pyworkbench-examples
         run: |
           uv venv .venv --seed
+          .venv\Scripts\activate.bat
           uv pip install -r requirements/requirements_examples.txt
           uv pip install -r requirements/requirements_doc.txt
 
       - name: "Configure graphic dependencies"
         working-directory: pyworkbench-examples
         run: |
-          uv pip uninstall --yes vtk
+          .venv\Scripts\activate.bat
+          uv pip uninstall vtk
           uv pip install --extra-index-url https://wheels.vtk.org vtk-osmesa==${{ env.VTK_OSMESA_VERSION }}
 
       - name: "Build HTML documentation"
         working-directory: pyworkbench-examples
         run: |
-          .venv\Scripts\Activate.ps1
-          python -m sphinx doc/source "doc/_build/html" --color -vW -b html
+          .venv\Scripts\activate.bat
+          python -m sphinx doc/source "doc/_build/html" --color -v -b html
         env:
           REMOTING_SERVER_ADDRESS: "localhost"
 

@@ -20,7 +20,6 @@
 # ## Performed required imports
 # Performing essential imports for Ansys Workbench, Fluent Pythonic Interface and for downloading examples data.
 
-import os
 import pathlib
 from ansys.workbench.core import launch_workbench
 import ansys.fluent.core as pyfluent
@@ -31,7 +30,7 @@ from ansys.fluent.core import examples
 workdir = pathlib.Path("__file__").parent
 
 
-wb = launch_workbench(client_workdir=str(workdir.absolute()))
+wb = launch_workbench(client_workdir=str(workdir.absolute()), show_gui=False, version="251")
 
 # ## Download the input file from example data and upload to server directory.
 
