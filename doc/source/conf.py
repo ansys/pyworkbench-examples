@@ -45,22 +45,12 @@ extensions = [
 
 
 templates_path = ['_templates']
-exclude_examples = [
-    #"grantami-integration",
-    "ansys-aedt-workflow",
-    "ansys-fluent-workflow",
-    "axisymmetric-rotor",
-    "cooled-turbine-blade",
-    "cyclic-symmetry-analysis",
-    "logging",
-    "material-designer-workflow",
-    "pyfluent-workflow",
-    "pymechanical-integration",
-]
+exclude_examples = ["grantami-integration", "pymechanical-integration"]
+
 exclude_patterns = [
     "conf.py",
     "examples/**/scripts/*.py",
-    #"examples/grantami-integration/*",
+    "examples/grantami-integration/*",
     "examples/logging/alternative_target_dir/*.py",
     "examples/pyfluent-mixing-elbow/*",
 ]
