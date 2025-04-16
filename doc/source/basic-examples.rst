@@ -8,4 +8,3 @@ library.
 
    examples/logging/main
    examples/ansys-fluent-workflow/main
-   examples/pymechanical-integration/main
