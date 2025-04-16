@@ -8,3 +8,4 @@ library.
 
    examples/logging/main
    examples/ansys-fluent-workflow/main
+   examples/ansys-aedt-workflow/main
