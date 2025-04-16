@@ -46,8 +46,8 @@ extensions = [
 
 templates_path = ['_templates']
 exclude_examples = [
-    "grantami-integration",
-    #"ansys-aedt-workflow",
+    #"grantami-integration",
+    "ansys-aedt-workflow",
     "ansys-fluent-workflow",
     "axisymmetric-rotor",
     "cooled-turbine-blade",
