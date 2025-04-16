@@ -12,3 +12,4 @@ and other PyAnsys libraries.
    examples/axisymmetric-rotor/main
    examples/material-designer-workflow/main
    examples/pyfluent-workflow/main
+   examples/grantami-integration/main
