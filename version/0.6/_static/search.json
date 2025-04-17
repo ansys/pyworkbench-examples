@@ -1,0 +1,135 @@
+[
+    {
+        "objectID": "examples/ansys-fluent-workflow/main",
+        "href": "examples/ansys-fluent-workflow/main.html#ansys-fluent-workflow",
+        "title": "Ansys Fluent workflow",
+        "section": "Ansys Fluent workflow",
+        "text": "In this example, the application of PyWorkbench, a Python client scripting tool for Ansys Workbench, is demonstrated in a use case for Ansys Fluent Workflow. The Ansys Fluent TUI (Text User Interface) journal files are utilized to set up and solve the simulation. For meshing Ansys Fluent Meshing WTM (Water Tight Meshing Workflow)is employed through recorded journaling capabilites of Ansys Fluent. As aware, Workbench offers the ability to record actions performed in the user interface, also known\nas journaling. These recorded actions are saved as Python scripts, which allow for extending functionality, automating repetitive analyses, and running analyses in batch mode. This example demonstrates how to use such a journal file with PyWorkbench for Ansys Fluent Workflow.\nThis example sets up and solves a three-dimensional turbulent fluid flow and heat transfer problem in a mixing elbow, which is common in piping systems in power plants and process industries. Predicting the flow field and temperature field in the area of the mixing region is important to designing the junction properly.\nAnsys Fluent workflow"
+    },
+    {
+        "objectID": "examples/ansys-fluent-workflow/main",
+        "href": "examples/ansys-fluent-workflow/main.html#problem-description",
+        "title": "Ansys Fluent workflow > Problem description",
+        "section": "Problem description",
+        "text": "A cold fluid at 20 deg C flows into the pipe through a large inlet. It then mixes with a warmer fluid at 40 deg C that enters through a smaller inlet located at the elbow. The pipe dimensions are in inches, and the fluid properties and boundary conditions are given in SI units. Because the Reynolds number for the flow at the larger inlet is 50,800, a turbulent flow model is required.\nProblem description\n50,800"
+    },
+    {
+        "objectID": "examples/ansys-fluent-workflow/main",
+        "href": "examples/ansys-fluent-workflow/main.html#what-this-tutorial-covers",
+        "title": "Ansys Fluent workflow > What this tutorial covers",
+        "section": "What this tutorial covers",
+        "text": "This use case that demonstrates following PyWorkbench API capabilities such as: - Initiating the Ansys Workbench server locally and establishing a connection with a local client. - Uploading the required input data from client working directory to server working directory. - Executing the Ansys Workbench journal (.wbjn) script on the server, which will execute the Fluent simulation using setup.jou and solve.jou TUI scripts. refer assets for simulation input data. - Downloading the results from\nthe server to client. - Shutting down the server.\nWhat this tutorial covers"
+    },
+    {
+        "objectID": "examples/ansys-fluent-workflow/main",
+        "href": "examples/ansys-fluent-workflow/main.html#performed-required-imports",
+        "title": "Ansys Fluent workflow > Performed required imports",
+        "section": "Performed required imports",
+        "text": "Performing essential imports for Ansys Workbench, pathlib to handle filesystems path.\nPerformed required imports"
+    },
+    {
+        "objectID": "examples/ansys-fluent-workflow/main",
+        "href": "examples/ansys-fluent-workflow/main.html#setting-up-server-working-directory-and-asset-paths",
+        "title": "Ansys Fluent workflow > Setting up server Working directory and asset paths",
+        "section": "Setting up server Working directory and asset paths",
+        "text": "Setting up server Working directory and asset paths"
+    },
+    {
+        "objectID": "examples/ansys-fluent-workflow/main",
+        "href": "examples/ansys-fluent-workflow/main.html#launch-the-workbench-session-with-specified-server-and-client-working-directories",
+        "title": "Ansys Fluent workflow > Launch the workbench session with specified server and client working directories",
+        "section": "Launch the workbench session with specified server and client working directories",
+        "text": "Launch the workbench session with specified server and client working directories"
+    },
+    {
+        "objectID": "examples/ansys-fluent-workflow/main",
+        "href": "examples/ansys-fluent-workflow/main.html#uploading-the-input-data",
+        "title": "Ansys Fluent workflow > Uploading the input data",
+        "section": "Uploading the input data",
+        "text": "Upload several input files (Geometry, Ansys Fluent simulation setup and solve journal files ), which will be transferred to the host.\nUploading the input data"
+    },
+    {
+        "objectID": "examples/ansys-fluent-workflow/main",
+        "href": "examples/ansys-fluent-workflow/main.html#executing-a-workbench-script",
+        "title": "Ansys Fluent workflow > Executing a workbench script",
+        "section": "Executing a workbench script",
+        "text": "This will configure the workbench project schematic. This file is Ansys Workbench recorded journal file (Python Script). This can be easily configured as per requirement. >Note: For a better understanding of how meshing, setup, and solve workflows are being utilized, please refer to the project.wbjn file.\nExecuting a workbench script"
+    },
+    {
+        "objectID": "examples/ansys-fluent-workflow/main",
+        "href": "examples/ansys-fluent-workflow/main.html#downloading-output-files-to-the-client-side-working-directory",
+        "title": "Ansys Fluent workflow > Downloading output files to the client-side working directory",
+        "section": "Downloading output files to the client-side working directory",
+        "text": "Here, only the contour saved during the simulation data post-processing is being downloaded. But one can download all the output as required.\nDownloading output files to the client-side working directory"
+    },
+    {
+        "objectID": "examples/ansys-fluent-workflow/main",
+        "href": "examples/ansys-fluent-workflow/main.html#shutdown-the-ansys-workbench-server-session",
+        "title": "Ansys Fluent workflow > Shutdown the Ansys Workbench server session",
+        "section": "Shutdown the Ansys Workbench server session",
+        "text": "Shutdown the Ansys Workbench server session"
+    },
+    {
+        "objectID": "examples/pymechanical-integration/main",
+        "href": "examples/pymechanical-integration/main.html#pymechanical-integration",
+        "title": "PyMechanical integration",
+        "section": "PyMechanical integration",
+        "text": "This example demonstrates how to use PyWorkbench and PyMechanical together to upload geometry, run simulations, and visualize results. It covers launching services, running scripts, and handling files between the client and server.\nFirst, import the necessary modules. We import pathlib for handling filesystem paths, os for interacting with the operating system, and pyvista for visualization. The launch_workbench function from ansys.workbench.core is imported to start a Workbench session, and connect_to_mechanical from ansys.mechanical.core to start a Mechanical session.\nDefine several directories that will be used during the session. workdir is set to the parent directory of the current file. assets, scripts, and agdb are subdirectories within the working directory. The launch_workbench function is called to start a Workbench session with specified directories.\nUpload a geometry file (two_pipes.agdb) from the example database to the server using the upload_file_from_example_repo method.\nExecute a Workbench script (project.wbjn) to create a mechanical system and load the geometry using the run_script_file method. The name of the system created is stored in system_name.\nStart a PyMechanical service for the specified system using the start_mechanical_server method. Create a PyMechanical client connected to this service using connect_to_mechanical method. The project directory is printed to verify the connection.\nRead and execute the script solve.py via the PyMechanical client using run_python_script. This script typically contains commands to mesh and solve the model. The output of the script is printed.\nFetch output files (*solve.out and *deformation.png) from the solver directory to the client’s working directory using the download method.\nRead and print the content of the solver output file (solve.out) to the console.\nPlot the deformation result (deformation.png) using pyvista. A Plotter object is created, and the image is added as a background. The plot is then displayed.\nFinally, the exit method is called on both the PyMechanical and Workbench clients to gracefully shut down the services, ensuring that all resources are properly released.\nPyMechanical integration\npathlib\nos\npyvista\nlaunch_workbench\nansys.workbench.core\nconnect_to_mechanical\nansys.mechanical.core\nworkdir\nassets\nscripts\nagdb\nlaunch_workbench\ntwo_pipes.agdb\nupload_file_from_example_repo\nproject.wbjn\nrun_script_file\nsystem_name\nstart_mechanical_server\nconnect_to_mechanical\nsolve.py\nrun_python_script\n*solve.out\n*deformation.png\ndownload\nsolve.out\ndeformation.png\npyvista\nPlotter\nexit"
+    },
+    {
+        "objectID": "examples/logging/main",
+        "href": "examples/logging/main.html#logging",
+        "title": "Logging",
+        "section": "Logging",
+        "text": "This example showcases the logging capabilities of PyWorkbench.\nFirst, import the necessary modules. We import pathlib for handling filesystem paths and os for interacting with the operating system. The launch_workbench function from ansys.workbench.core is imported to start a Workbench session.\nNext, launch a Workbench session using PyWorkbench. Different directories are declared, including the client and server working directories, which should NOT be the same.\nHere, we define several directories that will be used during the session. workdir is set to the directory containing the current file. server_workdir, client_workdir, and alternative_target_dir are subdirectories within the working directory.\nLaunch Workbench using previous directories:\nThe launch_workbench function is called to start a Workbench session. server_workdir and client_workdir are set to their absolute paths to avoid any ambiguity in directory locations.\nThis command demonstrates how to download files from the server using a wildcard. The download_file method is used to fetch all files matching the pattern server1.* from the server to the client.\nThis command downloads the entire contents of the server directory to an alternative local directory specified by alternative_target_dir.\nThis command shows how to upload files to the server using wildcards. All .txt files and files matching the pattern model?.prt in the client directory are uploaded to the server.\nHere, files are uploaded from an alternative directory, and non-existing files are specified. The show_progress parameter is set to False to disable the progress bar during the upload.\nThis segment sets up a log file for the script execution. The set_log_file method directs the logs to wb_log_file.log, and run_script_file executes a script with info log level. The output of the script is printed to the console.\nTo change the logging configuration, we first disable the log file using reset_log_file. The console log level is then set to info using set_console_log_level. The script is run again with the same log level, and the output is printed.\nIn this step, the console log level is set to error, making the logging more restrictive. The script is executed again, and only error-level logs are shown.\nLogging\npathlib\nos\nlaunch_workbench\nansys.workbench.core\nworkdir\nserver_workdir\nclient_workdir\nalternative_target_dir\nlaunch_workbench\nserver_workdir\nclient_workdir\ndownload_file\nserver1.*\nalternative_target_dir\n.txt\nmodel?.prt\nshow_progress\nFalse\nset_log_file\nwb_log_file.log\nrun_script_file\ninfo\nreset_log_file\ninfo\nset_console_log_level\nerror"
+    },
+    {
+        "objectID": "examples/cooled-turbine-blade/main",
+        "href": "examples/cooled-turbine-blade/main.html#cooled-turbine-blade",
+        "title": "Cooled turbine blade",
+        "section": "Cooled turbine blade",
+        "text": "This notebook demonstrates the process of using the Workbench client to upload project files, run scripts, start services, and handle output files. It also includes launching PyMechanical to solve models and visualize results.\nFirst, import the necessary modules. We import pathlib for handling filesystem paths and os for interacting with the operating system. The launch_workbench function from ansys.workbench.core is imported to start a Workbench session, and connect_to_mechanical from ansys.mechanical.core to start a Mechanical session.\nLaunch the Workbench service on the local machine, using some options. Define several directories that will be used during the session. workdir is set to the parent directory of the current file. assets, scripts, and wbpz are subdirectories within the working directory. The launch_workbench function is called to start a Workbench session with specified directory.\nUpload the project files to the server using the upload_file_from_example_repo method. The file to upload is cooled_turbine_blade.wbpz.\nExecute a Workbench script (project.wbjn) to define the project and load the geometry using the run_script_file method. The set_log_file method is used to direct the logs to wb_log_file.log. The name of the system created is stored in sys_name and printed.\nStart a PyMechanical server for the system using the start_mechanical_server method. Create a PyMechanical client session connected to this server using connect_to_mechanical. The project directory is printed to verify the connection.\nRead and execute the script cooled_turbine_blade.py via the PyMechanical client using run_python_script. This script typically contains commands to mesh and solve the turbine blade model. The output of the script is printed.\nSpecify the Mechanical directory and run a script to fetch the working directory path. The path where all solver files are stored on the server is printed. Download the solver output file (solve.out) from the server to the client’s current working directory and print its contents.\nSpecify the Mechanical directory path for images and run a script to fetch the directory path. The path where images are stored on the server is printed. Download an image file (stress.png) from the server to the client’s current working directory and display it using matplotlib.\nDownload all the files from the server to the current working directory. Verify the target and source paths and copy all files from the server to the client.\nFinally, the exit method is called on both the PyMechanical and Workbench clients to gracefully shut down the services, ensuring that all resources are properly released.\nCooled turbine blade\npathlib\nos\nlaunch_workbench\nansys.workbench.core\nconnect_to_mechanical\nansys.mechanical.core\nworkdir\nassets\nscripts\nwbpz\nlaunch_workbench\nupload_file_from_example_repo\ncooled_turbine_blade.wbpz\nproject.wbjn\nrun_script_file\nset_log_file\nwb_log_file.log\nsys_name\nstart_mechanical_server\nconnect_to_mechanical\ncooled_turbine_blade.py\nrun_python_script\nsolve.out\nstress.png\nmatplotlib\nexit"
+    },
+    {
+        "objectID": "examples/axisymmetric-rotor/main",
+        "href": "examples/axisymmetric-rotor/main.html#axisymmetric-rotor",
+        "title": "Axisymmetric rotor",
+        "section": "Axisymmetric rotor",
+        "text": "This notebook demonstrates the process of running a Workbench service on a local machine to solve both 2D general axisymmetric rotor and 3D rotor models using PyMechanical. It includes steps for uploading project files, executing scripts, downloading results, and displaying output images.\nLaunch the Workbench service on the local machine using specific options. Define the working directory and subdirectories for assets, scripts, and geometry databases (agdb). The launch_workbench function starts a Workbench session with the specified directory.\nUpload the project files to the server using the upload_file_from_example_repo method. The files uploaded are axisymmetric_model.agdb, rotor_3d_model.agdb.\nExecute a Workbench script (project.wbjn) to define the project and load the geometry. The log file is set to wb_log_file.log and the name of the system created is stored in sys_name and printed.\nStart a PyMechanical server for the system and create a PyMechanical client session to solve the 2D general axisymmetric rotor model. The project directory is printed to verify the connection.\nRead and execute the script axisymmetric_rotor.py via the PyMechanical client to mesh and solve the 2D general axisymmetric rotor model. The output of the script is printed.\nSpecify the Mechanical directory for the Modal Campbell Analysis and fetch the working directory path. Download the solver output file (solve.out) from the server to the client’s current working directory and print its contents.\nSpecify the Mechanical directory path for the Modal Campbell Analysis and fetch the image directory path. Download an image file (tot_deform_2D.png) from the server to the client’s current working directory and display it using matplotlib.\nSpecify the Mechanical directory for the Unbalance Response Analysis and fetch the working directory path. Download the solver output file (solve.out) from the server to the client’s current working directory and print its contents.\nYou can save, archive and download the project using download_project_archive() method.\nStart a PyMechanical server for the 3D rotor model system and create a PyMechanical client session. The project directory is printed to verify the connection.\nRead and execute the script rotor_3d.py via the PyMechanical client to mesh and solve the 3D rotor model. The output of the script is printed.\nSpecify the Mechanical directory for the Modal Campbell Analysis and fetch the working directory path. Download the solver output file (solve.out) from the server to the client’s current working directory and print its contents.\nSpecify the Mechanical directory path for the Modal Campbell Analysis and fetch the image directory path. Download an image file (tot_deform_3D.png) from the server to the client’s current working directory and display it using matplotlib.\nSpecify the Mechanical directory for the Unbalance Response Analysis and fetch the working directory path. Download the solver output file (solve.out) from the server to the client’s current working directory and print its contents.\nDownload all the files from the server to the current working directory for the 3D rotor model. Verify the source path for the directory and copy all files from the server to the client.\nFinally, call the exit method on both the PyMechanical and Workbench clients to gracefully shut down the services.\nAxisymmetric rotor\nlaunch_workbench\nupload_file_from_example_repo\naxisymmetric_model.agdb\nrotor_3d_model.agdb\nproject.wbjn\nwb_log_file.log\nsys_name\naxisymmetric_rotor.py\nsolve.out\ntot_deform_2D.png\nmatplotlib\nsolve.out\ndownload_project_archive()\nrotor_3d.py\nsolve.out\ntot_deform_3D.png\nmatplotlib\nsolve.out\nexit"
+    },
+    {
+        "objectID": "basic-examples",
+        "href": "basic-examples.html#basic-examples",
+        "title": "Basic examples",
+        "section": "Basic examples",
+        "text": "A collection of examples for learning the fundamentals of the PyWorkbench\nlibrary.\nBasic examples"
+    },
+    {
+        "objectID": "advanced-examples",
+        "href": "advanced-examples.html#advanced-examples",
+        "title": "Advanced examples",
+        "section": "Advanced examples",
+        "text": "A collection of examples showcasing complex workflows generated with PyWorkbench\nand other PyAnsys libraries.\nAdvanced examples"
+    },
+    {
+        "objectID": "index",
+        "href": "index.html#pyworkbench-examples-060",
+        "title": "PyWorkbench Examples 0.6.0",
+        "section": "PyWorkbench Examples 0.6.0",
+        "text": "The following examples are available to help you get started with PyWorkbench.\nDifferent showcases are provided to guide you step by step through the process\nof interfacing with other Ansys products thanks to Workbench.\nBasic examples to get you started with PyWorkbench.\nAdvanced examples to help you understand the full capabilities of\nPyWorkbench.\nPyWorkbench Examples 0.6.0"
+    },
+    {
+        "objectID": "examples/cyclic-symmetry-analysis/main",
+        "href": "examples/cyclic-symmetry-analysis/main.html#cyclic-symmetry-analysis",
+        "title": "Cyclic symmetry analysis",
+        "section": "Cyclic symmetry analysis",
+        "text": "This notebook demonstrates how to use the Workbench client to manage projects on a remote host, run scripts, and handle output files. It covers launching services, uploading files, executing scripts, and visualizing results using PyMechanical.\nLaunch the Workbench service on a remote host machine, specifying the remote host machine name and user login credentials. Define several directories that will be used during the session. workdir is set to the parent directory of the current file. assets, scripts, and cdb are subdirectories within the working directory. The launch_workbench function is called to start a Workbench session with specified directory.\nUpload the project files to the server using the upload_file_from_example_repo method. The file to upload is sector_model.cdb.\nExecute a Workbench script (project.wbjn) to define the project and load the geometry using the run_script_file method. The set_log_file method is used to direct the logs to wb_log_file.log. The name of the system created is stored in sys_name and printed.\nStart a PyMechanical server for the system using the start_mechanical_server method. Create a PyMechanical client session connected to this server using connect_to_mechanical. The project directory is printed to verify the connection.\nRead and execute the script cyclic_symmetry_analysis.py via the PyMechanical client using run_python_script. This script typically contains commands to mesh and solve the model. The output of the script is printed.\nSpecify the Mechanical directory and run a script to fetch the working directory path. The path where all solver files are stored on the server is printed. Download the solver output file (solve.out) from the server to the client’s current working directory and print its contents.\nSpecify the Mechanical directory path for images and run a script to fetch the directory path. The path where images are stored on the server is printed. Download an image file (deformation.png) from the server to the client’s current working directory and display it using matplotlib.\nDownload all the files from the server to the current working directory. Verify the source path for the directory and copy all files from the server to the client.\nFinally, the exit method is called on both the PyMechanical and Workbench clients to gracefully shut down the services, ensuring that all resources are properly released.\nCyclic symmetry analysis\nworkdir\nassets\nscripts\ncdb\nlaunch_workbench\nupload_file_from_example_repo\nsector_model.cdb\nproject.wbjn\nrun_script_file\nset_log_file\nwb_log_file.log\nsys_name\nstart_mechanical_server\nconnect_to_mechanical\ncyclic_symmetry_analysis.py\nrun_python_script\nsolve.out\ndeformation.png\nmatplotlib\nexit"
+    },
+    {
+        "objectID": "examples/material-designer-workflow/main",
+        "href": "examples/material-designer-workflow/main.html#material-designer",
+        "title": "Material Designer",
+        "section": "Material Designer",
+        "text": "This notebook demonstrates the process of sending user-defined parameter values to a parameterized analysis and receive the corresponding simulation output via a Workbench service on a local machine.\nLaunch the Workbench service on the local machine, using some options. Define several directories that will be used during the session. workdir is set to the parent directory of the current file. assets, scripts, and wbpz are subdirectories within the working directory. The launch_workbench function is called to start a Workbench session with specified directory.\nUpload the project files to the server using the upload_file_from_example_repo method. The file to upload is MatDesigner.wbpz.\nExecute a Workbench script (project.wbjn) to define the project and load the geometry using the run_script_file method. The set_log_file method is used to direct the logs to wb_log_file.log.\nPrepare the Workbench command template to make modifications to the material property, in this case the Young’s modulus of the material\nUpdate the project with a new value for the Young’s modulus\nExtract output values. First, we prepare the Workbench script to quiry output parameter values\nGet updated output values\nFinally, call the exit method on the Workbench client to gracefully shut down the service.\nMaterial Designer\nworkdir\nassets\nscripts\nwbpz\nlaunch_workbench\nupload_file_from_example_repo\nMatDesigner.wbpz\nproject.wbjn\nrun_script_file\nset_log_file\nwb_log_file.log\nexit"
+    }
+]
