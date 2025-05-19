@@ -1,0 +1,1974 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Cyclic symmetry analysis &#8212; PyWorkbench Examples</title>
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css\ansys_sphinx_theme.css?v=3ea42de1" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.nerdfonts.com/assets/css/webfont.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=80ee211d" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+ 
+<link href="../../_static/css/breadcrumbs.css" rel="stylesheet" />
+
+    <script src="../../_static/documentation_options.js?v=bd778e0b"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js\table.js?v=b64f5182"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/cyclic-symmetry-analysis/main';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.14.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://examples.workbench.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.4';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Axisymmetric rotor" href="../axisymmetric-rotor/main.html" />
+    <link rel="prev" title="Cooled turbine blade" href="../cooled-turbine-blade/main.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <link rel="canonical" href="https://examples.workbench.docs.pyansys.com/version/stable/examples/cyclic-symmetry-analysis/main.html" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container"><!-- Debugging: html_theme_options =  -->
+ 
+<!-- Include the MeiliSearch CSS stylesheet only if theme present -->
+<link href="../../_static/css/meilisearch.css" rel="stylesheet" />
+
+<!-- Create a search bar form with a text input and a dropdown selector for the search index -->
+<form
+  class="bd-search d-flex align-items-center"
+  action="../../search.html"
+  method="get"
+>
+  <i class="fa fa-search" aria-hidden="true" id="search-icon"></i>
+  <input
+    type="search"
+    placeholder="Search"
+    class="form-control"
+    id="search-bar-input"
+    autofocus
+  />
+  <span class="search-button__kbd-shortcut"
+    ><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span
+  >
+  <style>
+    .bd-search .search-button__kbd-shortcut {
+      right: 33%;
+    }
+  </style>
+  
+  <select id="indexUidSelector" class="index-select">
+    
+    <option value="pyworkbench-examples-v0-4">pyworkbench-examples</option>
+    
+  </select>
+  
+  <!-- Include the MeiliSearch JavaScript library for the search bar -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+
+    
+  <script>
+    var HOST_URL = "https://backend.search.pyansys.com/";
+    var API_KEY = "";
+    var indexUid = "pyworkbench-examples-v0-4";
+  </script>
+
+  <script src="../../_static/js/meilisearch_theme_wrap.js"></script>
+</form>
+</div>
+  </div>
+   
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/pyansys-logo-black-cropped.png" class="logo__image only-light" alt="PyWorkbench Examples - Home"/>
+    <script>document.write(`<img src="../../_static/pyansys-logo-black-cropped.png" class="logo__image only-dark" alt="PyWorkbench Examples - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../basic-examples.html">
+                        Basic examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../../advanced-examples.html">
+                        Advanced examples
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyworkbench-examples" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(
+      (text) => (document.getElementById("announcement_msg").innerHTML = text),
+    )
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item">
+<nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../basic-examples.html">
+                        Basic examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../../advanced-examples.html">
+                        Advanced examples
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyworkbench-examples" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../cooled-turbine-blade/main.html">Cooled turbine blade</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Cyclic symmetry analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../axisymmetric-rotor/main.html">Axisymmetric rotor</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+         
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="https://docs.pyansys.com/" class="nav-link">PyAnsys</a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a
+        href="../../index.html"
+        class="nav-link"
+        aria-label="Home"
+      >
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="../../advanced-examples.html" class="nav-link">Advanced examples</a>
+    </li>
+      
+    <li class="breadcrumb-item active" aria-current="page">Cyclic symmetry analysis</li>
+    
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="Cyclic-symmetry-analysis">
+<h1>Cyclic symmetry analysis<a class="headerlink" href="#Cyclic-symmetry-analysis" title="Link to this heading">#</a></h1>
+<p>This notebook demonstrates how to use the Workbench client to manage projects on a remote host, run scripts, and handle output files. It covers launching services, uploading files, executing scripts, and visualizing results using PyMechanical.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ansys.workbench.core</span> <span class="kn">import</span> <span class="n">launch_workbench</span>
+<span class="kn">from</span> <span class="nn">ansys.mechanical.core</span> <span class="kn">import</span> <span class="n">launch_mechanical</span>
+</pre></div>
+</div>
+</div>
+<p>Launch the Workbench service on a remote host machine, specifying the remote host machine name and user login credentials. Define several directories that will be used during the session. <code class="docutils literal notranslate"><span class="pre">workdir</span></code> is set to the parent directory of the current file. <code class="docutils literal notranslate"><span class="pre">assets</span></code>, <code class="docutils literal notranslate"><span class="pre">scripts</span></code>, and <code class="docutils literal notranslate"><span class="pre">cdb</span></code> are subdirectories within the working directory. The <code class="docutils literal notranslate"><span class="pre">launch_workbench</span></code> function is called to start a Workbench session with specified directories.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workdir</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;__file__&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span>
+<span class="n">assets</span> <span class="o">=</span> <span class="n">workdir</span> <span class="o">/</span> <span class="s2">&quot;assets&quot;</span>
+<span class="n">scripts</span> <span class="o">=</span> <span class="n">workdir</span> <span class="o">/</span> <span class="s2">&quot;scripts&quot;</span>
+<span class="n">cdb</span> <span class="o">=</span> <span class="n">workdir</span> <span class="o">/</span> <span class="s2">&quot;cdb&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wb</span> <span class="o">=</span> <span class="n">launch_workbench</span><span class="p">(</span><span class="n">release</span><span class="o">=</span><span class="s2">&quot;241&quot;</span><span class="p">,</span> <span class="n">server_workdir</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">workdir</span><span class="o">.</span><span class="n">absolute</span><span class="p">()),</span> <span class="n">client_workdir</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">workdir</span><span class="o">.</span><span class="n">absolute</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<p>Upload project files to the server using the <code class="docutils literal notranslate"><span class="pre">upload_file</span></code> method. The files uploaded are <code class="docutils literal notranslate"><span class="pre">sector_model.cdb</span></code> and <code class="docutils literal notranslate"><span class="pre">cyclic_symmetry_analysis.py</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wb</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">cdb</span> <span class="o">/</span> <span class="s2">&quot;sector_model.cdb&quot;</span><span class="p">))</span>
+<span class="n">wb</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">scripts</span> <span class="o">/</span> <span class="s2">&quot;cyclic_symmetry_analysis.py&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Uploading sector_model.cdb: 100%|██████████| 7.96M/7.96M [00:00&lt;00:00, 89.0MB/s]
+Uploading cyclic_symmetry_analysis.py: 100%|██████████| 13.0k/13.0k [00:00&lt;00:00, 855kB/s]
+</pre></div></div>
+</div>
+<p>Execute a Workbench script (<code class="docutils literal notranslate"><span class="pre">project.wbjn</span></code>) to define the project and load the geometry using the <code class="docutils literal notranslate"><span class="pre">run_script_file</span></code> method. The <code class="docutils literal notranslate"><span class="pre">set_log_file</span></code> method is used to direct the logs to <code class="docutils literal notranslate"><span class="pre">wb_log_file.log</span></code>. The name of the system created is stored in <code class="docutils literal notranslate"><span class="pre">sys_name</span></code> and printed.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">export_path</span> <span class="o">=</span> <span class="s1">&#39;wb_log_file.log&#39;</span>
+<span class="n">wb</span><span class="o">.</span><span class="n">set_log_file</span><span class="p">(</span><span class="n">export_path</span><span class="p">)</span>
+<span class="n">sys_name</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">run_script_file</span><span class="p">(</span><span class="nb">str</span><span class="p">((</span><span class="n">assets</span> <span class="o">/</span> <span class="s2">&quot;project.wbjn&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">absolute</span><span class="p">()),</span> <span class="n">log_level</span><span class="o">=</span><span class="s1">&#39;info&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sys_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+SYS 1
+</pre></div></div>
+</div>
+<p>Start a PyMechanical server for the system using the <code class="docutils literal notranslate"><span class="pre">start_mechanical_server</span></code> method. Create a PyMechanical client session connected to this server using <code class="docutils literal notranslate"><span class="pre">launch_mechanical</span></code>. The project directory is printed to verify the connection.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">server_port</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">start_mechanical_server</span><span class="p">(</span><span class="n">system_name</span><span class="o">=</span><span class="n">sys_name</span><span class="p">)</span>
+<span class="n">mechanical</span> <span class="o">=</span> <span class="n">launch_mechanical</span><span class="p">(</span><span class="n">start_instance</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ip</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">server_port</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">mechanical</span><span class="o">.</span><span class="n">project_directory</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+C:\Users\ansys\AppData\Local\Temp\WB_ansys_5796_2\wbnew_files\
+</pre></div></div>
+</div>
+<p>Read and execute the script <code class="docutils literal notranslate"><span class="pre">cyclic_symmetry_analysis.py</span></code> via the PyMechanical client using <code class="docutils literal notranslate"><span class="pre">run_python_script</span></code>. This script typically contains commands to mesh and solve the model. The output of the script is printed.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">scripts</span> <span class="o">/</span> <span class="s2">&quot;cyclic_symmetry_analysis.py&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">sf</span><span class="p">:</span>
+    <span class="n">mech_script</span> <span class="o">=</span> <span class="n">sf</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">mech_output</span> <span class="o">=</span> <span class="n">mechanical</span><span class="o">.</span><span class="n">run_python_script</span><span class="p">(</span><span class="n">mech_script</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mech_output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#34;Total Deformation&#34;: &#34;0 [mm]&#34;, &#34;Total Deformation 2&#34;: &#34;0 [mm]&#34;}
+</pre></div></div>
+</div>
+<p>Specify the Mechanical directory and run a script to fetch the working directory path. The path where all solver files are stored on the server is printed. Download the solver output file (<code class="docutils literal notranslate"><span class="pre">solve.out</span></code>) from the server to the client’s current working directory and print its contents.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mechanical</span><span class="o">.</span><span class="n">run_python_script</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;solve_dir=ExtAPI.DataModel.AnalysisList[5].WorkingDir&quot;</span><span class="p">)</span>
+<span class="n">result_solve_dir_server</span> <span class="o">=</span> <span class="n">mechanical</span><span class="o">.</span><span class="n">run_python_script</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;solve_dir&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;All solver files are stored on the server at: </span><span class="si">{</span><span class="n">result_solve_dir_server</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+All solver files are stored on the server at: C:\Users\ansys\AppData\Local\Temp\WB_ansys_5796_2\wbnew_files\dp0\SYS-6\MECH\
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solve_out_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result_solve_dir_server</span><span class="p">,</span> <span class="s2">&quot;solve.out&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">write_file_contents_to_console</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Write file contents to console.&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;rt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">current_working_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+<span class="n">mechanical</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">solve_out_path</span><span class="p">,</span> <span class="n">target_dir</span><span class="o">=</span><span class="n">current_working_directory</span><span class="p">)</span>
+<span class="n">solve_out_local_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_working_directory</span><span class="p">,</span> <span class="s2">&quot;solve.out&quot;</span><span class="p">)</span>
+<span class="n">write_file_contents_to_console</span><span class="p">(</span><span class="n">solve_out_local_path</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">solve_out_local_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Downloading dns:///127.0.0.1:62741:C:\Users\ansys\AppData\Local\Temp\WB_ansys_5796_2\wbnew_files\dp0\SYS-6\MECH\solve.out to C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cyclic-symmetry-analysis\solve.out: 100%|██████████| 44.0k/44.0k [00:00&lt;?, ?B/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+ Ansys Mechanical Enterprise
+
+
+ *------------------------------------------------------------------*
+ |                                                                  |
+ |   W E L C O M E   T O   T H E   A N S Y S (R)  P R O G R A M     |
+ |                                                                  |
+ *------------------------------------------------------------------*
+
+
+
+
+ ***************************************************************
+ *         ANSYS MAPDL 2024 R1          LEGAL NOTICES          *
+ ***************************************************************
+ *                                                             *
+ * Copyright 1971-2024 Ansys, Inc.  All rights reserved.       *
+ * Unauthorized use, distribution or duplication is            *
+ * prohibited.                                                 *
+ *                                                             *
+ * Ansys is a registered trademark of Ansys, Inc. or its       *
+ * subsidiaries in the United States or other countries.       *
+ * See the Ansys, Inc. online documentation or the Ansys, Inc. *
+ * documentation CD or online help for the complete Legal      *
+ * Notice.                                                     *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * THIS ANSYS SOFTWARE PRODUCT AND PROGRAM DOCUMENTATION       *
+ * INCLUDE TRADE SECRETS AND CONFIDENTIAL AND PROPRIETARY      *
+ * PRODUCTS OF ANSYS, INC., ITS SUBSIDIARIES, OR LICENSORS.    *
+ * The software products and documentation are furnished by    *
+ * Ansys, Inc. or its subsidiaries under a software license    *
+ * agreement that contains provisions concerning               *
+ * non-disclosure, copying, length and nature of use,          *
+ * compliance with exporting laws, warranties, disclaimers,    *
+ * limitations of liability, and remedies, and other           *
+ * provisions.  The software products and documentation may be *
+ * used, disclosed, transferred, or copied only in accordance  *
+ * with the terms and conditions of that software license      *
+ * agreement.                                                  *
+ *                                                             *
+ * Ansys, Inc. is a UL registered                              *
+ * ISO 9001:2015 company.                                      *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * This product is subject to U.S. laws governing export and   *
+ * re-export.                                                  *
+ *                                                             *
+ * For U.S. Government users, except as specifically granted   *
+ * by the Ansys, Inc. software license agreement, the use,     *
+ * duplication, or disclosure by the United States Government  *
+ * is subject to restrictions stated in the Ansys, Inc.        *
+ * software license agreement and FAR 12.212 (for non-DOD      *
+ * licenses).                                                  *
+ *                                                             *
+ ***************************************************************
+
+ 2024 R1
+
+ Point Releases and Patches installed:
+
+ Ansys Service Pack 2024 R1.01
+ Ansys Service Pack 2024 R1.02
+ Ansys Service Pack 2024 R1.03
+ Ansys, Inc. License Manager 2024 R1
+ Ansys, Inc. License Manager 2024 R1.01
+ Ansys, Inc. License Manager 2024 R1.02
+ Ansys, Inc. License Manager 2024 R1.03
+ Discovery 2024 R1
+ Discovery 2024 R1.01
+ Discovery 2024 R1.02
+ Discovery 2024 R1.03
+ SpaceClaim 2024 R1
+ SpaceClaim 2024 R1.01
+ SpaceClaim 2024 R1.02
+ SpaceClaim 2024 R1.03
+ Icepak (includes CFD-Post) 2024 R1
+ Icepak (includes CFD-Post) 2024 R1.01
+ Icepak (includes CFD-Post) 2024 R1.02
+ Icepak (includes CFD-Post) 2024 R1.03
+ Fluids 2024 R1
+ Fluids 2024 R1.01
+ Fluids 2024 R1.02
+ Fluids 2024 R1.03
+ CFD-Post only 2024 R1
+ CFD-Post only 2024 R1.01
+ CFD-Post only 2024 R1.02
+ CFD-Post only 2024 R1.03
+ CFX (includes CFD-Post) 2024 R1
+ CFX (includes CFD-Post) 2024 R1.01
+ CFX (includes CFD-Post) 2024 R1.02
+ CFX (includes CFD-Post) 2024 R1.03
+ Chemkin 2024 R1
+ Chemkin 2024 R1.01
+ Chemkin 2024 R1.02
+ Chemkin 2024 R1.03
+ EnSight 2024 R1
+ EnSight 2024 R1.01
+ EnSight 2024 R1.02
+ EnSight 2024 R1.03
+ FENSAP-ICE 2024 R1
+ FENSAP-ICE 2024 R1.01
+ FENSAP-ICE 2024 R1.02
+ FENSAP-ICE 2024 R1.03
+ Fluent (includes CFD-Post) 2024 R1
+ Fluent (includes CFD-Post) 2024 R1.01
+ Fluent (includes CFD-Post) 2024 R1.02
+ Fluent (includes CFD-Post) 2024 R1.03
+ Polyflow (includes CFD-Post) 2024 R1
+ Polyflow (includes CFD-Post) 2024 R1.01
+ Polyflow (includes CFD-Post) 2024 R1.02
+ Polyflow (includes CFD-Post) 2024 R1.03
+ Forte (includes EnSight) 2024 R1
+ Forte (includes EnSight) 2024 R1.01
+ Forte (includes EnSight) 2024 R1.02
+ Forte (includes EnSight) 2024 R1.03
+ ICEM CFD 2024 R1
+ ICEM CFD 2024 R1.01
+ ICEM CFD 2024 R1.02
+ ICEM CFD 2024 R1.03
+ TurboGrid 2024 R1
+ TurboGrid 2024 R1.01
+ TurboGrid 2024 R1.02
+ TurboGrid 2024 R1.03
+ Speos 2024 R1
+ Speos 2024 R1.01
+ Speos 2024 R1.02
+ Speos 2024 R1.03
+ Speos HPC 2024 R1
+ Speos HPC 2024 R1.01
+ Speos HPC 2024 R1.02
+ Speos HPC 2024 R1.03
+ optiSLang 2024 R1
+ optiSLang 2024 R1.01
+ optiSLang 2024 R1.02
+ optiSLang 2024 R1.03
+ Additive 2024 R1
+ Additive 2024 R1.01
+ Additive 2024 R1.02
+ Additive 2024 R1.03
+ Aqwa 2024 R1
+ Aqwa 2024 R1.01
+ Aqwa 2024 R1.02
+ Aqwa 2024 R1.03
+ Autodyn 2024 R1
+ Autodyn 2024 R1.01
+ Autodyn 2024 R1.02
+ Autodyn 2024 R1.03
+ Customization Files for User Programmable Features 2024 R1
+ Customization Files for User Programmable Features 2024 R1.01
+ Customization Files for User Programmable Features 2024 R1.02
+ Customization Files for User Programmable Features 2024 R1.03
+ LS-DYNA 2024 R1
+ LS-DYNA 2024 R1.01
+ LS-DYNA 2024 R1.02
+ LS-DYNA 2024 R1.03
+ Mechanical Products 2024 R1
+ Mechanical Products 2024 R1.01
+ Mechanical Products 2024 R1.02
+ Mechanical Products 2024 R1.03
+ Motion 2024 R1
+ Motion 2024 R1.01
+ Motion 2024 R1.02
+ Motion 2024 R1.03
+ Sherlock 2024 R1
+ Sherlock 2024 R1.01
+ Sherlock 2024 R1.02
+ Sherlock 2024 R1.03
+ Sound - SAS 2024 R1
+ Sound - SAS 2024 R1.01
+ Sound - SAS 2024 R1.02
+ Sound - SAS 2024 R1.03
+
+
+          *****  MAPDL COMMAND LINE ARGUMENTS  *****
+  BATCH MODE REQUESTED (-b)    = NOLIST
+  INPUT FILE COPY MODE (-c)    = COPY
+  DISTRIBUTED MEMORY PARALLEL REQUESTED
+       4 PARALLEL PROCESSES REQUESTED WITH SINGLE THREAD PER PROCESS
+    TOTAL OF     4 CORES REQUESTED
+  INPUT FILE NAME              = C:\Users\ansys\AppData\Local\Temp\WB_ansys_5796_2\_ProjectScratch\ScrB761\dummy.dat
+  OUTPUT FILE NAME             = C:\Users\ansys\AppData\Local\Temp\WB_ansys_5796_2\_ProjectScratch\ScrB761\solve.out
+  START-UP FILE MODE           = NOREAD
+  STOP FILE MODE               = NOREAD
+
+ RELEASE= 2024 R1              BUILD= 24.1      UP20231106   VERSION=WINDOWS x64
+ CURRENT JOBNAME=file0  08:45:49  JUN 14, 2024 CP=      0.078
+
+
+ PARAMETER _DS_PROGRESS =     999.0000000
+
+ /INPUT FILE= ds.dat  LINE=       0
+
+
+
+ *** NOTE ***                            CP =       0.234   TIME= 08:45:49
+ The /CONFIG,NOELDB command is not valid in a distributed memory
+ parallel solution.  Command is ignored.
+
+ *GET  _WALLSTRT  FROM  ACTI  ITEM=TIME WALL  VALUE=  8.76361111
+
+ TITLE=
+ wbnew--Harmonic Response (G4)
+
+  ACT Extensions:
+      LSDYNA, 2024.1
+      5f463412-bd3e-484b-87e7-cbc0a665e474, wbex
+ /COM,     ANSYSMotion, 2024.1
+      20180725-3f81-49eb-9f31-41364844c769, wbex
+
+
+ SET PARAMETER DIMENSIONS ON  _WB_PROJECTSCRATCH_DIR
+  TYPE=STRI  DIMENSIONS=      248        1        1
+
+ PARAMETER _WB_PROJECTSCRATCH_DIR(1) = C:\Users\ansys\AppData\Local\Temp\WB_ansys_5796_2\_ProjectScratch\ScrB761\
+
+ SET PARAMETER DIMENSIONS ON  _WB_SOLVERFILES_DIR
+  TYPE=STRI  DIMENSIONS=      248        1        1
+
+ PARAMETER _WB_SOLVERFILES_DIR(1) = C:\Users\ansys\AppData\Local\Temp\WB_ansys_5796_2\wbnew_files\dp0\SYS-6\MECH\
+
+ SET PARAMETER DIMENSIONS ON  _WB_USERFILES_DIR
+  TYPE=STRI  DIMENSIONS=      248        1        1
+
+ PARAMETER _WB_USERFILES_DIR(1) = C:\Users\ansys\AppData\Local\Temp\WB_ansys_5796_2\wbnew_files\user_files\
+ --- Data in consistent NMM units. See Solving Units in the help system for more
+
+ MPA UNITS SPECIFIED FOR INTERNAL
+  LENGTH      = MILLIMETERS (mm)
+  MASS        = TONNE (Mg)
+  TIME        = SECONDS (sec)
+  TEMPERATURE = CELSIUS (C)
+  TOFFSET     = 273.0
+  FORCE       = NEWTON (N)
+  HEAT        = MILLIJOULES (mJ)
+
+ INPUT  UNITS ARE ALSO SET TO MPA
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2024 R1          24.1     ***
+ Ansys Mechanical Enterprise
+ 00000000  VERSION=WINDOWS x64   08:45:49  JUN 14, 2024 CP=      0.266
+
+ wbnew--Harmonic Response (G4)
+
+
+
+          ***** MAPDL ANALYSIS DEFINITION (PREP7) *****
+ *********** Nodes for the whole assembly ***********
+ *********** Elements for Body 1 &#34;Solid Body 1(External Model)&#34; ***********
+ *********** Elements for Body 2 &#34;Solid Body 2(External Model)&#34; ***********
+ *********** Send User Defined Coordinate System(s) ***********
+ *********** Set Reference Temperature ***********
+ *********** Send Materials ***********
+ *********** Create Contact &#34;Contacts(External Model) Index = 1&#34; ***********
+             Real Constant Set For Above Contact Is 4 &amp; 3
+ *********** Create Contact &#34;Contacts(External Model) Index = 2&#34; ***********
+             Real Constant Set For Above Contact Is 6 &amp; 5
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Element Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Define Pressure Using Surface Effect Elements &#34;Pressure&#34; **********
+ *********** Create Pre-Meshed Cyclic Symmetry ***********
+
+
+ ***** ROUTINE COMPLETED *****  CP =         2.391
+
+
+ --- Number of total nodes = 40644
+ --- Number of contact elements = 2930
+ --- Number of spring elements = 0
+ --- Number of bearing elements = 0
+ --- Number of solid elements = 23239
+ --- Number of condensed parts = 0
+ --- Number of total elements = 26169
+
+ *GET  _WALLBSOL  FROM  ACTI  ITEM=TIME WALL  VALUE=  8.76388889
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+
+ PERFORM A HARMONIC ANALYSIS
+  THIS WILL BE A NEW ANALYSIS
+
+
+ PERFORM A FULL HARMONIC RESPONSE ANALYSIS
+
+ THERMAL STRAINS ARE NOT INCLUDED IN THE LOAD VECTOR.
+
+ STEP BOUNDARY CONDITION KEY= 1
+
+ HARMONIC FREQUENCY RANGE - END=  5500.0      BEGIN=  1200.0
+
+ USE    20 SUBSTEP(S) THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+
+ STRUCTURAL DAMPING COEFFICIENT = 0.20000E-01
+
+ ERASE THE CURRENT DATABASE OUTPUT CONTROL TABLE.
+
+
+ WRITE ALL  ITEMS TO THE DATABASE WITH A FREQUENCY OF NONE
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE NSOL ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE EANG ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE ETMP ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE VENG ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE STRS ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE EPEL ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE RSOL ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE CONT ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL
+   FOR ALL APPLICABLE ENTITIES
+
+ *GET  ANSINTER_  FROM  ACTI  ITEM=INT        VALUE=  0.00000000
+
+ *IF  ANSINTER_                         ( =   0.00000     )  NE
+      0                                 ( =   0.00000     )  THEN
+
+ *ENDIF
+
+ *** NOTE ***                            CP =       3.250   TIME= 08:45:50
+ The automatic domain decomposition logic has selected the FREQ domain
+ decomposition method with 1 processes per frequency solution.
+
+ *** SELECTION OF ELEMENT TECHNOLOGIES FOR APPLICABLE ELEMENTS ***
+      --- GIVE SUGGESTIONS AND RESET THE KEY OPTIONS ---
+
+ ELEMENT TYPE         1 IS SOLID187. IT IS NOT ASSOCIATED WITH FULLY INCOMPRESSIBLE
+ HYPERELASTIC MATERIALS. NO SUGGESTION IS AVAILABLE AND NO RESETTING IS NEEDED.
+
+ ELEMENT TYPE         2 IS SOLID187. IT IS NOT ASSOCIATED WITH FULLY INCOMPRESSIBLE
+ HYPERELASTIC MATERIALS. NO SUGGESTION IS AVAILABLE AND NO RESETTING IS NEEDED.
+
+
+
+ *** WARNING ***                         CP =       6.469   TIME= 08:45:52
+ Element shape checking is currently inactive.  Issue SHPP,ON or
+ SHPP,WARN to reactivate, if desired.
+
+ *** NOTE ***                            CP =       7.031   TIME= 08:45:52
+ The model data was checked and warning messages were found.
+  Please review output or errors file (
+ C:\Users\ansys\AppData\Local\Temp\WB_ansys_5796_2\_ProjectScratch\ScrB7
+ 761\file0.err ) for these warning messages.
+
+ GENERATE CYCLIC SYMMETRY CONSTRAINT EQUATIONS
+
+ NUMBER OF CONSTRAINT EQUATIONS GENERATED=  6669
+   (USING THE MATCHED NODES ALGORITHM -- MAX NODE LOCATION ERROR = 0.78308E-02)
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+
+
+   D I S T R I B U T E D   D O M A I N   D E C O M P O S E R
+
+ ...Number of frequency solutions:  20
+ ...Decompose to 4 frequency domains (with 1 processes per domain)
+
+
+ *** SELECTION OF ELEMENT TECHNOLOGIES FOR APPLICABLE ELEMENTS ***
+      --- GIVE SUGGESTIONS AND RESET THE KEY OPTIONS ---
+
+ ELEMENT TYPE         1 IS SOLID187. IT IS NOT ASSOCIATED WITH FULLY INCOMPRESSIBLE
+ HYPERELASTIC MATERIALS. NO SUGGESTION IS AVAILABLE AND NO RESETTING IS NEEDED.
+
+ ELEMENT TYPE         2 IS SOLID187. IT IS NOT ASSOCIATED WITH FULLY INCOMPRESSIBLE
+ HYPERELASTIC MATERIALS. NO SUGGESTION IS AVAILABLE AND NO RESETTING IS NEEDED.
+
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2024 R1          24.1     ***
+ Ansys Mechanical Enterprise
+ 00000000  VERSION=WINDOWS x64   08:45:53  JUN 14, 2024 CP=      9.906
+
+ wbnew--Harmonic Response (G4)
+
+
+
+                       S O L U T I O N   O P T I O N S
+
+   PROBLEM DIMENSIONALITY. . . . . . . . . . . . .3-D
+   CYCLIC SYMMETRY SECTOR ANGLE. . . . . . . . . .   27.692     DEGREES
+   DEGREES OF FREEDOM. . . . . . UX   UY   UZ
+   ANALYSIS TYPE . . . . . . . . . . . . . . . . .HARMONIC
+      SOLUTION METHOD. . . . . . . . . . . . . . .FULL
+   OFFSET TEMPERATURE FROM ABSOLUTE ZERO . . . . .  273.15
+   THERMAL EXPANSION . . . . . . . . . . . . . . .OFF
+   COMPLEX DISPLACEMENT PRINT OPTION . . . . . . .REAL AND IMAGINARY
+   GLOBALLY ASSEMBLED MATRIX . . . . . . . . . . .SYMMETRIC
+
+ *** WARNING ***                         CP =      10.094   TIME= 08:45:53
+ Material number 7 (used by element 33548) should normally have at least
+ one MP or one TB type command associated with it.  Output of energy by
+ material may not be available.
+
+ *** NOTE ***                            CP =      10.281   TIME= 08:45:53
+ The step data was checked and warning messages were found.
+  Please review output or errors file (
+ C:\Users\ansys\AppData\Local\Temp\WB_ansys_5796_2\_ProjectScratch\ScrB7
+ 761\file0.err ) for these warning messages.
+
+ *** NOTE ***                            CP =      10.281   TIME= 08:45:53
+ The conditions for direct assembly have been met.  No .emat or .erot
+ files will be produced.
+
+ *** NOTE ***                            CP =      11.344   TIME= 08:45:54
+ Symmetric Deformable- deformable contact pair identified by real
+ constant set 3 and contact element type 3 has been set up.  The
+ companion pair has real constant set ID 5.  Both pairs should have the
+ same behavior.
+ For asymmetric contact analysis, you may deactivate the current pair
+ and keep its companion pair.
+ Contact algorithm: Penalty method
+ Contact detection at: Gauss integration point
+ Contact stiffness factor FKN                  10.000
+ The resulting initial contact stiffness      0.27905E+08
+ Default penetration tolerance factor FTOLN   0.10000
+ The resulting penetration tolerance          0.14334
+ Default opening contact stiffness OPSF will be used.
+ Default tangent stiffness factor FKT          1.0000
+ Default elastic slip factor SLTOL            0.50000E-02
+ The resulting elastic slip tolerance         0.92303E-02
+ Update contact stiffness at each iteration
+ Default Max. friction stress TAUMAX          0.10000E+21
+ Average contact surface length                1.8461
+ Average contact pair depth                    1.4334
+ Average target surface length                 1.4202
+ Default pinball region factor PINB           0.25000
+ The resulting pinball region                 0.35836
+ Initial penetration/gap is excluded.
+ Bonded contact (always) is defined.
+
+ *** NOTE ***                            CP =      11.344   TIME= 08:45:54
+ Min.  Initial gap 0.119687086 was detected between contact element
+ 32561 and target element 32831.
+ Contact is detected due to initial settings.
+
+ Max.  Geometric gap 0.136413796 has been detected between contact
+ element 32668 and target element 32894.
+ ****************************************
+
+
+ *** WARNING ***                         CP =      11.344   TIME= 08:45:54
+ Material number 7 (used by element 33548) should normally have at least
+ one MP or one TB type command associated with it.  Output of energy by
+ material may not be available.
+
+ *** WARNING ***                         CP =      11.344   TIME= 08:45:54
+ Material number 7 (used by element 33548) should normally have at least
+ one MP or one TB type command associated with it.  Output of energy by
+ material may not be available.
+
+ *** NOTE ***                            CP =      11.344   TIME= 08:45:54
+ Symmetric Deformable- deformable contact pair identified by real
+ constant set 5 and contact element type 5 has been set up.  The
+ companion pair has real constant set ID 3.  Both pairs should have the
+ same behavior.
+ For asymmetric contact analysis, you may keep the current pair and
+ deactivate its companion pair.
+ Contact algorithm: Penalty method
+ Contact detection at: Gauss integration point
+ Contact stiffness factor FKN                  10.000
+ The resulting initial contact stiffness      0.27905E+08
+ Default penetration tolerance factor FTOLN   0.10000
+ The resulting penetration tolerance          0.11335
+ Default opening contact stiffness OPSF will be used.
+ Default tangent stiffness factor FKT          1.0000
+ Default elastic slip factor SLTOL            0.50000E-02
+ The resulting elastic slip tolerance         0.71970E-02
+ Update contact stiffness at each iteration
+ Default Max. friction stress TAUMAX          0.10000E+21
+ Average contact surface length                1.4394
+ Average contact pair depth                    1.1335
+ Average target surface length                 1.8316
+ Default pinball region factor PINB           0.25000
+ The resulting pinball region                 0.28337
+ Initial penetration/gap is excluded.
+ Bonded contact (always) is defined.
+
+ *** NOTE ***                            CP =      11.344   TIME= 08:45:54
+ Min.  Initial gap 0.121762256 was detected between contact element
+ 32999 and target element 33214.
+ Contact is detected due to initial settings.
+
+ Max.  Geometric gap 0.136856675 has been detected between contact
+ element 33059 and target element 33401.
+ ****************************************
+
+
+ *** WARNING ***                         CP =      11.344   TIME= 08:45:54
+ Material number 7 (used by element 33548) should normally have at least
+ one MP or one TB type command associated with it.  Output of energy by
+ material may not be available.
+
+ *** NOTE ***                            CP =      11.344   TIME= 08:45:54
+ Symmetric Deformable- deformable contact pair identified by real
+ constant set 10 and contact element type 3 has been set up.  The
+ companion pair has real constant set ID 12.  Both pairs should have
+ the same behavior.
+ For asymmetric contact analysis, you may deactivate the current pair
+ and keep its companion pair.
+ Contact algorithm: Penalty method
+ Contact detection at: Gauss integration point
+ Contact stiffness factor FKN                  10.000
+ The resulting initial contact stiffness      0.27905E+08
+ Default penetration tolerance factor FTOLN   0.10000
+ The resulting penetration tolerance          0.14334
+ Default opening contact stiffness OPSF will be used.
+ Default tangent stiffness factor FKT          1.0000
+ Default elastic slip factor SLTOL            0.50000E-02
+ The resulting elastic slip tolerance         0.92303E-02
+ Update contact stiffness at each iteration
+ Default Max. friction stress TAUMAX          0.10000E+21
+ Average contact surface length                1.8461
+ Average contact pair depth                    1.4334
+ Average target surface length                 1.4202
+ Default pinball region factor PINB           0.25000
+ The resulting pinball region                 0.35836
+ Initial penetration/gap is excluded.
+ Bonded contact (always) is defined.
+
+ *** NOTE ***                            CP =      11.344   TIME= 08:45:54
+ Min.  Initial gap 0.119687086 was detected between contact element
+ 67902 and target element 68172.
+ Contact is detected due to initial settings.
+
+ Max.  Geometric gap 0.136413796 has been detected between contact
+ element 68009 and target element 68235.
+ ****************************************
+
+
+ *** NOTE ***                            CP =      11.344   TIME= 08:45:54
+ Symmetric Deformable- deformable contact pair identified by real
+ constant set 12 and contact element type 5 has been set up.  The
+ companion pair has real constant set ID 10.  Both pairs should have
+ the same behavior.
+ For asymmetric contact analysis, you may keep the current pair and
+ deactivate its companion pair.
+ Contact algorithm: Penalty method
+ Contact detection at: Gauss integration point
+ Contact stiffness factor FKN                  10.000
+ The resulting initial contact stiffness      0.27905E+08
+ Default penetration tolerance factor FTOLN   0.10000
+ The resulting penetration tolerance          0.11335
+ Default opening contact stiffness OPSF will be used.
+ Default tangent stiffness factor FKT          1.0000
+ Default elastic slip factor SLTOL            0.50000E-02
+ The resulting elastic slip tolerance         0.71970E-02
+ Update contact stiffness at each iteration
+ Default Max. friction stress TAUMAX          0.10000E+21
+ Average contact surface length                1.4394
+ Average contact pair depth                    1.1335
+ Average target surface length                 1.8316
+ Default pinball region factor PINB           0.25000
+ The resulting pinball region                 0.28337
+ Initial penetration/gap is excluded.
+ Bonded contact (always) is defined.
+
+ *** NOTE ***                            CP =      11.344   TIME= 08:45:54
+ Min.  Initial gap 0.121762256 was detected between contact element
+ 68340 and target element 68555.
+ Contact is detected due to initial settings.
+
+ Max.  Geometric gap 0.136856675 has been detected between contact
+ element 68400 and target element 68742.
+ ****************************************
+
+
+
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     1
+   CYCLIC SYMMETRY HARMONIC INDEX. . . . . . . . .     0
+   FREQUENCY RANGE . . . . . . . . . . . . . . . .  1200.0     TO   5500.0
+   NUMBER OF SUBSTEPS. . . . . . . . . . . . . . .    20
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .   YES
+   STRUCTURAL DAMPING COEFFICIENT. . . . . . . . . 0.20000E-01
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+       ALL       NONE
+      NSOL        ALL
+      EANG        ALL
+      ETMP        ALL
+      VENG        ALL
+      STRS        ALL
+      EPEL        ALL
+      RSOL        ALL
+      CONT        ALL
+
+
+ *** NOTE ***                            CP =      14.234   TIME= 08:45:54
+ Symmetric Deformable- deformable contact pair identified by real
+ constant set 3 and contact element type 3 has been set up.  The
+ companion pair has real constant set ID 5.  Both pairs should have the
+ same behavior.
+ For asymmetric contact analysis, you may deactivate the current pair
+ and keep its companion pair.
+ Contact algorithm: Penalty method
+ Contact detection at: Gauss integration point
+ Contact stiffness factor FKN                  10.000
+ The resulting initial contact stiffness      0.27905E+08
+ Default penetration tolerance factor FTOLN   0.10000
+ The resulting penetration tolerance          0.14334
+ Default opening contact stiffness OPSF will be used.
+ Default tangent stiffness factor FKT          1.0000
+ Default elastic slip factor SLTOL            0.50000E-02
+ The resulting elastic slip tolerance         0.92303E-02
+ Update contact stiffness at each iteration
+ Default Max. friction stress TAUMAX          0.10000E+21
+ Average contact surface length                1.8461
+ Average contact pair depth                    1.4334
+ Average target surface length                 1.4202
+ Default pinball region factor PINB           0.25000
+ The resulting pinball region                 0.35836
+ Initial penetration/gap is excluded.
+ Bonded contact (always) is defined.
+
+ *** NOTE ***                            CP =      14.234   TIME= 08:45:54
+ Min.  Initial gap 0.119687086 was detected between contact element
+ 32561 and target element 32831.
+ Contact is detected due to initial settings.
+
+ Max.  Geometric gap 0.136413796 has been detected between contact
+ element 32668 and target element 32894.
+ ****************************************
+
+
+ *** NOTE ***                            CP =      14.234   TIME= 08:45:54
+ Symmetric Deformable- deformable contact pair identified by real
+ constant set 5 and contact element type 5 has been set up.  The
+ companion pair has real constant set ID 3.  Both pairs should have the
+ same behavior.
+ For asymmetric contact analysis, you may keep the current pair and
+ deactivate its companion pair.
+ Contact algorithm: Penalty method
+ Contact detection at: Gauss integration point
+ Contact stiffness factor FKN                  10.000
+ The resulting initial contact stiffness      0.27905E+08
+ Default penetration tolerance factor FTOLN   0.10000
+ The resulting penetration tolerance          0.11335
+ Default opening contact stiffness OPSF will be used.
+ Default tangent stiffness factor FKT          1.0000
+ Default elastic slip factor SLTOL            0.50000E-02
+ The resulting elastic slip tolerance         0.71970E-02
+ Update contact stiffness at each iteration
+ Default Max. friction stress TAUMAX          0.10000E+21
+ Average contact surface length                1.4394
+ Average contact pair depth                    1.1335
+ Average target surface length                 1.8316
+ Default pinball region factor PINB           0.25000
+ The resulting pinball region                 0.28337
+ Initial penetration/gap is excluded.
+ Bonded contact (always) is defined.
+
+ *** NOTE ***                            CP =      14.234   TIME= 08:45:54
+ Min.  Initial gap 0.121762256 was detected between contact element
+ 32999 and target element 33214.
+ Contact is detected due to initial settings.
+
+ Max.  Geometric gap 0.136856675 has been detected between contact
+ element 33059 and target element 33401.
+ ****************************************
+
+
+ *** NOTE ***                            CP =      14.234   TIME= 08:45:54
+ Symmetric Deformable- deformable contact pair identified by real
+ constant set 10 and contact element type 3 has been set up.  The
+ companion pair has real constant set ID 12.  Both pairs should have
+ the same behavior.
+ For asymmetric contact analysis, you may deactivate the current pair
+ and keep its companion pair.
+ Contact algorithm: Penalty method
+ Contact detection at: Gauss integration point
+ Contact stiffness factor FKN                  10.000
+ The resulting initial contact stiffness      0.27905E+08
+ Default penetration tolerance factor FTOLN   0.10000
+ The resulting penetration tolerance          0.14334
+ Default opening contact stiffness OPSF will be used.
+ Default tangent stiffness factor FKT          1.0000
+ Default elastic slip factor SLTOL            0.50000E-02
+ The resulting elastic slip tolerance         0.92303E-02
+ Update contact stiffness at each iteration
+ Default Max. friction stress TAUMAX          0.10000E+21
+ Average contact surface length                1.8461
+ Average contact pair depth                    1.4334
+ Average target surface length                 1.4202
+ Default pinball region factor PINB           0.25000
+ The resulting pinball region                 0.35836
+ Initial penetration/gap is excluded.
+ Bonded contact (always) is defined.
+
+ *** NOTE ***                            CP =      14.234   TIME= 08:45:54
+ Min.  Initial gap 0.119687086 was detected between contact element
+ 67902 and target element 68172.
+ Contact is detected due to initial settings.
+
+ Max.  Geometric gap 0.136413796 has been detected between contact
+ element 68009 and target element 68235.
+ ****************************************
+
+
+ *** NOTE ***                            CP =      14.234   TIME= 08:45:54
+ Symmetric Deformable- deformable contact pair identified by real
+ constant set 12 and contact element type 5 has been set up.  The
+ companion pair has real constant set ID 10.  Both pairs should have
+ the same behavior.
+ For asymmetric contact analysis, you may keep the current pair and
+ deactivate its companion pair.
+ Contact algorithm: Penalty method
+ Contact detection at: Gauss integration point
+ Contact stiffness factor FKN                  10.000
+ The resulting initial contact stiffness      0.27905E+08
+ Default penetration tolerance factor FTOLN   0.10000
+ The resulting penetration tolerance          0.11335
+ Default opening contact stiffness OPSF will be used.
+ Default tangent stiffness factor FKT          1.0000
+ Default elastic slip factor SLTOL            0.50000E-02
+ The resulting elastic slip tolerance         0.71970E-02
+ Update contact stiffness at each iteration
+ Default Max. friction stress TAUMAX          0.10000E+21
+ Average contact surface length                1.4394
+ Average contact pair depth                    1.1335
+ Average target surface length                 1.8316
+ Default pinball region factor PINB           0.25000
+ The resulting pinball region                 0.28337
+ Initial penetration/gap is excluded.
+ Bonded contact (always) is defined.
+
+ *** NOTE ***                            CP =      14.234   TIME= 08:45:54
+ Min.  Initial gap 0.121762256 was detected between contact element
+ 68340 and target element 68555.
+ Contact is detected due to initial settings.
+
+ Max.  Geometric gap 0.136856675 has been detected between contact
+ element 68400 and target element 68742.
+ ****************************************
+
+
+
+
+            **** CENTER OF MASS, MASS, AND MASS MOMENTS OF INERTIA ****
+
+  CALCULATIONS ASSUME ELEMENT MASS AT ELEMENT CENTROID
+
+  TOTAL MASS =  0.38387E-03
+
+                           MOM. OF INERTIA         MOM. OF INERTIA
+  CENTER OF MASS            ABOUT ORIGIN        ABOUT CENTER OF MASS
+
+  XC =   36.912          IXX =    5.701          IXX =   0.7970E-01
+  YC =   117.35          IYY =    1.140          IYY =   0.2817
+  ZC =   29.541          IZZ =    6.082          IZZ =   0.2729
+                         IXY =   -1.699          IXY =  -0.3613E-01
+                         IYZ =   -1.329          IYZ =   0.1306E-02
+                         IZX =  -0.4730          IZX =  -0.5439E-01
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1  0.190222E-03
+     2  0.193645E-03
+
+ Range of element maximum matrix coefficients in global coordinates
+ Maximum = 9031711.02 at element 67895.
+ Minimum = 40118.4069 at element 49928.
+
+   *** ELEMENT MATRIX FORMULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1     24706  SOLID187      3.750   0.000152
+        2     21772  SOLID187      3.188   0.000146
+        3       806  CONTA174      0.219   0.000271
+        4       330  TARGE170      0.016   0.000047
+        5       330  CONTA174      0.203   0.000616
+        6       806  TARGE170      0.000   0.000000
+        7      3588  SURF154       0.234   0.000065
+ Time at end of element matrix formulation CP = 22.734375.
+
+ *** NOTE ***                            CP =      24.203   TIME= 08:46:04
+ The initial memory allocation (-m) has been exceeded.
+  Supplemental memory allocations are being used.
+
+ SPARSE MATRIX DIRECT SOLVER.
+  Number of equations =      229620,    Maximum wavefront =    276
+  Memory allocated for solver              =  2531.406 MB
+  Memory required for in-core solution     =  2421.917 MB
+  Memory required for out-of-core solution =   701.570 MB
+
+ *** NOTE ***                            CP =      27.031   TIME= 08:46:07
+ The Sparse Matrix Solver is currently running in the in-core memory
+ mode.  This memory mode uses the most amount of memory in order to
+ avoid using the hard drive as much as possible, which most often
+ results in the fastest solution time.  This mode is recommended if
+ enough physical memory is present to accommodate all of the solver
+ data.
+ Sparse solver maximum pivot= 17281797.7 at node 27603 UY.
+ Sparse solver minimum pivot= 10088.7419 at node 1358 UY.
+ Sparse solver minimum pivot in absolute value= 10088.7419 at node 1358
+ UY.
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1     24706  SOLID187      3.328   0.000135
+        2     21772  SOLID187      2.734   0.000126
+        3       806  CONTA174      0.094   0.000116
+        5       330  CONTA174      0.047   0.000142
+        7      3588  SURF154       0.188   0.000052
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1     24706  SOLID187      0.906   0.000037
+        2     21772  SOLID187      0.672   0.000031
+        3       806  CONTA174      0.016   0.000019
+        5       330  CONTA174      0.000   0.000000
+        7      3588  SURF154       0.109   0.000030
+ *** LOAD STEP     1   SUBSTEP     1  COMPLETED.  FREQUENCY=   1415.00
+ *** LOAD STEP     1   SUBSTEP     2  COMPLETED.  FREQUENCY=   1630.00
+ *** LOAD STEP     1   SUBSTEP     3  COMPLETED.  FREQUENCY=   1845.00
+ *** LOAD STEP     1   SUBSTEP     4  COMPLETED.  FREQUENCY=   2060.00
+ *** LOAD STEP     1   SUBSTEP     5  COMPLETED.  FREQUENCY=   2275.00
+ *** LOAD STEP     1   SUBSTEP     6  COMPLETED.  FREQUENCY=   2490.00
+ *** LOAD STEP     1   SUBSTEP     7  COMPLETED.  FREQUENCY=   2705.00
+ *** LOAD STEP     1   SUBSTEP     8  COMPLETED.  FREQUENCY=   2920.00
+ *** LOAD STEP     1   SUBSTEP     9  COMPLETED.  FREQUENCY=   3135.00
+ *** LOAD STEP     1   SUBSTEP    10  COMPLETED.  FREQUENCY=   3350.00
+ *** LOAD STEP     1   SUBSTEP    11  COMPLETED.  FREQUENCY=   3565.00
+ *** LOAD STEP     1   SUBSTEP    12  COMPLETED.  FREQUENCY=   3780.00
+ *** LOAD STEP     1   SUBSTEP    13  COMPLETED.  FREQUENCY=   3995.00
+ *** LOAD STEP     1   SUBSTEP    14  COMPLETED.  FREQUENCY=   4210.00
+ *** LOAD STEP     1   SUBSTEP    15  COMPLETED.  FREQUENCY=   4425.00
+ *** LOAD STEP     1   SUBSTEP    16  COMPLETED.  FREQUENCY=   4640.00
+ *** LOAD STEP     1   SUBSTEP    17  COMPLETED.  FREQUENCY=   4855.00
+ *** LOAD STEP     1   SUBSTEP    18  COMPLETED.  FREQUENCY=   5070.00
+ *** LOAD STEP     1   SUBSTEP    19  COMPLETED.  FREQUENCY=   5285.00
+ *** LOAD STEP     1   SUBSTEP    20  COMPLETED.  FREQUENCY=   5500.00
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+       24.000 MB WRITTEN ON ELEMENT SAVED DATA FILE: file0.esav
+      192.062 MB WRITTEN ON ASSEMBLED MATRIX FILE: file0.full
+      197.125 MB WRITTEN ON RESULTS FILE: file0.rst
+ *************** Write FE CONNECTORS *********
+
+ WRITE OUT CONSTRAINT EQUATIONS TO FILE= file.ce
+ ************ Write Pre-Meshed Cyclic Pairs ************
+
+ *GET  NUM_PAIRS  FROM  PARM  CYCLIC_XREF_N  ITEM=DIM  2     VALUE=  4446.00000
+
+ *IF  num_pairs                         ( =   4446.00     )  NE
+      0                                 ( =   0.00000     )  THEN
+
+ OPENED FILE= cyclic_map.json FOR COMMAND FILE DATA
+
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  4446.0     BY  1.0000
+
+ *ENDDO  INDEX= I
+
+  COMMAND FILE CLOSED
+
+
+ *ENDIF
+
+ FINISH SOLUTION PROCESSING
+
+ *** WARNING ***                         CP =     232.422   TIME= 08:49:33
+ An error has occurred writing to file unit = 12 which may imply a full
+ disk.
+ The system I/O error = 28.  Please refer to your system documentation
+ on I/O errors.
+
+
+
+
+
+ **********  CURRENT DISK AND DIRECTORY USAGE  **********
+
+ Volume in drive C is Windows
+ Volume Serial Number is A6EA-85DD
+
+ Directory of C:\Users\ansys\AppData\Local\Temp\WB_ansys_5796_2\_ProjectScratch\ScrB761
+
+06/14/2024  08:49 AM    &lt;DIR&gt;          .
+06/14/2024  08:49 AM    &lt;DIR&gt;          ..
+06/14/2024  08:45 AM           174,881 CAERep.xml
+06/14/2024  08:45 AM               327 cleanup-ansys-pyworkbench-1744.bat
+06/14/2024  08:49 AM           111,156 cyclic_map.json
+06/14/2024  08:45 AM         7,869,212 ds.dat
+06/14/2024  08:49 AM                25 ds_file.stat
+06/14/2024  08:45 AM               115 ds_file.xml
+06/14/2024  08:45 AM                70 dummy.dat
+06/14/2024  08:49 AM                80 file.ce
+06/14/2024  08:45 AM                 0 file.lock
+06/14/2024  08:49 AM                 0 file.rst
+06/14/2024  08:45 AM                78 file0.bat
+06/14/2024  08:49 AM            13,294 file0.DSP
+06/14/2024  08:49 AM             2,048 file0.err
+06/14/2024  08:49 AM        25,165,824 file0.esav
+06/14/2024  08:49 AM       201,392,128 file0.full
+06/14/2024  08:45 AM                 0 file0.log
+06/14/2024  08:45 AM                 0 file0.page
+06/14/2024  08:49 AM       206,700,544 file0.rst
+06/14/2024  08:49 AM               154 file0.stat
+06/14/2024  08:45 AM               314 file0WBINFO.xml
+06/14/2024  08:48 AM            13,294 file1.DSP
+06/14/2024  08:45 AM               383 file1.err
+06/14/2024  08:49 AM        25,165,824 file1.esav
+06/14/2024  08:49 AM       201,392,128 file1.full
+06/14/2024  08:45 AM                 0 file1.log
+06/14/2024  08:45 AM                 2 file1.out
+06/14/2024  08:45 AM                 0 file1.page
+06/14/2024  08:49 AM       206,700,544 file1.rst
+06/14/2024  08:48 AM               154 file1.stat
+06/14/2024  08:48 AM            13,294 file2.DSP
+06/14/2024  08:45 AM               383 file2.err
+06/14/2024  08:49 AM        25,165,824 file2.esav
+06/14/2024  08:49 AM       201,392,128 file2.full
+06/14/2024  08:45 AM                 0 file2.log
+06/14/2024  08:45 AM                 2 file2.out
+06/14/2024  08:45 AM                 0 file2.page
+06/14/2024  08:49 AM       206,700,544 file2.rst
+06/14/2024  08:48 AM               154 file2.stat
+06/14/2024  08:48 AM            13,294 file3.DSP
+06/14/2024  08:45 AM               383 file3.err
+06/14/2024  08:49 AM        25,165,824 file3.esav
+06/14/2024  08:49 AM       201,392,128 file3.full
+06/14/2024  08:45 AM                 0 file3.log
+06/14/2024  08:45 AM                 2 file3.out
+06/14/2024  08:45 AM                 0 file3.page
+06/14/2024  08:49 AM       206,700,544 file3.rst
+06/14/2024  08:48 AM               154 file3.stat
+06/14/2024  08:45 AM            29,089 MatML.xml
+06/14/2024  08:45 AM               641 SecInput.txt
+06/14/2024  08:45 AM                 2 solve.out
+              50 File(s)  1,741,276,969 bytes
+               2 Dir(s)               0 bytes free
+
+ *** FATAL ***
+ Random write error on file unit=     12 possible full disk.
+ I/O status error=     28
+
+ ************************************************************************
+ The above error is non-recoverable.
+ MAPDL run terminated by the indicated error
+ ************************************************************************
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+
+</pre></div></div>
+</div>
+<p>Specify the Mechanical directory path for images and run a script to fetch the directory path. The path where images are stored on the server is printed. Download an image file (<code class="docutils literal notranslate"><span class="pre">deformation.png</span></code>) from the server to the client’s current working directory and display it using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">image</span> <span class="k">as</span> <span class="n">mpimg</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mechanical</span><span class="o">.</span><span class="n">run_python_script</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;image_dir=ExtAPI.DataModel.AnalysisList[5].WorkingDir&quot;</span><span class="p">)</span>
+<span class="n">result_image_dir_server</span> <span class="o">=</span> <span class="n">mechanical</span><span class="o">.</span><span class="n">run_python_script</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;image_dir&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Images are stored on the server at: </span><span class="si">{</span><span class="n">result_image_dir_server</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Images are stored on the server at: C:\Users\ansys\AppData\Local\Temp\WB_ansys_5796_2\wbnew_files\dp0\SYS-6\MECH\
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_image_path</span><span class="p">(</span><span class="n">image_name</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result_image_dir_server</span><span class="p">,</span> <span class="n">image_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">display_image</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Printing </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2"> using matplotlib&quot;</span><span class="p">)</span>
+    <span class="n">image1</span> <span class="o">=</span> <span class="n">mpimg</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">image_name</span> <span class="o">=</span> <span class="s2">&quot;deformation.png&quot;</span>
+<span class="n">image_path_server</span> <span class="o">=</span> <span class="n">get_image_path</span><span class="p">(</span><span class="n">image_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">image_path_server</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+    <span class="n">current_working_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+
+    <span class="n">local_file_path_list</span> <span class="o">=</span> <span class="n">mechanical</span><span class="o">.</span><span class="n">download</span><span class="p">(</span>
+        <span class="n">image_path_server</span><span class="p">,</span> <span class="n">target_dir</span><span class="o">=</span><span class="n">current_working_directory</span>
+    <span class="p">)</span>
+    <span class="n">image_local_path</span> <span class="o">=</span> <span class="n">local_file_path_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Local image path : </span><span class="si">{</span><span class="n">image_local_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">display_image</span><span class="p">(</span><span class="n">image_local_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Downloading dns:///127.0.0.1:62741:C:\Users\ansys\AppData\Local\Temp\WB_ansys_5796_2\wbnew_files\dp0\SYS-6\MECH\deformation.png to C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cyclic-symmetry-analysis\deformation.png: 100%|██████████| 12.0k/12.0k [00:00&lt;?, ?B/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Local image path : C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cyclic-symmetry-analysis\deformation.png
+Printing C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cyclic-symmetry-analysis\deformation.png using matplotlib
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_cyclic-symmetry-analysis_main_27_2.png" src="../../_images/examples_cyclic-symmetry-analysis_main_27_2.png" />
+</div>
+</div>
+<p>Download all the files from the server to the current working directory. Verify the source path for the directory and copy all files from the server to the client.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mechanical</span><span class="o">.</span><span class="n">run_python_script</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;solve_dir=ExtAPI.DataModel.AnalysisList[5].WorkingDir&quot;</span><span class="p">)</span>
+<span class="n">result_solve_dir_server</span> <span class="o">=</span> <span class="n">mechanical</span><span class="o">.</span><span class="n">run_python_script</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;solve_dir&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;All solver files are stored on the server at: </span><span class="si">{</span><span class="n">result_solve_dir_server</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+All solver files are stored on the server at: C:\Users\ansys\AppData\Local\Temp\WB_ansys_5796_2\wbnew_files\dp0\SYS-6\MECH\
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solve_out_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result_solve_dir_server</span><span class="p">,</span> <span class="s2">&quot;*.*&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">current_working_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+<span class="n">mechanical</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">solve_out_path</span><span class="p">,</span> <span class="n">target_dir</span><span class="o">=</span><span class="n">current_working_directory</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Downloading dns:///127.0.0.1:62741:C:\Users\ansys\AppData\Local\Temp\WB_ansys_5796_2\wbnew_files\dp0\SYS-6\MECH\CAERep.xml to C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cyclic-symmetry-analysis\CAERep.xml: 100%|██████████| 171k/171k [00:00&lt;?, ?B/s]
+Downloading dns:///127.0.0.1:62741:C:\Users\ansys\AppData\Local\Temp\WB_ansys_5796_2\wbnew_files\dp0\SYS-6\MECH\CAERepOutput.xml to C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cyclic-symmetry-analysis\CAERepOutput.xml: 100%|██████████| 789/789 [00:00&lt;?, ?B/s]
+Downloading dns:///127.0.0.1:62741:C:\Users\ansys\AppData\Local\Temp\WB_ansys_5796_2\wbnew_files\dp0\SYS-6\MECH\cleanup-ansys-pyworkbench-1744.bat to C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cyclic-symmetry-analysis\cleanup-ansys-pyworkbench-1744.bat: 100%|██████████| 327/327 [00:00&lt;?, ?B/s]
+Downloading dns:///127.0.0.1:62741:C:\Users\ansys\AppData\Local\Temp\WB_ansys_5796_2\wbnew_files\dp0\SYS-6\MECH\cyclic_map.json to C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cyclic-symmetry-analysis\cyclic_map.json: 100%|██████████| 109k/109k [00:00&lt;?, ?B/s]
+Downloading dns:///127.0.0.1:62741:C:\Users\ansys\AppData\Local\Temp\WB_ansys_5796_2\wbnew_files\dp0\SYS-6\MECH\deformation.png to C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cyclic-symmetry-analysis\deformation.png: 100%|██████████| 12.0k/12.0k [00:00&lt;?, ?B/s]
+Downloading dns:///127.0.0.1:62741:C:\Users\ansys\AppData\Local\Temp\WB_ansys_5796_2\wbnew_files\dp0\SYS-6\MECH\ds.dat to C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cyclic-symmetry-analysis\ds.dat: 100%|██████████| 7.50M/7.50M [00:00&lt;00:00, 504MB/s]
+Downloading dns:///127.0.0.1:62741:C:\Users\ansys\AppData\Local\Temp\WB_ansys_5796_2\wbnew_files\dp0\SYS-6\MECH\file.rst to C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cyclic-symmetry-analysis\file.rst: 100%|██████████| 276M/276M [00:02&lt;00:00, 140MB/s]
+Downloading dns:///127.0.0.1:62741:C:\Users\ansys\AppData\Local\Temp\WB_ansys_5796_2\wbnew_files\dp0\SYS-6\MECH\file0.err to C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cyclic-symmetry-analysis\file0.err: 100%|██████████| 2.00k/2.00k [00:00&lt;?, ?B/s]
+Downloading dns:///127.0.0.1:62741:C:\Users\ansys\AppData\Local\Temp\WB_ansys_5796_2\wbnew_files\dp0\SYS-6\MECH\MatML.xml to C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cyclic-symmetry-analysis\MatML.xml: 100%|██████████| 28.4k/28.4k [00:00&lt;?, ?B/s]
+Downloading dns:///127.0.0.1:62741:C:\Users\ansys\AppData\Local\Temp\WB_ansys_5796_2\wbnew_files\dp0\SYS-6\MECH\solve.out to C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cyclic-symmetry-analysis\solve.out: 100%|██████████| 44.0k/44.0k [00:00&lt;?, ?B/s]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;C:\\Users\\ansys\\actions-runner\\_work\\pyworkbench-examples\\pyworkbench-examples\\pyworkbench-examples\\doc\\source\\examples\\cyclic-symmetry-analysis\\CAERep.xml&#39;,
+ &#39;C:\\Users\\ansys\\actions-runner\\_work\\pyworkbench-examples\\pyworkbench-examples\\pyworkbench-examples\\doc\\source\\examples\\cyclic-symmetry-analysis\\CAERepOutput.xml&#39;,
+ &#39;C:\\Users\\ansys\\actions-runner\\_work\\pyworkbench-examples\\pyworkbench-examples\\pyworkbench-examples\\doc\\source\\examples\\cyclic-symmetry-analysis\\cleanup-ansys-pyworkbench-1744.bat&#39;,
+ &#39;C:\\Users\\ansys\\actions-runner\\_work\\pyworkbench-examples\\pyworkbench-examples\\pyworkbench-examples\\doc\\source\\examples\\cyclic-symmetry-analysis\\cyclic_map.json&#39;,
+ &#39;C:\\Users\\ansys\\actions-runner\\_work\\pyworkbench-examples\\pyworkbench-examples\\pyworkbench-examples\\doc\\source\\examples\\cyclic-symmetry-analysis\\deformation.png&#39;,
+ &#39;C:\\Users\\ansys\\actions-runner\\_work\\pyworkbench-examples\\pyworkbench-examples\\pyworkbench-examples\\doc\\source\\examples\\cyclic-symmetry-analysis\\ds.dat&#39;,
+ &#39;C:\\Users\\ansys\\actions-runner\\_work\\pyworkbench-examples\\pyworkbench-examples\\pyworkbench-examples\\doc\\source\\examples\\cyclic-symmetry-analysis\\file.rst&#39;,
+ &#39;C:\\Users\\ansys\\actions-runner\\_work\\pyworkbench-examples\\pyworkbench-examples\\pyworkbench-examples\\doc\\source\\examples\\cyclic-symmetry-analysis\\file0.err&#39;,
+ &#39;C:\\Users\\ansys\\actions-runner\\_work\\pyworkbench-examples\\pyworkbench-examples\\pyworkbench-examples\\doc\\source\\examples\\cyclic-symmetry-analysis\\MatML.xml&#39;,
+ &#39;C:\\Users\\ansys\\actions-runner\\_work\\pyworkbench-examples\\pyworkbench-examples\\pyworkbench-examples\\doc\\source\\examples\\cyclic-symmetry-analysis\\solve.out&#39;]
+</pre></div></div>
+</div>
+<p>Finally, the <code class="docutils literal notranslate"><span class="pre">exit</span></code> method is called on both the PyMechanical and Workbench clients to gracefully shut down the services, ensuring that all resources are properly released.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mechanical</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+<span class="n">wb</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../cooled-turbine-blade/main.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Cooled turbine blade</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../axisymmetric-rotor/main.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Axisymmetric rotor</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+<!-- If there is no fix edit button function, use the PyData edit-this-button-->
+</div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../../_sources/examples/cyclic-symmetry-analysis/main.py.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright (c) 2024 ANSYS, Inc. All rights reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the
+  <a href="https://sphinxdocs.ansys.com/version/stable/index.html"
+    >Ansys Sphinx Theme</a
+  >
+  0.16.5. <br />Last updated on
+  <span id="date"></span>
+</p>
+<script>
+  var options = { day: "numeric", month: "long", year: "numeric" };
+  var lastModifiedDate = new Date(document.lastModified);
+  var date = lastModifiedDate.toLocaleDateString("en-US", options);
+  document.getElementById("date").innerHTML = date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
