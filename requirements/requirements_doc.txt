@@ -1,9 +1,9 @@
 ansys-sphinx-theme==1.2.6
-jupyterlab==4.3.1
-jupytext==1.16.6
+jupyterlab==4.4.2
+jupytext==1.17.1
 jupyter-server==2.15.0
 myst-parser==4.0.0
-nbsphinx==0.9.6
+nbsphinx==0.9.7
 numpydoc==1.8.0
 nbconvert==7.16.6
 sphinx==8.1.3
