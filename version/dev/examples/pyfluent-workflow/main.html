@@ -1,0 +1,1600 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Integrating PyFluent with PyWorkbench: &#8212; PyWorkbench Examples</title>
+  
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/ansys-sphinx-theme.css?v=300e4a82" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles\ansys-sphinx-theme.css?v=300e4a82" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.nerdfonts.com/assets/css/webfont.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=789c53a9" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=80ee211d" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+
+  <!-- Include desired assets -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  
+
+  
+    <link href="../../_static/css/breadcrumbs.css" rel="stylesheet" />
+  
+    <script src="../../_static/documentation_options.js?v=8548ff19"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/pyfluent-workflow/main';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://examples.workbench.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="Material Designer" href="../material-designer-workflow/main.html" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.7.dev0" />
+  <link rel="canonical" href="https://examples.workbench.docs.pyansys.com/version/stable/examples/pyfluent-workflow/main.html" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="https://docs.pyansys.com/">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/pyansys_logo_transparent_black.png" class="logo__image only-light" alt="PyWorkbench Examples - Home"/>
+    <img src="../../_static/pyansys_logo_transparent_white.png" class="logo__image only-dark pst-js-only" alt="PyWorkbench Examples - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html" title="PyWorkbench Examples home">Home</a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../basic-examples.html">
+    Basic examples
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../advanced-examples.html">
+    Advanced examples
+  </a>
+</li>
+
+  </ul>
+</nav>
+</div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+</div></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyworkbench-examples" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+  
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(
+      (text) => (document.getElementById("announcement_msg").innerHTML = text),
+    )
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>
+  
+
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html" title="PyWorkbench Examples home">Home</a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../basic-examples.html">
+    Basic examples
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../advanced-examples.html">
+    Advanced examples
+  </a>
+</li>
+
+  </ul>
+</nav>
+</div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+</div></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyworkbench-examples" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../cooled-turbine-blade/main.html">Cooled turbine blade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cyclic-symmetry-analysis/main.html">Cyclic symmetry analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../material-designer-workflow/main.html">Material Designer</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Integrating PyFluent with PyWorkbench:</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+         
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="https://docs.pyansys.com/" class="nav-link">PyAnsys</a>
+    </li>
+       
+    <li class="breadcrumb-item">
+      <a href="https://workbench.docs.pyansys.com/" class="nav-link">PyWorkbench</a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a
+        href="../../index.html"
+        class="nav-link"
+        aria-label="Home"
+      >
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="../../advanced-examples.html" class="nav-link">Advanced examples</a>
+    </li>
+      
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Integrating PyFluent with PyWorkbench:</span></li>
+    
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="Integrating-PyFluent-with-PyWorkbench:">
+<h1>Integrating PyFluent with PyWorkbench:<a class="headerlink" href="#Integrating-PyFluent-with-PyWorkbench:" title="Link to this heading">#</a></h1>
+<p>This example showcases how to use PyFluent workflow together with PyWorkbench - (Python client scripting for Ansys Workbench).</p>
+<p>This example sets up and solves a three-dimensional turbulent fluid flow and heat transfer problem in a mixing elbow, which is common in piping systems in power plants and process industries. Predicting the flow field and temperature field in the area of the mixing region is important to designing the junction properly.</p>
+<p>This example uses Pyfluent settings objects API’s.</p>
+<section id="Problem-description">
+<h2>Problem description<a class="headerlink" href="#Problem-description" title="Link to this heading">#</a></h2>
+<p>A cold fluid at 20 deg C flows into the pipe through a large inlet. It then mixes with a warmer fluid at 40 deg C that enters through a smaller inlet located at the elbow. The pipe dimensions are in inches, and the fluid properties and boundary conditions are given in SI units. Because the Reynolds number for the flow at the larger inlet is <code class="docutils literal notranslate"><span class="pre">50,800</span></code>, a turbulent flow model is required.</p>
+</section>
+<section id="Performed-required-imports">
+<h2>Performed required imports<a class="headerlink" href="#Performed-required-imports" title="Link to this heading">#</a></h2>
+<p>Performing essential imports for Ansys Workbench, Fluent Pythonic Interface and for downloading examples data.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pathlib</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ansys.workbench.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">launch_workbench</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">ansys.fluent.core</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyfluent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ansys.fluent.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">examples</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Specify-client-and-server-directories-with-launch-WB-service.">
+<h2>Specify client and server directories with launch WB service.<a class="headerlink" href="#Specify-client-and-server-directories-with-launch-WB-service." title="Link to this heading">#</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workdir</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;__file__&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wb</span> <span class="o">=</span> <span class="n">launch_workbench</span><span class="p">(</span><span class="n">client_workdir</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">workdir</span><span class="o">.</span><span class="n">absolute</span><span class="p">()),</span> <span class="n">show_gui</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s2">&quot;251&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Download-the-input-file-from-example-data-and-upload-to-server-directory.">
+<h2>Download the input file from example data and upload to server directory.<a class="headerlink" href="#Download-the-input-file-from-example-data-and-upload-to-server-directory." title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">import_filename</span> <span class="o">=</span> <span class="n">examples</span><span class="o">.</span><span class="n">download_file</span><span class="p">(</span><span class="s2">&quot;mixing_elbow.msh.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;pyfluent/mixing_elbow&quot;</span><span class="p">)</span>
+<span class="n">wb</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span><span class="n">import_filename</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Uploading mixing_elbow.msh.h5: 100%|██████████| 2.68M/2.68M [00:00&lt;00:00, 84.8MB/s]
+</pre></div></div>
+</div>
+</section>
+<section id="Generate-a-%22FLUENT%22-System-using-Ansys-Workbench-Scripting-API-(used-for-Journaling)-and-parse-it-to-the-PyWorkbench-API.">
+<h2>Generate a “FLUENT” System using Ansys Workbench Scripting API (used for Journaling) and parse it to the PyWorkbench API.<a class="headerlink" href="#Generate-a-%22FLUENT%22-System-using-Ansys-Workbench-Scripting-API-(used-for-Journaling)-and-parse-it-to-the-PyWorkbench-API." title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">export_path</span> <span class="o">=</span> <span class="s2">&quot;wb_log_file.log&quot;</span>
+<span class="n">wb</span><span class="o">.</span><span class="n">set_log_file</span><span class="p">(</span><span class="n">export_path</span><span class="p">)</span>
+<span class="n">wb</span><span class="o">.</span><span class="n">run_script_string</span><span class="p">(</span><span class="s1">&#39;template1 = GetTemplate(TemplateName=&quot;FLUENT&quot;)&#39;</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+<span class="n">wb</span><span class="o">.</span><span class="n">run_script_string</span><span class="p">(</span><span class="s2">&quot;system1 = template1.CreateSystem()&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{}
+</pre></div></div>
+</div>
+</section>
+<section id="Launch-Fluent-&amp;-Connect-to-Fluent">
+<h2>Launch Fluent &amp; Connect to Fluent<a class="headerlink" href="#Launch-Fluent-&-Connect-to-Fluent" title="Link to this heading">#</a></h2>
+<p>Launch Fluent as server with PyWorkbench API and and connect to Pyfluent session</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">server_info_file</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">start_fluent_server</span><span class="p">(</span><span class="n">system_name</span><span class="o">=</span><span class="s2">&quot;FLU&quot;</span><span class="p">)</span>
+<span class="n">fluent_session</span> <span class="o">=</span> <span class="n">pyfluent</span><span class="o">.</span><span class="n">connect_to_fluent</span><span class="p">(</span><span class="n">server_info_file_name</span><span class="o">=</span><span class="n">server_info_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Import-mesh-and-perform-mesh-check">
+<h2>Import mesh and perform mesh check<a class="headerlink" href="#Import-mesh-and-perform-mesh-check" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import the mesh and perform a mesh check, which lists the minimum and maximum</span>
+<span class="c1"># x, y, and z values from the mesh in the default SI units of meters. The mesh</span>
+<span class="c1"># check also reports a number of other mesh features that are checked. Any errors</span>
+<span class="c1"># in the mesh are reported. Ensure that the minimum volume is not negative because</span>
+<span class="c1"># Fluent cannot begin a calculation when this is the case.</span>
+
+<span class="n">fluent_session</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">read_mesh</span><span class="p">(</span><span class="n">file_name</span><span class="o">=</span><span class="n">import_filename</span><span class="p">)</span>
+<span class="n">fluent_session</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">check</span><span class="p">()</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+pyfluent.settings_api WARNING: Mismatch between generated file and server object info. Dynamically created settings classes will be used.
+WARNING:pyfluent.settings_api:Mismatch between generated file and server object info. Dynamically created settings classes will be used.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;file&#39; is deprecated. Use &#39;settings.file&#39; instead.
+Fast-loading &#34;C:\PROGRA~1\ANSYSI~1\v251\fluent\fluent25.1.0\\addons\afd\lib\hdfio.bin&#34;
+Done.
+Multicore SMT processors detected. Processor affinity set!
+
+Reading from pyworkbench:&#34;C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\pyfluent-workflow\mixing_elbow.msh.h5&#34; in NODE0 mode ...
+  Reading mesh ...
+       17822 cells,     1 cell zone  ...
+          17822 mixed cells,  zone id: 87
+       91581 faces,     7 face zones ...
+           2168 polygonal wall faces,  zone id: 34
+            268 polygonal wall faces,  zone id: 33
+            155 polygonal pressure-outlet faces,  zone id: 32
+            152 polygonal velocity-inlet faces,  zone id: 31
+             55 polygonal velocity-inlet faces,  zone id: 30
+           2001 polygonal symmetry faces,  zone id: 29
+          86782 mixed interior faces,  zone id: 89
+       66417 nodes,     3 node zones ...
+
+Building...
+     mesh
+     materials,
+     interface,
+     domains,
+     zones,
+        Skipping thread 20 of domain 1 (not referenced by grid).
+        Skipping thread 21 of domain 1 (not referenced by grid).
+        Skipping thread 22 of domain 1 (not referenced by grid).
+        Skipping thread 23 of domain 1 (not referenced by grid).
+        Skipping thread 24 of domain 1 (not referenced by grid).
+        Skipping thread 25 of domain 1 (not referenced by grid).
+        Skipping thread 26 of domain 1 (not referenced by grid).
+        Skipping thread 27 of domain 1 (not referenced by grid).
+        Skipping thread 28 of domain 1 (not referenced by grid).
+        wall-elbow
+        wall-inlet
+        outlet
+        cold-inlet
+        hot-inlet
+        symmetry-xyplane
+        interior--elbow-fluid
+        elbow-fluid
+     parallel,
+Done.
+Mesh is now scaled to meters.
+
+Preparing mesh for display...
+Done.
+
+Writing Settings file &#34;C:\Users\ansys\AppData\Local\Temp\WB_ansys_7448_2\wbnew_files\dp0\FLU\Fluent\mixing_elbow.set&#34;...
+        writing rp variables ... Done.
+        writing domain variables ... Done.
+        writing elbow-fluid (type fluid) (mixture) ... Done.
+        writing interior--elbow-fluid (type interior) (mixture) ... Done.
+        writing symmetry-xyplane (type symmetry) (mixture) ... Done.
+        writing hot-inlet (type velocity-inlet) (mixture) ... Done.
+        writing cold-inlet (type velocity-inlet) (mixture) ... Done.
+        writing outlet (type pressure-outlet) (mixture) ... Done.
+        writing wall-inlet (type wall) (mixture) ... Done.
+        writing wall-elbow (type wall) (mixture) ... Done.
+        writing zones map name-id ... Done.
+&#39;mesh&#39; is deprecated. Use &#39;settings.mesh&#39; instead.
+
+ Domain Extents:
+   x-coordinate: min (m) = -2.000000e-01, max (m) = 2.000000e-01
+   y-coordinate: min (m) = -2.250000e-01, max (m) = 2.000000e-01
+   z-coordinate: min (m) = 0.000000e+00, max (m) = 4.992265e-02
+ Volume statistics:
+   minimum volume (m3): 2.443845e-10
+   maximum volume (m3): 5.720378e-07
+     total volume (m3): 2.500656e-03
+ Face area statistics:
+   minimum face area (m2): 3.226186e-08
+   maximum face area (m2): 7.873458e-05
+ Checking mesh............................
+Done.
+
+Note: Settings to improve the robustness of pathline and
+      particle tracking have been automatically enabled.
+
+</pre></div></div>
+</div>
+</section>
+<section id="Set-working-units-for-mesh">
+<h2>Set working units for mesh<a class="headerlink" href="#Set-working-units-for-mesh" title="Link to this heading">#</a></h2>
+<p>Set the working units for the mesh to inches. Because the default SI units are used for everything except length, you do not have to change any other units in this example. If you want working units for length to be other than inches (for example, millimeters), make the appropriate change.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fluent_session</span><span class="o">.</span><span class="n">tui</span><span class="o">.</span><span class="n">define</span><span class="o">.</span><span class="n">units</span><span class="p">(</span><span class="s2">&quot;length&quot;</span><span class="p">,</span> <span class="s2">&quot;in&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The following solver settings object method could also be used to execute the above command:
+&lt;solver_session&gt;.settings.setup.general.units.set_units(quantity = &#34;length&#34;, units_name = &#34;in&#34;, scale_factor = 1., offset = 0.)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+</pre></div></div>
+</div>
+</section>
+<section id="Enable-heat-transfer">
+<h2>Enable heat transfer<a class="headerlink" href="#Enable-heat-transfer" title="Link to this heading">#</a></h2>
+<p>Enable heat transfer by activating the energy equation.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fluent_session</span><span class="o">.</span><span class="n">setup</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">energy</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;setup&#39; is deprecated. Use &#39;settings.setup&#39; instead.
+</pre></div></div>
+</div>
+</section>
+<section id="Create-material">
+<h2>Create material<a class="headerlink" href="#Create-material" title="Link to this heading">#</a></h2>
+<p>Create a material named <code class="docutils literal notranslate"><span class="pre">&quot;water-liquid&quot;</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fluent_session</span><span class="o">.</span><span class="n">setup</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">copy_by_name</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;fluid&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;water-liquid&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+Material &#34;water-liquid&#34; copied from database: fluent-database.
+
+</pre></div></div>
+</div>
+</section>
+<section id="Set-up-cell-zone-conditions">
+<h2>Set up cell zone conditions<a class="headerlink" href="#Set-up-cell-zone-conditions" title="Link to this heading">#</a></h2>
+<p>Set up the cell zone conditions for the fluid zone (<code class="docutils literal notranslate"><span class="pre">elbow-fluid</span></code>). Set <code class="docutils literal notranslate"><span class="pre">material</span></code> to <code class="docutils literal notranslate"><span class="pre">&quot;water-liquid&quot;</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fluent_session</span><span class="o">.</span><span class="n">setup</span><span class="o">.</span><span class="n">cell_zone_conditions</span><span class="o">.</span><span class="n">fluid</span><span class="p">[</span><span class="s1">&#39;elbow-fluid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">general</span><span class="o">.</span><span class="n">material</span> <span class="o">=</span> <span class="s2">&quot;water-liquid&quot;</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Set-up-boundary-conditions-for-CFD-analysis">
+<h2>Set up boundary conditions for CFD analysis<a class="headerlink" href="#Set-up-boundary-conditions-for-CFD-analysis" title="Link to this heading">#</a></h2>
+<p>Set up the boundary conditions for the inlets, outlet, and walls for CFD analysis.</p>
+<ul class="simple">
+<li><p>cold inlet (cold-inlet), Setting: Value:</p></li>
+<li><p>Velocity Specification Method: Magnitude, Normal to Boundary</p></li>
+<li><p>Velocity Magnitude: 0.4 [m/s]</p></li>
+<li><p>Specification Method: Intensity and Hydraulic Diameter</p></li>
+<li><p>Turbulent Intensity: 5 [%]</p></li>
+<li><p>Hydraulic Diameter: 4 [inch]</p></li>
+<li><p>Temperature: 293.15 [K]</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cold_inlet</span> <span class="o">=</span> <span class="n">fluent_session</span><span class="o">.</span><span class="n">setup</span><span class="o">.</span><span class="n">boundary_conditions</span><span class="o">.</span><span class="n">velocity_inlet</span><span class="p">[</span><span class="s2">&quot;cold-inlet&quot;</span><span class="p">]</span>
+<span class="n">cold_inlet</span><span class="o">.</span><span class="n">get_state</span><span class="p">()</span>
+<span class="n">cold_inlet</span><span class="o">.</span><span class="n">momentum</span><span class="o">.</span><span class="n">velocity</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mf">0.4</span>
+<span class="n">cold_inlet</span><span class="o">.</span><span class="n">turbulence</span><span class="o">.</span><span class="n">turbulent_specification</span> <span class="o">=</span> <span class="s2">&quot;Intensity and Hydraulic Diameter&quot;</span>
+<span class="n">cold_inlet</span><span class="o">.</span><span class="n">turbulence</span><span class="o">.</span><span class="n">turbulent_intensity</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="n">cold_inlet</span><span class="o">.</span><span class="n">turbulence</span><span class="o">.</span><span class="n">hydraulic_diameter</span> <span class="o">=</span> <span class="s2">&quot;4 [in]&quot;</span>
+<span class="n">cold_inlet</span><span class="o">.</span><span class="n">thermal</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mf">293.15</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Note: A newer syntax is available to perform the last operation:
+solver.settings.setup.boundary_conditions.velocity_inlet[&#39;cold-inlet&#39;].momentum.velocity_magnitude.value = 0.4
+
+Execute the following code to suppress future warnings like the above:
+
+&gt;&gt;&gt; import warnings
+&gt;&gt;&gt; warnings.filterwarnings(&#34;ignore&#34;, category=DeprecatedSettingWarning)
+Note: A newer syntax is available to perform the last operation:
+solver.settings.setup.boundary_conditions.velocity_inlet[&#39;cold-inlet&#39;].turbulence.turbulence_specification = &#34;Intensity and Hydraulic Diameter&#34;
+Note: A newer syntax is available to perform the last operation:
+solver.settings.setup.boundary_conditions.velocity_inlet[&#39;cold-inlet&#39;].thermal.temperature.value = 293.15
+</pre></div></div>
+</div>
+<ul class="simple">
+<li><p>hot inlet (hot-inlet), Setting: Value:</p></li>
+<li><p>Velocity Specification Method: Magnitude, Normal to Boundary</p></li>
+<li><p>Velocity Magnitude: 1.2 [m/s]</p></li>
+<li><p>Specification Method: Intensity and Hydraulic Diameter</p></li>
+<li><p>Turbulent Intensity: 5 [%]</p></li>
+<li><p>Hydraulic Diameter: 1 [inch]</p></li>
+<li><p>Temperature: 313.15 [K]</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hot_inlet</span> <span class="o">=</span> <span class="n">fluent_session</span><span class="o">.</span><span class="n">setup</span><span class="o">.</span><span class="n">boundary_conditions</span><span class="o">.</span><span class="n">velocity_inlet</span><span class="p">[</span><span class="s2">&quot;hot-inlet&quot;</span><span class="p">]</span>
+<span class="n">hot_inlet</span><span class="o">.</span><span class="n">momentum</span><span class="o">.</span><span class="n">velocity</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mf">1.2</span>
+<span class="n">hot_inlet</span><span class="o">.</span><span class="n">turbulence</span><span class="o">.</span><span class="n">turbulent_specification</span> <span class="o">=</span> <span class="s2">&quot;Intensity and Hydraulic Diameter&quot;</span>
+<span class="n">hot_inlet</span><span class="o">.</span><span class="n">turbulence</span><span class="o">.</span><span class="n">turbulent_intensity</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="n">hot_inlet</span><span class="o">.</span><span class="n">turbulence</span><span class="o">.</span><span class="n">hydraulic_diameter</span> <span class="o">=</span> <span class="s2">&quot;1 [in]&quot;</span>
+<span class="n">hot_inlet</span><span class="o">.</span><span class="n">thermal</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mf">313.15</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Note: A newer syntax is available to perform the last operation:
+solver.settings.setup.boundary_conditions.velocity_inlet[&#39;hot-inlet&#39;].momentum.velocity_magnitude.value = 1.2
+Note: A newer syntax is available to perform the last operation:
+solver.settings.setup.boundary_conditions.velocity_inlet[&#39;hot-inlet&#39;].turbulence.turbulence_specification = &#34;Intensity and Hydraulic Diameter&#34;
+Note: A newer syntax is available to perform the last operation:
+solver.settings.setup.boundary_conditions.velocity_inlet[&#39;hot-inlet&#39;].thermal.temperature.value = 313.15
+</pre></div></div>
+</div>
+<ul class="simple">
+<li><p>pressure outlet (outlet), Setting: Value:</p></li>
+<li><p>Backflow Turbulent Intensity: 5 [%]</p></li>
+<li><p>Backflow Turbulent Viscosity Ratio: 4</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fluent_session</span><span class="o">.</span><span class="n">setup</span><span class="o">.</span><span class="n">boundary_conditions</span><span class="o">.</span><span class="n">pressure_outlet</span><span class="p">[</span>
+    <span class="s2">&quot;outlet&quot;</span>
+<span class="p">]</span><span class="o">.</span><span class="n">turbulence</span><span class="o">.</span><span class="n">backflow_turbulent_viscosity_ratio</span> <span class="o">=</span> <span class="mi">4</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Initialize-flow-field">
+<h2>Initialize flow field<a class="headerlink" href="#Initialize-flow-field" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fluent_session</span><span class="o">.</span><span class="n">solution</span><span class="o">.</span><span class="n">initialization</span><span class="o">.</span><span class="n">hybrid_initialize</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;solution&#39; is deprecated. Use &#39;settings.solution&#39; instead.
+
+Initialize using the hybrid initialization method.
+
+Checking case topology...
+-This case has both inlets &amp; outlets
+-Pressure information is not available at the boundaries.
+ Case will be initialized with constant pressure
+
+        iter            scalar-0
+
+        1               1.000000e+00
+        2               1.763140e-04
+        3               1.043067e-05
+        4               9.566706e-06
+        5               1.769730e-06
+        6               2.165014e-06
+        7               3.173055e-07
+        8               5.159712e-07
+        9               1.080573e-07
+        10              1.128050e-07
+
+Hybrid initialization is done.
+</pre></div></div>
+</div>
+</section>
+<section id="Solve-for-150-iterations">
+<h2>Solve for 150 iterations<a class="headerlink" href="#Solve-for-150-iterations" title="Link to this heading">#</a></h2>
+<p>Setting iteration count to 150 to solve the model.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fluent_session</span><span class="o">.</span><span class="n">solution</span><span class="o">.</span><span class="n">run_calculation</span><span class="o">.</span><span class="n">iter_count</span> <span class="o">=</span> <span class="mi">100</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Update-Solution-using-Workbench-Journal-Commands">
+<h2>Update Solution using Workbench Journal Commands<a class="headerlink" href="#Update-Solution-using-Workbench-Journal-Commands" title="Link to this heading">#</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">script_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">solutionComponent1 = system1.GetComponent(Name=&quot;Solution&quot;)</span>
+<span class="s2">system1 = GetSystem(Name=&quot;FLU&quot;)</span>
+<span class="s2">solutionComponent1 = system1.GetComponent(Name=&quot;Solution&quot;)</span>
+<span class="s2">solutionComponent1.Update(AllDependencies=True)</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wb</span><span class="o">.</span><span class="n">run_script_string</span><span class="p">(</span><span class="n">script_string</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+Writing to pyworkbench:&#34;C:\Users\ansys\AppData\Local\Temp\WB_ansys_7448_2\wbnew_files\dp0\FLU\Fluent\mixing_elbow-Setup-Output.cas.h5&#34; in NODE0 mode and compression level 1 ...
+Grouping cells for Laplace smoothing ...
+Warning: reading 2 partition grid onto 1 compute node machine.
+         Combining every 2 partitions.
+  Done.       17822 cells,     1 zone  ...
+       91581 faces,     7 zones ...
+       66417 nodes,     1 zone  ...
+  Done.
+Done.
+
+Writing Settings file &#34;C:\Users\ansys\AppData\Local\Temp\WB_ansys_7448_2\wbnew_files\dp0\FLU\Fluent\mixing_elbow.set&#34;...
+        writing rp variables ... Done.
+        writing domain variables ... Done.
+        writing elbow-fluid (type fluid) (mixture) ... Done.
+        writing interior--elbow-fluid (type interior) (mixture) ... Done.
+        writing symmetry-xyplane (type symmetry) (mixture) ... Done.
+        writing hot-inlet (type velocity-inlet) (mixture) ... Done.
+        writing cold-inlet (type velocity-inlet) (mixture) ... Done.
+        writing outlet (type pressure-outlet) (mixture) ... Done.
+        writing wall-inlet (type wall) (mixture) ... Done.
+        writing wall-elbow (type wall) (mixture) ... Done.
+        writing zones map name-id ... Done.
+
+Writing to pyworkbench:&#34;C:\Users\ansys\AppData\Local\Temp\WB_ansys_7448_2\wbnew_files\dp0\FLU\Fluent\mixing_elbow-1.cas.h5&#34; in NODE0 mode and compression level 1 ...
+Grouping cells for Laplace smoothing ...
+       17822 cells,     1 zone  ...
+       91581 faces,     7 zones ...
+       66417 nodes,     1 zone  ...
+  Done.
+Done.
+
+Writing to pyworkbench:&#34;C:\Users\ansys\AppData\Local\Temp\WB_ansys_7448_2\wbnew_files\dp0\FLU\Fluent\mixing_elbow-1-00000.dat.h5&#34; in NODE0 mode and compression level 1 ...
+  Writing results.
+Done.
+
+Reading from pyworkbench:&#34;C:\Users\ansys\AppData\Local\Temp\WB_ansys_7448_2\wbnew_files\dp0\FLU\Fluent\mixing_elbow-1-00000.dat.h5&#34; in NODE0 mode ...
+
+
+  Reading results.
+Parallel variables...
+Done.
+
+  iter  continuity  x-velocity  y-velocity  z-velocity      energy           k       omega     time/iter
+     1  1.0000e+00  8.7025e-03  9.5527e-03  2.2999e-03  8.7395e-05  9.3373e-02  1.6893e-01  0:00:52   99
+     2  9.5569e-01  4.9871e-03  6.0612e-03  1.4335e-03  9.7070e-05  3.0894e-02  1.0149e-01  0:00:52   98
+     3  8.3224e-01  3.1173e-03  4.4779e-03  1.1784e-03  1.0466e-04  1.5446e-02  6.1329e-02  0:00:50   97
+     4  7.3289e-01  2.0733e-03  3.8162e-03  9.6114e-04  1.1358e-04  1.5540e-02  3.9406e-02  0:00:49   96
+     5  6.7194e-01  1.7662e-03  3.5339e-03  8.3630e-04  1.1999e-04  1.5258e-02  2.9248e-02  0:00:48   95
+     6  6.0813e-01  1.6818e-03  3.3371e-03  7.6228e-04  1.2291e-04  1.5033e-02  2.3070e-02  0:00:46   94
+     7  5.5096e-01  1.5816e-03  3.2311e-03  7.0710e-04  1.2268e-04  1.5318e-02  1.8859e-02  0:00:45   93
+     8  5.0868e-01  1.4799e-03  3.1153e-03  6.6078e-04  1.2014e-04  1.5984e-02  1.5614e-02  0:00:44   92
+     9  4.6966e-01  1.3911e-03  3.0098e-03  6.2469e-04  1.1466e-04  1.6586e-02  1.3171e-02  0:00:44   91
+    10  4.4046e-01  1.3298e-03  2.8801e-03  5.9233e-04  1.0750e-04  1.6829e-02  1.1179e-02  0:00:44   90
+    11  4.0964e-01  1.2728e-03  2.7224e-03  5.6390e-04  9.8127e-05  1.6630e-02  9.5671e-03  0:00:44   89
+
+  iter  continuity  x-velocity  y-velocity  z-velocity      energy           k       omega     time/iter
+    12  3.8078e-01  1.2146e-03  2.5534e-03  5.3567e-04  8.7485e-05  1.6065e-02  8.3426e-03  0:00:43   88
+    13  3.5444e-01  1.1588e-03  2.3717e-03  5.0957e-04  7.6127e-05  1.5147e-02  7.3240e-03  0:00:42   87
+    14  3.3023e-01  1.1022e-03  2.1828e-03  4.8397e-04  6.4501e-05  1.4002e-02  6.4850e-03  0:00:41   86
+    15  3.0786e-01  1.0444e-03  1.9982e-03  4.5945e-04  5.4592e-05  1.2697e-02  5.7421e-03  0:00:41   85
+    16  2.8728e-01  9.9060e-04  1.8134e-03  4.3723e-04  4.7209e-05  1.1297e-02  5.0826e-03  0:00:40   84
+    17  2.7180e-01  9.3743e-04  1.6385e-03  4.1684e-04  4.2241e-05  9.9031e-03  4.4956e-03  0:00:40   83
+    18  2.5737e-01  8.8132e-04  1.4832e-03  3.9880e-04  3.8901e-05  8.5933e-03  3.9781e-03  0:00:39   82
+    19  2.4573e-01  8.2652e-04  1.3472e-03  3.8211e-04  3.6201e-05  7.4097e-03  3.5321e-03  0:00:39   81
+    20  2.3315e-01  7.7164e-04  1.2295e-03  3.6723e-04  3.3119e-05  6.3519e-03  3.1650e-03  0:00:38   80
+    21  2.2218e-01  7.1910e-04  1.1329e-03  3.5407e-04  2.9740e-05  5.4422e-03  2.8613e-03  0:00:38   79
+    22  2.1080e-01  6.6784e-04  1.0540e-03  3.4113e-04  2.6357e-05  4.6095e-03  2.5927e-03  0:00:37   78
+
+  iter  continuity  x-velocity  y-velocity  z-velocity      energy           k       omega     time/iter
+    23  2.0057e-01  6.1985e-04  9.9202e-04  3.2880e-04  2.3184e-05  3.9028e-03  2.3569e-03  0:00:36   77
+    24  1.8956e-01  5.7365e-04  9.4028e-04  3.1679e-04  2.0286e-05  3.3430e-03  2.1539e-03  0:00:36   76
+    25  1.7979e-01  5.3226e-04  8.9670e-04  3.0420e-04  1.7616e-05  2.9162e-03  1.9796e-03  0:00:36   75
+    26  1.7066e-01  4.9352e-04  8.5432e-04  2.9019e-04  1.5256e-05  2.5798e-03  1.8232e-03  0:00:35   74
+    27  1.6165e-01  4.5794e-04  8.1447e-04  2.7490e-04  1.3206e-05  2.3079e-03  1.6791e-03  0:00:35   73
+    28  1.5339e-01  4.2467e-04  7.7380e-04  2.5997e-04  1.1455e-05  2.0754e-03  1.5482e-03  0:00:35   72
+    29  1.4435e-01  3.9312e-04  7.3120e-04  2.4499e-04  9.9524e-06  1.8757e-03  1.4248e-03  0:00:34   71
+    30  1.3581e-01  3.6360e-04  6.8855e-04  2.2930e-04  8.6635e-06  1.7118e-03  1.3147e-03  0:00:34   70
+    31  1.2732e-01  3.3575e-04  6.4542e-04  2.1326e-04  7.5475e-06  1.5774e-03  1.2197e-03  0:00:33   69
+    32  1.1985e-01  3.0875e-04  6.0350e-04  1.9739e-04  6.5919e-06  1.4597e-03  1.1337e-03  0:00:33   68
+    33  1.1176e-01  2.8321e-04  5.6256e-04  1.8193e-04  5.7747e-06  1.3554e-03  1.0563e-03  0:00:33   67
+
+  iter  continuity  x-velocity  y-velocity  z-velocity      energy           k       omega     time/iter
+    34  1.0393e-01  2.5971e-04  5.2397e-04  1.6722e-04  5.0737e-06  1.2664e-03  9.8376e-04  0:00:32   66
+    35  9.6985e-02  2.3797e-04  4.8791e-04  1.5339e-04  4.4813e-06  1.1861e-03  9.1588e-04  0:00:31   65
+    36  9.0350e-02  2.1783e-04  4.5430e-04  1.4062e-04  3.9751e-06  1.1113e-03  8.5369e-04  0:00:31   64
+    37  8.4416e-02  1.9944e-04  4.2255e-04  1.2896e-04  3.5408e-06  1.0428e-03  7.9703e-04  0:00:30   63
+    38  7.8763e-02  1.8230e-04  3.9239e-04  1.1827e-04  3.1635e-06  9.7885e-04  7.4366e-04  0:00:38   62
+    39  7.3481e-02  1.6662e-04  3.6373e-04  1.0851e-04  2.8410e-06  9.1937e-04  6.9219e-04  0:00:35   61
+    40  6.8036e-02  1.5218e-04  3.3676e-04  9.9524e-05  2.5576e-06  8.6619e-04  6.4286e-04  0:00:33   60
+    41  6.3238e-02  1.3903e-04  3.1255e-04  9.1189e-05  2.3119e-06  8.1573e-04  5.9768e-04  0:00:32   59
+    42  5.8777e-02  1.2703e-04  2.8954e-04  8.3452e-05  2.0979e-06  7.6727e-04  5.5527e-04  0:00:31   58
+    43  5.4531e-02  1.1607e-04  2.6783e-04  7.6427e-05  1.9117e-06  7.2122e-04  5.1451e-04  0:00:31   57
+    44  5.0537e-02  1.0612e-04  2.4739e-04  6.9988e-05  1.7476e-06  6.7733e-04  4.7739e-04  0:00:29   56
+
+  iter  continuity  x-velocity  y-velocity  z-velocity      energy           k       omega     time/iter
+    45  4.7314e-02  9.7068e-05  2.2891e-04  6.4157e-05  1.6017e-06  6.3403e-04  4.4149e-04  0:00:28   55
+    46  4.3685e-02  8.8742e-05  2.1183e-04  5.8838e-05  1.4730e-06  5.9351e-04  4.0732e-04  0:00:27   54
+    47  4.0155e-02  8.1061e-05  1.9555e-04  5.3969e-05  1.3538e-06  5.5541e-04  3.7683e-04  0:00:27   53
+    48  3.7614e-02  7.4145e-05  1.8071e-04  4.9543e-05  1.2489e-06  5.1877e-04  3.4778e-04  0:00:26   52
+    49  3.4750e-02  6.7757e-05  1.6696e-04  4.5461e-05  1.1534e-06  4.8366e-04  3.2046e-04  0:00:25   51
+    50  3.2168e-02  6.1913e-05  1.5433e-04  4.1716e-05  1.0677e-06  4.4970e-04  2.9678e-04  0:00:24   50
+    51  3.0417e-02  5.6657e-05  1.4247e-04  3.8349e-05  9.8827e-07  4.1674e-04  2.7365e-04  0:00:24   49
+    52  2.7885e-02  5.1794e-05  1.3072e-04  3.5221e-05  9.1682e-07  3.8394e-04  2.5114e-04  0:00:23   48
+    53  2.5501e-02  4.7324e-05  1.1996e-04  3.2320e-05  8.5032e-07  3.5334e-04  2.3147e-04  0:00:22   47
+    54  2.4011e-02  4.3328e-05  1.1020e-04  2.9707e-05  7.8644e-07  3.2471e-04  2.1186e-04  0:00:22   46
+    55  2.1880e-02  3.9604e-05  1.0091e-04  2.7278e-05  7.3028e-07  2.9756e-04  1.9294e-04  0:00:22   45
+
+  iter  continuity  x-velocity  y-velocity  z-velocity      energy           k       omega     time/iter
+    56  1.9936e-02  3.6171e-05  9.2349e-05  2.5035e-05  6.7492e-07  2.7224e-04  1.7726e-04  0:00:21   44
+    57  1.8877e-02  3.3151e-05  8.4493e-05  2.3017e-05  6.2419e-07  2.4881e-04  1.6186e-04  0:00:20   43
+    58  1.7164e-02  3.0302e-05  7.7145e-05  2.1132e-05  5.7840e-07  2.2705e-04  1.4686e-04  0:00:20   42
+    59  1.5592e-02  2.7646e-05  7.0419e-05  1.9405e-05  5.3180e-07  2.0758e-04  1.3497e-04  0:00:20   41
+    60  1.4863e-02  2.5323e-05  6.4464e-05  1.7866e-05  4.9246e-07  1.8940e-04  1.2306e-04  0:00:19   40
+    61  1.3438e-02  2.3119e-05  5.8820e-05  1.6422e-05  4.5551e-07  1.7236e-04  1.1118e-04  0:00:19   39
+    62  1.2136e-02  2.1061e-05  5.3691e-05  1.5097e-05  4.1700e-07  1.5752e-04  1.0221e-04  0:00:18   38
+    63  1.1666e-02  1.9290e-05  4.9095e-05  1.3917e-05  3.8529e-07  1.4407e-04  9.3088e-05  0:00:18   37
+    64  1.0493e-02  1.7597e-05  4.4654e-05  1.2786e-05  3.5628e-07  1.3145e-04  8.3877e-05  0:00:17   36
+    65  9.4270e-03  1.6009e-05  4.0614e-05  1.1738e-05  3.2796e-07  1.2015e-04  7.7389e-05  0:00:17   35
+    66  9.1769e-03  1.4670e-05  3.7062e-05  1.0812e-05  3.0414e-07  1.0973e-04  7.0513e-05  0:00:16   34
+
+  iter  continuity  x-velocity  y-velocity  z-velocity      energy           k       omega     time/iter
+    67  8.2062e-03  1.3375e-05  3.3593e-05  9.9154e-06  2.8103e-07  9.9859e-05  6.3185e-05  0:00:16   33
+    68  7.3289e-03  1.2150e-05  3.0467e-05  9.0776e-06  2.6072e-07  9.1256e-05  5.8391e-05  0:00:15   32
+    69  7.2452e-03  1.1143e-05  2.7760e-05  8.3440e-06  2.4156e-07  8.3337e-05  5.3122e-05  0:00:15   31
+    70  6.4196e-03  1.0147e-05  2.5096e-05  7.6282e-06  2.2413e-07  7.5538e-05  4.7223e-05  0:00:14   30
+    71  5.6698e-03  9.1946e-06  2.2703e-05  6.9632e-06  2.0679e-07  6.8837e-05  4.3837e-05  0:00:14   29
+    72  5.7147e-03  8.4452e-06  2.0680e-05  6.3926e-06  1.9510e-07  6.2673e-05  3.9890e-05  0:00:13   28
+    73  5.0155e-03  7.6830e-06  1.8651e-05  5.8299e-06  1.8099e-07  5.6497e-05  3.5090e-05  0:00:13   27
+    74  4.3893e-03  6.9426e-06  1.6841e-05  5.3068e-06  1.6807e-07  5.1327e-05  3.2758e-05  0:00:12   26
+    75  4.5428e-03  6.3833e-06  1.5341e-05  4.8700e-06  1.5804e-07  4.6645e-05  2.9819e-05  0:00:12   25
+    76  3.9406e-03  5.7965e-06  1.3789e-05  4.4313e-06  1.5022e-07  4.1841e-05  2.5880e-05  0:00:11   24
+    77  3.4006e-03  5.2173e-06  1.2408e-05  4.0186e-06  1.4091e-07  3.7967e-05  2.4380e-05  0:00:11   23
+
+  iter  continuity  x-velocity  y-velocity  z-velocity      energy           k       omega     time/iter
+    78  3.6351e-03  4.8069e-06  1.1310e-05  3.6847e-06  1.3454e-07  3.4491e-05  2.2267e-05  0:00:10   22
+    79  3.1083e-03  4.3570e-06  1.0135e-05  3.3428e-06  1.2748e-07  3.0767e-05  1.9015e-05  0:00:10   21
+    80  2.6354e-03  3.9050e-06  9.0901e-06  3.0181e-06  1.2005e-07  2.7612e-05  1.6626e-05  0:00:09   20
+    81  2.3085e-03  3.5333e-06  8.1682e-06  2.7327e-06  1.1596e-07  2.5065e-05  1.6784e-05  0:00:09   19
+    82  2.8537e-03  3.3013e-06  7.5277e-06  2.5200e-06  1.1265e-07  2.2797e-05  1.5584e-05  0:00:08   18
+    83  2.2873e-03  2.9835e-06  6.6886e-06  2.2758e-06  1.0780e-07  2.0011e-05  1.2828e-05  0:00:08   17
+    84  1.8682e-03  2.6415e-06  5.9365e-06  2.0330e-06  1.0541e-07  1.7964e-05  1.2314e-05  0:00:08   16
+    85  2.2638e-03  2.4614e-06  5.4423e-06  1.8627e-06  1.0118e-07  1.6181e-05  1.1443e-05  0:00:07   15
+    86  1.8480e-03  2.2261e-06  4.8674e-06  1.6908e-06  1.0021e-07  1.4119e-05  9.3235e-06  0:00:07   14
+    87  1.4826e-03  1.9724e-06  4.3148e-06  1.5062e-06  9.7462e-08  1.2513e-05  7.9622e-06  0:00:06   13
+    88  1.2559e-03  1.7720e-06  3.8601e-06  1.3522e-06  9.5111e-08  1.1424e-05  9.0604e-06  0:00:06   12
+
+  iter  continuity  x-velocity  y-velocity  z-velocity      energy           k       omega     time/iter
+    89  1.8959e-03  1.6991e-06  3.6531e-06  1.2632e-06  9.6258e-08  1.0475e-05  8.7330e-06  0:00:05   11
+    90  1.4207e-03  1.5293e-06  3.2295e-06  1.1434e-06  9.5202e-08  8.9489e-06  6.7069e-06  0:00:05   10
+    91  1.0789e-03  1.3276e-06  2.8275e-06  1.0081e-06  9.1366e-08  8.0816e-06  6.8306e-06  0:00:04    9
+    92  1.5485e-03  1.2726e-06  2.6410e-06  9.2976e-07  9.4097e-08  7.4114e-06  6.5932e-06  0:00:04    8
+    93  1.2036e-03  1.1507e-06  2.3501e-06  8.4710e-07  9.2002e-08  6.2785e-06  4.9968e-06  0:00:03    7
+    94  9.0392e-04  9.9482e-07  2.0631e-06  7.4474e-07  9.0356e-08  5.5455e-06  4.0811e-06  0:00:03    6
+!   94 solution is converged
+Writing &#34;| gzip -2cf &gt; SolutionMonitor.gz&#34;...
+Writing temporary file C:\\Users\\ansys\\AppData\\Local\\Temp\\flntgz-78722 ...
+Done.
+
+Writing data to C:\\Users\\ansys\\AppData\\Local\\Temp\\WB_ansys_7448_2\\wbnew_files\\dp0\\FLU\\Fluent\\mixing_elbow.ip ...
+        x-coord
+        y-coord
+        z-coord
+        pressure
+        x-velocity
+        y-velocity
+        z-velocity
+        temperature
+        k
+        omega
+        hyb_init-0
+        hyb_init-1
+Done.
+
+Writing to pyworkbench:&#34;C:\Users\ansys\AppData\Local\Temp\WB_ansys_7448_2\wbnew_files\dp0\FLU\Fluent\mixing_elbow-1.cas.h5&#34; in NODE0 mode and compression level 1 ...
+Grouping cells for Laplace smoothing ...
+       17822 cells,     1 zone  ...
+       91581 faces,     7 zones ...
+       66417 nodes,     1 zone  ...
+  Done.
+Done.
+
+Writing to pyworkbench:&#34;C:\Users\ansys\AppData\Local\Temp\WB_ansys_7448_2\wbnew_files\dp0\FLU\Fluent\mixing_elbow-1-00094.dat.h5&#34; in NODE0 mode and compression level 1 ...
+  Writing results.
+Done.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{}
+</pre></div></div>
+</div>
+</section>
+<section id="Postprocessing">
+<h2>Postprocessing<a class="headerlink" href="#Postprocessing" title="Link to this heading">#</a></h2>
+<p>Create and display velocity vectors on the <code class="docutils literal notranslate"><span class="pre">symmetry-xyplane</span></code> plane.</p>
+</section>
+<section id="Configure-graphics-picture-export">
+<h2>Configure graphics picture export<a class="headerlink" href="#Configure-graphics-picture-export" title="Link to this heading">#</a></h2>
+<p>Since Fluent is being run without the GUI, you must to export plots as picture files. Edit the picture settings to use a custom resolution so that the images are large enough.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">graphics</span> <span class="o">=</span> <span class="n">fluent_session</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">graphics</span>
+<span class="k">if</span> <span class="n">graphics</span><span class="o">.</span><span class="n">picture</span><span class="o">.</span><span class="n">use_window_resolution</span><span class="o">.</span><span class="n">is_active</span><span class="p">():</span>
+    <span class="n">graphics</span><span class="o">.</span><span class="n">picture</span><span class="o">.</span><span class="n">use_window_resolution</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">graphics</span><span class="o">.</span><span class="n">picture</span><span class="o">.</span><span class="n">x_resolution</span> <span class="o">=</span> <span class="mi">1920</span>
+<span class="n">graphics</span><span class="o">.</span><span class="n">picture</span><span class="o">.</span><span class="n">y_resolution</span> <span class="o">=</span> <span class="mi">1440</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;results&#39; is deprecated. Use &#39;settings.results&#39; instead.
+</pre></div></div>
+</div>
+</section>
+<section id="Create-velocity-vectors">
+<h2>Create velocity vectors<a class="headerlink" href="#Create-velocity-vectors" title="Link to this heading">#</a></h2>
+<p>Create and display velocity vectors on the <code class="docutils literal notranslate"><span class="pre">symmetry-xyplane</span></code> plane. Then, export the image for inspection.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">graphics</span> <span class="o">=</span> <span class="n">fluent_session</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">graphics</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">graphics</span><span class="o">.</span><span class="n">vector</span><span class="p">[</span><span class="s2">&quot;velocity_vector_symmetry&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">velocity_symmetry</span> <span class="o">=</span> <span class="n">fluent_session</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">graphics</span><span class="o">.</span><span class="n">vector</span><span class="p">[</span><span class="s2">&quot;velocity_vector_symmetry&quot;</span><span class="p">]</span>
+<span class="n">velocity_symmetry</span><span class="o">.</span><span class="n">print_state</span><span class="p">()</span>
+<span class="n">velocity_symmetry</span><span class="o">.</span><span class="n">field</span> <span class="o">=</span> <span class="s2">&quot;velocity-magnitude&quot;</span>
+<span class="n">velocity_symmetry</span><span class="o">.</span><span class="n">surfaces_list</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;symmetry-xyplane&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">velocity_symmetry</span><span class="o">.</span><span class="n">scale</span><span class="o">.</span><span class="n">scale_f</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">velocity_symmetry</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="s2">&quot;arrow&quot;</span>
+<span class="n">velocity_symmetry</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+name : velocity_vector_symmetry
+vector_field : velocity
+field : velocity-magnitude
+range_option :
+  option : auto-range-on
+  auto_range_on :
+    global_range : True
+range_options :
+  global_range : True
+  auto_range : True
+  clip_to_range : False
+  minimum : 0.0
+  maximum : 0.0
+options :
+  auto_scale : True
+  vector_style : 3d arrow
+  scale : 1
+  skip : 0
+scale :
+  auto_scale : True
+  scale_f : 1
+style : 3d arrow
+skip : 0
+vector_opt :
+  in_plane : False
+  fixed_length : False
+  x_comp : True
+  y_comp : True
+  z_comp : True
+  scale_head : 0.3
+  tessellation : 24
+  color :
+color_map :
+  visible : True
+  color : field-velocity
+  size : 100
+  log_scale : False
+  format : %0.2e
+  user_skip : 9
+  show_all : True
+  position : 1
+  font_name : Helvetica
+  font_automatic : True
+  font_size : 0.032
+  length : 0.54
+  width : 6.0
+  bground_transparent : True
+  bground_color : #CCD3E2
+  title_elements : Variable and Object Name
+display_state_name : None
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">graphics</span><span class="o">.</span><span class="n">views</span><span class="o">.</span><span class="n">restore_view</span><span class="p">(</span><span class="n">view_name</span><span class="o">=</span><span class="s2">&quot;front&quot;</span><span class="p">)</span>
+<span class="n">graphics</span><span class="o">.</span><span class="n">views</span><span class="o">.</span><span class="n">auto_scale</span><span class="p">()</span>
+<span class="n">graphics</span><span class="o">.</span><span class="n">picture</span><span class="o">.</span><span class="n">save_picture</span><span class="p">(</span><span class="n">file_name</span><span class="o">=</span><span class="s2">&quot;velocity_vector_symmetry.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Compute-mass-flow-rate">
+<h2>Compute mass flow rate<a class="headerlink" href="#Compute-mass-flow-rate" title="Link to this heading">#</a></h2>
+<p>Compute the mass flow rate.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fluent_session</span><span class="o">.</span><span class="n">solution</span><span class="o">.</span><span class="n">report_definitions</span><span class="o">.</span><span class="n">flux</span><span class="p">[</span><span class="s2">&quot;mass_flow_rate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="n">mass_flow_rate</span> <span class="o">=</span> <span class="n">fluent_session</span><span class="o">.</span><span class="n">solution</span><span class="o">.</span><span class="n">report_definitions</span><span class="o">.</span><span class="n">flux</span><span class="p">[</span><span class="s2">&quot;mass_flow_rate&quot;</span><span class="p">]</span>
+<span class="n">mass_flow_rate</span><span class="o">.</span><span class="n">boundaries</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;cold-inlet&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;hot-inlet&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;outlet&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">mass_flow_rate</span><span class="o">.</span><span class="n">print_state</span><span class="p">()</span>
+<span class="n">fluent_session</span><span class="o">.</span><span class="n">solution</span><span class="o">.</span><span class="n">report_definitions</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">report_defs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mass_flow_rate&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;solution&#39; is deprecated. Use &#39;settings.solution&#39; instead.
+
+name : mass_flow_rate
+report_type : flux-massflow
+boundaries :
+  0 : cold-inlet
+  1 : hot-inlet
+  2 : outlet
+per_zone : False
+average_over : 1
+retain_instantaneous_values : False
+output_parameter : False
+
+      mass_flow_rate
+ -------------------
+                  Mass Flow Rate              [kg/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[{&#39;mass_flow_rate&#39;: [-5.185604095458984e-06, 0]}]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+-------------------------------- -------------------
+                  mass_flow_rate      -5.1856041e-06
+</pre></div></div>
+</div>
+</section>
+<section id="Exit-Fluent-Session">
+<h2>Exit Fluent Session<a class="headerlink" href="#Exit-Fluent-Session" title="Link to this heading">#</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fluent_session</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Save-project">
+<h2>Save project<a class="headerlink" href="#Save-project" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">save_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;import os</span>
+<span class="s2">workdir = GetServerWorkingDirectory()</span>
+<span class="s2">path = os.path.join(workdir, &quot;mixing_elbow.wbpj&quot;)</span>
+<span class="s2">Save(FilePath=path , Overwrite=True)&quot;&quot;&quot;</span>
+<span class="n">wb</span><span class="o">.</span><span class="n">run_script_string</span><span class="p">(</span><span class="n">save_string</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{}
+</pre></div></div>
+</div>
+</section>
+<section id="Archive-Project">
+<h2>Archive Project<a class="headerlink" href="#Archive-Project" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">archive_string</span> <span class="o">=</span><span class="s2">&quot;&quot;&quot;import os</span>
+<span class="s2">workdir = GetServerWorkingDirectory()</span>
+<span class="s2">path = os.path.join(workdir, &quot;mixing_elbow.wbpz&quot;)</span>
+<span class="s2">Archive(FilePath=path , IncludeExternalImportedFiles=True)&quot;&quot;&quot;</span>
+<span class="n">wb</span><span class="o">.</span><span class="n">run_script_string</span><span class="p">(</span><span class="n">archive_string</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{}
+</pre></div></div>
+</div>
+</section>
+<section id="Download-the-archived-project-which-has-all-simulation-data-and-results.">
+<h2>Download the archived project which has all simulation data and results.<a class="headerlink" href="#Download-the-archived-project-which-has-all-simulation-data-and-results." title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wb</span><span class="o">.</span><span class="n">download_file</span><span class="p">(</span><span class="s2">&quot;mixing_elbow.wbpz&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Downloading mixing_elbow.wbpz: 100%|██████████| 9.98M/9.98M [02:41&lt;00:00, 65.0kB/s]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;mixing_elbow.wbpz&#39;
+</pre></div></div>
+</div>
+</section>
+<section id="Exit-Workbench-Session.">
+<h2>Exit Workbench Session.<a class="headerlink" href="#Exit-Workbench-Session." title="Link to this heading">#</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wb</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../material-designer-workflow/main.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Material Designer</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Problem-description">Problem description</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Performed-required-imports">Performed required imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Specify-client-and-server-directories-with-launch-WB-service.">Specify client and server directories with launch WB service.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Download-the-input-file-from-example-data-and-upload-to-server-directory.">Download the input file from example data and upload to server directory.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Generate-a-%22FLUENT%22-System-using-Ansys-Workbench-Scripting-API-(used-for-Journaling)-and-parse-it-to-the-PyWorkbench-API.">Generate a “FLUENT” System using Ansys Workbench Scripting API (used for Journaling) and parse it to the PyWorkbench API.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Launch-Fluent-&amp;-Connect-to-Fluent">Launch Fluent &amp; Connect to Fluent</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Import-mesh-and-perform-mesh-check">Import mesh and perform mesh check</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Set-working-units-for-mesh">Set working units for mesh</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Enable-heat-transfer">Enable heat transfer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Create-material">Create material</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Set-up-cell-zone-conditions">Set up cell zone conditions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Set-up-boundary-conditions-for-CFD-analysis">Set up boundary conditions for CFD analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Initialize-flow-field">Initialize flow field</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Solve-for-150-iterations">Solve for 150 iterations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Update-Solution-using-Workbench-Journal-Commands">Update Solution using Workbench Journal Commands</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Postprocessing">Postprocessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Configure-graphics-picture-export">Configure graphics picture export</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Create-velocity-vectors">Create velocity vectors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Compute-mass-flow-rate">Compute mass flow rate</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Exit-Fluent-Session">Exit Fluent Session</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Save-project">Save project</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Archive-Project">Archive Project</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Download-the-archived-project-which-has-all-simulation-data-and-results.">Download the archived project which has all simulation data and results.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Exit-Workbench-Session.">Exit Workbench Session.</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+<!-- If there is no fix edit button function, use the PyData edit-this-button-->
+</div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/examples/pyfluent-workflow/main.py.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+
+  <!-- Include desired assets -->
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.7/require.min.js"></script>
+
+<script>
+// Passing the search options to the search.js file
+const SEARCH_OPTIONS = JSON.parse('{"keys": ["title", "text", "objectID"], "limit": 10, "threshold": 0.2}');
+const SEARCH_FILE = "../../_static/search.json";
+const ADVANCE_SEARCH_PATH = "../../search.html";
+const EXTRA_SOURCES = JSON.parse('""');
+</script>
+
+
+<script src="../../_static/js/search.js"></script>
+
+  
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright (c) 2025 ANSYS, Inc. All rights reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the
+  <a href="https://sphinxdocs.ansys.com/version/stable/index.html"
+    >Ansys Sphinx Theme</a
+  >
+  1.6.1. <br />Last updated on
+  <span id="ast_build_date"></span>
+</p>
+<script>
+  var options = { day: "numeric", month: "long", year: "numeric" };
+  var ast_lastModifiedDate = new Date(document.lastModified);
+  var ast_build_date = ast_lastModifiedDate.toLocaleDateString("en-US", options);
+  document.getElementById("ast_build_date").innerHTML = ast_build_date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
