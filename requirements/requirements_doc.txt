@@ -1,4 +1,4 @@
-ansys-sphinx-theme==1.6.1
+ansys-sphinx-theme==1.6.4
 jupyterlab==4.4.9
 jupytext==1.17.3
 jupyter-server==2.17.0
