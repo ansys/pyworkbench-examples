@@ -105,6 +105,7 @@ jobs:
       - name: "Show installed packages"
         working-directory: pyworkbench-examples
         run: |
+          .venv\Scripts\activate.bat
           python -m pip freeze
           
       - name: "Build HTML documentation"
