@@ -101,7 +101,12 @@ jobs:
           .venv\Scripts\activate.bat
           uv pip uninstall vtk
           uv pip install --index-url https://wheels.vtk.org vtk-osmesa==${{ env.VTK_OSMESA_VERSION }}
-
+          
+      - name: "Show installed packages"
+        working-directory: pyworkbench-examples
+        run: |
+          python -m pip freeze
+          
       - name: "Build HTML documentation"
         working-directory: pyworkbench-examples
         run: |
