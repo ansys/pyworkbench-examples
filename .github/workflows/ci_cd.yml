@@ -113,7 +113,7 @@ jobs:
         working-directory: pyworkbench-examples
         run: |
           .venv\Scripts\activate.bat
-          python -m sphinx doc/source "doc/_build/html" --color -v -b html
+          uv -m sphinx doc/source "doc/_build/html" --color -v -b html
         env:
           REMOTING_SERVER_ADDRESS: "localhost"
 
