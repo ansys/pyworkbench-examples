@@ -30,7 +30,7 @@ from ansys.fluent.core import examples
 workdir = pathlib.Path("__file__").parent
 
 
-wb = launch_workbench(client_workdir=str(workdir.absolute()), show_gui=False, version="251")
+wb = launch_workbench(client_workdir=str(workdir.absolute()), show_gui=False, version="261")
 
 # ## Download the input file from example data and upload to server directory.
 
@@ -49,7 +49,7 @@ wb.run_script_string("system1 = template1.CreateSystem()")
 # Launch Fluent as server with PyWorkbench API and and connect to Pyfluent session
 
 server_info_file = wb.start_fluent_server(system_name="FLU")
-fluent_session = pyfluent.connect_to_fluent(server_info_file_name=server_info_file)
+fluent_session = pyfluent.connect_to_fluent(server_info_file_name=server_info_file,allow_remote_host=True)
 
 
 # ## Import mesh and perform mesh check
