@@ -1,6 +1,6 @@
 ansys-workbench-core==0.10.0
-ansys-fluent-core==0.37.0
-ansys-fluent-visualization==0.24.0
+ansys-fluent-core==0.38.dev2
+ansys-fluent-visualization==0.24.dev0
 pyaedt == 0.20.1
 ansys-mechanical-core==0.11.34
 pyvista[jupyter]
