@@ -8,6 +8,7 @@
 ## Individual Contributors
 
 * [Abhishek Chitwar](https://github.com/abhishekchitwar)
+* [Adrian Cruzat La Rosa](https://github.com/Adrian-CLR)
 * [Dipin](https://github.com/dipinknair)
 * [Jorge Martínez](https://github.com/jorgepiloto)
 * [Kathy Pippert](https://github.com/PipKat)
