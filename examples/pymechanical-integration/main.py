@@ -32,7 +32,7 @@ wb.upload_file_from_example_repo("pymechanical-integration/agdb/two_pipes.agdb")
 # Execute a Workbench script (`project.wbjn`) to create a mechanical system and load the geometry using the `run_script_file` method.
 # The name of the system created is stored in `system_name`.
 
-system_name = wb.run_script_file(str((assets / "project.wbjn").absolute()))
+system_name = wb.run_script_file(str(assets / "project.wbjn"))
 
 # Start a PyMechanical service for the specified system using the `start_mechanical_server` method.
 # Create a PyMechanical client connected to this service using `connect_to_mechanical` method.

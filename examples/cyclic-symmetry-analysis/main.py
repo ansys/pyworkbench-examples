@@ -31,9 +31,9 @@ wb.upload_file_from_example_repo("cyclic-symmetry-analysis/cdb/sector_model.cdb"
 # The `set_log_file` method is used to direct the logs to `wb_log_file.log`.
 # The name of the system created is stored in `sys_name` and printed.
 
-export_path = 'wb_log_file.log'
-wb.set_log_file(export_path)
-sys_name = wb.run_script_file(str((assets / "project.wbjn").absolute()), log_level='info')
+log_path = 'wblog.txt'
+wb.set_log_file(log_path)
+sys_name = wb.run_script_file(str(assets / "project.wbjn"), log_level='info')
 print(sys_name)
 
 # Start a PyMechanical server for the system using the `start_mechanical_server` method.
@@ -71,9 +71,9 @@ def write_file_contents_to_console(path):
         for line in file:
             print(line, end="")
 
-current_working_directory = os.getcwd()
-mechanical.download(solve_out_path, target_dir=current_working_directory)
-solve_out_local_path = os.path.join(current_working_directory, "solve.out")
+current_directory = os.getcwd()
+mechanical.download(solve_out_path, target_dir=current_directory)
+solve_out_local_path = os.path.join(current_directory, "solve.out")
 write_file_contents_to_console(solve_out_local_path)
 os.remove(solve_out_local_path)
 
@@ -103,10 +103,8 @@ image_name = "deformation.png"
 image_path_server = get_image_path(image_name)
 
 if image_path_server != "":
-    current_working_directory = os.getcwd()
-
     local_file_path_list = mechanical.download(
-        image_path_server, target_dir=current_working_directory
+        image_path_server, target_dir=current_directory
     )
     image_local_path = local_file_path_list[0]
     print(f"Local image path : {image_local_path}")
@@ -121,9 +119,7 @@ result_solve_dir_server = mechanical.run_python_script(f"solve_dir")
 print(f"All solver files are stored on the server at: {result_solve_dir_server}")
 
 solve_out_path = os.path.join(result_solve_dir_server, "*.*")
-
-current_working_directory = os.getcwd()
-mechanical.download(solve_out_path, target_dir=current_working_directory)
+mechanical.download(solve_out_path, target_dir=current_directory)
 
 # Finally, the `exit` method is called on both the PyMechanical and Workbench clients to gracefully shut down the services, ensuring that all resources are properly released.
 

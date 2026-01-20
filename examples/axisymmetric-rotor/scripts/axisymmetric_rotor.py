@@ -44,7 +44,7 @@ settings_720p.Height = 720
 settings_720p.CurrentGraphicsDisplay = False
 
 # Set NMM_TON Unit System
-ExtAPI.Application.ActiveUnitSystem = MechanicalUnitSystem.StandardNMMton
+# ExtAPI.Application.ActiveUnitSystem = MechanicalUnitSystem.StandardNMMton
 ExtAPI.Application.ActiveAngularVelocityUnit=AngularVelocityUnitType.RPM
 
 # Define variables
