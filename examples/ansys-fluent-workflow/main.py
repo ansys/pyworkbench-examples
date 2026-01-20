@@ -22,22 +22,18 @@
 import pathlib
 from ansys.workbench.core import launch_workbench
 
-# ## Setting up server Working directory and asset paths
+# ## Use the current (this script) directory as working directory
 
 # +
 workdir = pathlib.Path("__file__").parent
-
-server_workdir = workdir / 'server_workdir'
-server_workdir.mkdir(exist_ok=True)
-
 assets = workdir / "assets"
 scdoc = assets /"scdoc"
 jou = assets / "jou"
 # -
 
-# ## Launch the workbench session with specified server and client working directories
+# ## Launch the workbench session with specified client working directories
 
-wb = launch_workbench(server_workdir=str(server_workdir.absolute()), client_workdir=str(workdir.absolute()))
+wb = launch_workbench(client_workdir=str(workdir.absolute()))
 
 # ## Uploading the input data
 # Upload several input files (Geometry, Ansys Fluent simulation setup and solve journal files ), which will be transferred to the host.
@@ -50,7 +46,7 @@ wb.upload_file(str(jou / "solve.jou"))
 # This will configure the workbench project schematic. This file is Ansys Workbench recorded journal file (Python Script). This can be easily configured as per requirement.
 # >Note: For a better understanding of how meshing, setup, and solve workflows are being utilized, please refer to the project.wbjn file.
 
-sys_name = wb.run_script_file(str((assets / "project.wbjn").absolute()))
+wb.run_script_file(str(assets / "project.wbjn"))
 
 # ## Downloading output files to the client-side working directory
 # Here, only the contour saved during the simulation data post-processing is being downloaded. But one can download all the output as required.
@@ -60,5 +56,3 @@ wb.download_file("temperature_contour.jpeg")
 # ## Shutdown the Ansys Workbench server session
 
 wb.exit()
-
-

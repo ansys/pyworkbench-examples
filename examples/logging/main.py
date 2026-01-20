@@ -45,8 +45,8 @@ wb.upload_file(os.path.join(alternative_target_dir, 'app.py'), 'non_existing_fil
 # Here, files are uploaded from an alternative directory, and non-existing files are specified.
 # The `show_progress` parameter is set to `False` to disable the progress bar during the upload.
 
-export_path = 'wb_log_file.log'
-wb.set_log_file(export_path)
+log_file_name = 'wblog.txt'
+wb.set_log_file(log_file_name)
 print(wb.run_script_file('wb.wbjn', log_level='info'))
 
 # This segment sets up a log file for the script execution.

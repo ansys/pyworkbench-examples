@@ -27,9 +27,9 @@ wb.upload_file_from_example_repo('material-designer-workflow/wbpz/MatDesigner.wb
 # Execute a Workbench script (`project.wbjn`) to define the project and load the geometry using the `run_script_file` method.
 # The `set_log_file` method is used to direct the logs to `wb_log_file.log`.
 
-export_path = 'wb_log_file.log'
-wb.set_log_file(export_path)
-sys_name = wb.run_script_file(str((assets / "project.wbjn").absolute()), log_level='info')
+log_path = 'wblog.txt'
+wb.set_log_file(log_path)
+sys_name = wb.run_script_file(str(assets / "project.wbjn"), log_level='info')
 
 # Prepare the Workbench command template to make modifications to the material property, in this case the Young's modulus of the material
 
@@ -38,7 +38,7 @@ parameter1 = Parameters.GetParameter(Name="P1")
 designPoint1.SetParameterExpression(
     Parameter=parameter1,
     Expression="{} [Pa]")
-backgroundSession1 = UpdateAllDesignPoints(DesignPoints=[designPoint1])
+UpdateAllDesignPoints(DesignPoints=[designPoint1])
 """
 
 # Update the project with a new value for the Young's modulus
