@@ -21,7 +21,7 @@ alternative_target_dir = workdir / "alternative_target_dir"
 
 # Launch Workbench using previous directories:
 
-wb = launch_workbench(server_workdir=str(server_workdir.absolute()), client_workdir=str(client_workdir.absolute()))
+wb = launch_workbench(server_workdir=str(server_workdir.absolute()), client_workdir=str(client_workdir.absolute()), use_insecure_connection=True)
 
 # The `launch_workbench` function is called to start a Workbench session.
 # `server_workdir` and `client_workdir` are set to their absolute paths to avoid any ambiguity in directory locations.

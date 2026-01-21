@@ -19,7 +19,7 @@ assets = workdir / "assets"
 scripts = workdir / "scripts"
 
 
-wb = launch_workbench(client_workdir=str(workdir.absolute()))
+wb = launch_workbench(client_workdir=str(workdir.absolute()), use_insecure_connection=True)
 
 # Upload the project files to the server using the `upload_file` method.
 # The files uploaded are `TVR14471_V_short.wbpz`, `10_1000_Pulse_short.csv`

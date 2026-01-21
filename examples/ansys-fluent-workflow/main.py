@@ -33,7 +33,7 @@ jou = assets / "jou"
 
 # ## Launch the workbench session with specified client working directories
 
-wb = launch_workbench(client_workdir=str(workdir.absolute()))
+wb = launch_workbench(client_workdir=str(workdir.absolute()), use_insecure_connection=True)
 
 # ## Uploading the input data
 # Upload several input files (Geometry, Ansys Fluent simulation setup and solve journal files ), which will be transferred to the host.

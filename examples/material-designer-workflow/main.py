@@ -17,7 +17,7 @@ workdir = pathlib.Path("__file__").parent
 
 assets = workdir / "assets"
 
-wb = launch_workbench(client_workdir=str(workdir.absolute()))
+wb = launch_workbench(client_workdir=str(workdir.absolute()), use_insecure_connection=True)
 
 # Upload the project files to the server using the `upload_file_from_example_repo` method.
 # The file to upload is `MatDesigner.wbpz`.
