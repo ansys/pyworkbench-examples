@@ -210,8 +210,6 @@ SOLN_MODAL01.Solve(1)
 
 if not TOT_DEF_MODAL01.TabularData:
     raise Exception("TOT_DEF_MODAL01.TabularData is None")
-if not TOT_DEF_MODAL01.TabularData["Frequency"]:
-    raise Exception("TOT_DEF_MODAL01.TabularData[Freqency] is None")
 H0_FRQ1_MODAL01 = TOT_DEF_MODAL01.TabularData["Frequency"][0]
 H0_FRQ2_MODAL01 = TOT_DEF_MODAL01.TabularData["Frequency"][1]
 H1_FRQ1_MODAL01 = TOT_DEF_MODAL01.TabularData["Frequency"][2]
