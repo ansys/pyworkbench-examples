@@ -196,6 +196,8 @@ SYMMETRY_REGION.CoordinateSystem=LCS1
 SYMMETRY_REGION.NumberOfSectors = 13
 
 # Solve first standalone Modal analysis
+if not Model.Analyses:
+    raise Exception("Model.Analyses is None")
 MODAL01 = Model.Analyses[0]
 ANA_SETTING_MODAL01 = Model.Analyses[0].AnalysisSettings
 SOLN_MODAL01 = Model.Analyses[0].Solution
