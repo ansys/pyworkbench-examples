@@ -97,7 +97,8 @@ def display_image(path):
 image_name = "tot_deform_2D.png"
 image_path_server = get_image_path(image_name)
 
-if image_path_server != "":
+# disable image export or it will fail on github build agent due to graphics context
+if False and image_path_server != "":
     local_file_path_list = mechanical.download(
         image_path_server, target_dir=current_directory
     )
