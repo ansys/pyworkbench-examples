@@ -165,10 +165,13 @@ def write_file_contents_to_console(path):
         for line in file:
             print(line, end="")
 
-mechanical.download(solve_out_path, target_dir=current_directory)
-solve_out_local_path = os.path.join(current_directory, "solve.out")
-write_file_contents_to_console(solve_out_local_path)
-os.remove(solve_out_local_path)
+if os.path.exists(solve_out_path):
+    mechanical.download(solve_out_path, target_dir=current_directory)
+    solve_out_local_path = os.path.join(current_directory, "solve.out")
+    write_file_contents_to_console(solve_out_local_path)
+    os.remove(solve_out_local_path)
+else:
+    print(f"error: solver output file {solve_out_path} was not generated.")
 
 # Specify the Mechanical directory path for the Modal Campbell Analysis and fetch the image directory path.
 # Download an image file (`tot_deform_3D.png`) from the server to the client's current working directory and display it using `matplotlib`.
