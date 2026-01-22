@@ -122,10 +122,13 @@ def write_file_contents_to_console(path):
         for line in file:
             print(line, end="")
 
-mechanical.download(solve_out_path, target_dir=current_directory)
-solve_out_local_path = os.path.join(current_directory, "solve.out")
-write_file_contents_to_console(solve_out_local_path)
-os.remove(solve_out_local_path)
+if os.path.exists(solve_out_path):
+    mechanical.download(solve_out_path, target_dir=current_directory)
+    solve_out_local_path = os.path.join(current_directory, "solve.out")
+    write_file_contents_to_console(solve_out_local_path)
+    os.remove(solve_out_local_path)
+else:
+    print(f"error: solver output file {solve_out_path} was not generated.")
 
 # You can save, archive and download the project using `download_project_archive()` method.
 
