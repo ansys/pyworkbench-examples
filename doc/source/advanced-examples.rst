@@ -10,4 +10,3 @@ and other PyAnsys libraries.
    examples/cooled-turbine-blade/main
    examples/axisymmetric-rotor/main
    examples/material-designer-workflow/main
-   examples/pyfluent-workflow/main
