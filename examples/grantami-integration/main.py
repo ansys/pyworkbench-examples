@@ -41,7 +41,7 @@ assets = workdir / "assets"
 # ### Launch Workbench as a service; using some options
 
 # +
-wb = launch_workbench(client_workdir=str(workdir.absolute()))
+wb = launch_workbench(client_workdir=str(workdir.absolute()), use_insecure_connection=True)
 current_directory = os.getcwd()
 
 # -

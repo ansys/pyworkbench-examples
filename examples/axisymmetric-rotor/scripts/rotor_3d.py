@@ -500,7 +500,8 @@ mechdir = ExtAPI.DataModel.AnalysisList[2].WorkingDir
 export_path = os.path.join(mechdir, "tot_deform_3D.png")
 Tree.Activate([TOT_DEF3_1])
 ExtAPI.Graphics.ViewOptions.ResultPreference.ExtraModelDisplay=Ansys.Mechanical.DataModel.MechanicalEnums.Graphics.ExtraModelDisplay.NoWireframe
-ExtAPI.Graphics.ExportImage(export_path, image_export_format, settings_720p)
+# disable image export or it will fail on github build agent due to graphics context
+# ExtAPI.Graphics.ExportImage(export_path, image_export_format, settings_720p)
 
 FREQ_1_MODAL3 = SOLN3.TabularData.Values[3][18]
 FREQ_2_MODAL3 = SOLN3.TabularData.Values[3][19]

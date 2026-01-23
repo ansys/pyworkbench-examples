@@ -28,7 +28,7 @@ from ansys.fluent.core import examples
 # ## Launch PyWorkbench service and use the script directory as client directory.
 
 workdir = pathlib.Path("__file__").parent
-wb = launch_workbench(client_workdir=str(workdir.absolute()), show_gui=False)
+wb = launch_workbench(client_workdir=str(workdir.absolute()), show_gui=False, use_insecure_connection=True)
 
 # ## Download the input file from example data and upload to server directory.
 
