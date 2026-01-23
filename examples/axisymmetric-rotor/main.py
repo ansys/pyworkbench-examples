@@ -18,7 +18,8 @@ workdir = pathlib.Path("__file__").parent
 assets = workdir / "assets"
 scripts = workdir / "scripts"
 
-wb = launch_workbench(client_workdir=str(workdir.absolute()))
+wb = launch_workbench(client_workdir=str(workdir.absolute()), use_insecure_connection=True)
+current_directory = os.getcwd()
 
 # Upload the project files to the server using the `upload_file_from_example_repo` method.
 # The files uploaded are `axisymmetric_model.agdb`, `rotor_3d_model.agdb`.
@@ -29,9 +30,9 @@ wb.upload_file_from_example_repo("axisymmetric-rotor/agdb/rotor_3d_model.agdb")
 # Execute a Workbench script (`project.wbjn`) to define the project and load the geometry.
 # The log file is set to `wb_log_file.log` and the name of the system created is stored in `sys_name` and printed.
 
-export_path = 'wb_log_file.log'
-wb.set_log_file(export_path)
-sys_name = wb.run_script_file(str((assets / "project.wbjn").absolute()), log_level='info')
+log_file = 'wblog.txt'
+wb.set_log_file(log_file)
+sys_name = wb.run_script_file(str(assets / "project.wbjn"), log_level='info')
 print(sys_name)
 
 # Start a PyMechanical server for the system and create a PyMechanical client session to solve the 2D general axisymmetric rotor model.
@@ -66,11 +67,14 @@ def write_file_contents_to_console(path):
         for line in file:
             print(line, end="")
 
-current_working_directory = os.getcwd()
-mechanical.download(solve_out_path, target_dir=current_working_directory)
-solve_out_local_path = os.path.join(current_working_directory, "solve.out")
-write_file_contents_to_console(solve_out_local_path)
-os.remove(solve_out_local_path)
+current_directory = os.getcwd()
+if os.path.exists(solve_out_path):
+    mechanical.download(solve_out_path, target_dir=current_directory)
+    solve_out_local_path = os.path.join(current_directory, "solve.out")
+    write_file_contents_to_console(solve_out_local_path)
+    os.remove(solve_out_local_path)
+else:
+    print(f"error: solver output file {solve_out_path} was not generated.")
 
 # Specify the Mechanical directory path for the Modal Campbell Analysis and fetch the image directory path.
 # Download an image file (`tot_deform_2D.png`) from the server to the client's current working directory and display it using `matplotlib`.
@@ -96,11 +100,10 @@ def display_image(path):
 image_name = "tot_deform_2D.png"
 image_path_server = get_image_path(image_name)
 
-if image_path_server != "":
-    current_working_directory = os.getcwd()
-
+# disable image export or it will fail on github build agent due to graphics context
+if False and image_path_server != "":
     local_file_path_list = mechanical.download(
-        image_path_server, target_dir=current_working_directory
+        image_path_server, target_dir=current_directory
     )
     image_local_path = local_file_path_list[0]
     print(f"Local image path : {image_local_path}")
@@ -122,11 +125,13 @@ def write_file_contents_to_console(path):
         for line in file:
             print(line, end="")
 
-current_working_directory = os.getcwd()
-mechanical.download(solve_out_path, target_dir=current_working_directory)
-solve_out_local_path = os.path.join(current_working_directory, "solve.out")
-write_file_contents_to_console(solve_out_local_path)
-os.remove(solve_out_local_path)
+if os.path.exists(solve_out_path):
+    mechanical.download(solve_out_path, target_dir=current_directory)
+    solve_out_local_path = os.path.join(current_directory, "solve.out")
+    write_file_contents_to_console(solve_out_local_path)
+    os.remove(solve_out_local_path)
+else:
+    print(f"error: solver output file {solve_out_path} was not generated.")
 
 # You can save, archive and download the project using `download_project_archive()` method.
 
@@ -166,11 +171,13 @@ def write_file_contents_to_console(path):
         for line in file:
             print(line, end="")
 
-current_working_directory = os.getcwd()
-mechanical.download(solve_out_path, target_dir=current_working_directory)
-solve_out_local_path = os.path.join(current_working_directory, "solve.out")
-write_file_contents_to_console(solve_out_local_path)
-os.remove(solve_out_local_path)
+if os.path.exists(solve_out_path):
+    mechanical.download(solve_out_path, target_dir=current_directory)
+    solve_out_local_path = os.path.join(current_directory, "solve.out")
+    write_file_contents_to_console(solve_out_local_path)
+    os.remove(solve_out_local_path)
+else:
+    print(f"error: solver output file {solve_out_path} was not generated.")
 
 # Specify the Mechanical directory path for the Modal Campbell Analysis and fetch the image directory path.
 # Download an image file (`tot_deform_3D.png`) from the server to the client's current working directory and display it using `matplotlib`.
@@ -196,11 +203,10 @@ def display_image(path):
 image_name = "tot_deform_3D.png"
 image_path_server = get_image_path(image_name)
 
-if image_path_server != "":
-    current_working_directory = os.getcwd()
-
+# disable image export or it will fail on github build agent due to graphics context
+if False and image_path_server != "":
     local_file_path_list = mechanical.download(
-        image_path_server, target_dir=current_working_directory
+        image_path_server, target_dir=current_directory
     )
     image_local_path = local_file_path_list[0]
     print(f"Local image path : {image_local_path}")
@@ -222,11 +228,13 @@ def write_file_contents_to_console(path):
         for line in file:
             print(line, end="")
 
-current_working_directory = os.getcwd()
-mechanical.download(solve_out_path, target_dir=current_working_directory)
-solve_out_local_path = os.path.join(current_working_directory, "solve.out")
-write_file_contents_to_console(solve_out_local_path)
-os.remove(solve_out_local_path)
+if os.path.exists(solve_out_path):
+    mechanical.download(solve_out_path, target_dir=current_directory)
+    solve_out_local_path = os.path.join(current_directory, "solve.out")
+    write_file_contents_to_console(solve_out_local_path)
+    os.remove(solve_out_local_path)
+else:
+    print(f"error: solver output file {solve_out_path} was not generated.")
 
 # Download all the files from the server to the current working directory for the 3D rotor model.
 # Verify the source path for the directory and copy all files from the server to the client.
@@ -234,8 +242,7 @@ os.remove(solve_out_local_path)
 import shutil
 import glob
 
-current_working_directory = os.getcwd()
-target_dir2 = current_working_directory
+target_dir2 = current_directory
 print(f"Files to be copied from server path at: {target_dir2}")
 print(f"All the solver files are stored on the server at: {result_solve_dir_server}")
 
