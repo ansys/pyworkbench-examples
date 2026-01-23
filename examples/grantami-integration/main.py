@@ -30,15 +30,10 @@ from ansys.mechanical.core.examples import delete_downloads, download_file
 from matplotlib import image as mpimg
 from matplotlib import pyplot as plt
 
-# ### Specify server working directory
-# ### Creating server working directory, though this examples to demonstrate on local
+# ### Specify working directory
 
 # +
 workdir = pathlib.Path("__file__").parent
-
-server_workdir = workdir / 'server_workdir'
-server_workdir.mkdir(exist_ok=True)
-
 scripts = workdir / "scripts"
 assets = workdir / "assets"
 # -
@@ -46,11 +41,8 @@ assets = workdir / "assets"
 # ### Launch Workbench as a service; using some options
 
 # +
-wb = launch_workbench(server_workdir=str(server_workdir.absolute()), client_workdir=str(workdir.absolute()))
-
-server_dir = str(server_workdir.absolute())
-client_dir = str(workdir.absolute())
-
+wb = launch_workbench(client_workdir=str(workdir.absolute()), use_insecure_connection=True)
+current_directory = os.getcwd()
 
 # -
 
@@ -135,8 +127,8 @@ wb.upload_file(str(scripts / "nasa_rotor_67_fan_blade_inverse_solve.py"))
 
 # ### Run a Workbench script to define the project workflow and reads material data exported from Granta MI
 
-export_path = 'wb_log_file.log'
-wb.set_log_file(export_path)
+log_path = 'wblog.txt'
+wb.set_log_file(log_path)
 sys_name = wb.run_script_file(str((assets / "project.wbjn").absolute()), log_level='info')
 print(sys_name)
 
@@ -200,9 +192,8 @@ def write_file_contents_to_console(path):
         for line in file:
             print(line, end="")
 
-current_working_directory = os.getcwd()
-mechanical.download(solve_out_path, target_dir=current_working_directory)
-solve_out_local_path = os.path.join(current_working_directory, "solve.out")
+mechanical.download(solve_out_path, target_dir=current_directory)
+solve_out_local_path = os.path.join(current_directory, "solve.out")
 write_file_contents_to_console(solve_out_local_path)
 os.remove(solve_out_local_path)
 # -
@@ -235,10 +226,8 @@ image_name = "thermal_strain.png"
 image_path_server = get_image_path(image_name)
 
 if image_path_server != "":
-    current_working_directory = os.getcwd()
-
     local_file_path_list = mechanical.download(
-        image_path_server, target_dir=current_working_directory
+        image_path_server, target_dir=current_directory
     )
     image_local_path = local_file_path_list[0]
     print(f"Local image path : {image_local_path}")
@@ -252,8 +241,7 @@ if image_path_server != "":
 import shutil
 import glob
 
-current_working_directory = os.getcwd()
-destination_dir = server_dir
+destination_dir = current_directory
 # Verify the target path to copy the files.
 print(f"Download the files from server path to: {destination_dir}")
 

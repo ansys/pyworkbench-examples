@@ -12,7 +12,7 @@ system1 = template1.CreateSystem()
 setup1 = system1.GetContainer(ComponentName="Setup")
 externalModelFileData1 = setup1.AddDataFile(FilePath=arg_CDBFile)
 externalModelFileDataProperty1 = externalModelFileData1.GetDataProperty()
-externalModelFileDataProperty1.SetUnitSystem(System="NMM_STANDARD")
+# externalModelFileDataProperty1.SetUnitSystem(System="NMM_STANDARD")
 system1.Update(AllDependencies=True)
 
 # Insert Modal system linked to External Model

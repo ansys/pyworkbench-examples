@@ -2,13 +2,17 @@
 
 ## Project Lead
 
-* [Vikas Namdeo](https://github.com/vnamdeo)
 * [Frank Li](https://github.com/franknli)
+* [Vikas Namdeo](https://github.com/vnamdeo)
 
 ## Individual Contributors
 
 * [Abhishek Chitwar](https://github.com/abhishekchitwar)
+* [Dipin](https://github.com/dipinknair)
+* [Jorge Martínez](https://github.com/jorgepiloto)
+* [Kathy Pippert](https://github.com/PipKat)
 * [Manoj Vani](https://github.com/mkvani)
-* [Jorge Martinez](https://github.com/jorgepiloto)
-* [Jimmy He](https://github.com/JimmyHe0527)
-
+* [Muhammed Adedigba](https://github.com/moe-ad)
+* [Revathy Venugopal](https://github.com/Revathyvenugopal162)
+* [Roberto Pastor Muela](https://github.com/RobPasMue)
+* [Vinod_GPS_Ansys](https://github.com/pvinod13)
