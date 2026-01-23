@@ -45,7 +45,7 @@ extensions = [
 
 
 templates_path = ['_templates']
-exclude_examples = ["grantami-integration", "pymechanical-integration", "cyclic-symmetry-analysis"]
+exclude_examples = ["grantami-integration", "pymechanical-integration", "cyclic-symmetry-analysis", "pyfluent-workflow"]
 
 exclude_patterns = [
     "conf.py",
