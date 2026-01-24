@@ -1,5 +1,4 @@
 # encoding: utf-8
-# 2024 R1
 
 # Import the necessary libraries
 import json
@@ -7,7 +6,6 @@ import os
 
 # Script to setup a Workbench project for a Fluent simulation, using Geometry Component, Fluent with Meshing Component
 
-SetScriptVersion(Version="24.1.5")
 template1 = GetTemplate(TemplateName="Geometry")
 system1 = template1.CreateSystem()
 geometry1 = system1.GetContainer(ComponentName="Geometry")
@@ -71,7 +69,3 @@ solveScript = os.path.join(work_dir, "solve.jou")
 setup3.SendCommand(Command='/file read-jou "'+solveScript+'" , ')
 setup3.SendCommand(Command="/exit")
 fluentLauncherSettings2.SetEntityProperties(Properties=Set(EnvPath={}))
-
-# assign all messages as output of the script
-ms = [m.Summary for m in GetMessages()]
-wb_script_result = json.dumps(ms)
