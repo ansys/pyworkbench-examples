@@ -45,7 +45,7 @@ extensions = [
 
 
 templates_path = ['_templates']
-exclude_examples = ["grantami-integration", "pymechanical-integration"]
+exclude_examples = ["grantami-integration", "pymechanical-integration", "cyclic-symmetry-analysis", "pyfluent-workflow"]
 
 exclude_patterns = [
     "conf.py",
@@ -102,14 +102,43 @@ nbsphinx_thumbnails = {
     "examples/logging/main": "_static/thumbnails/default.png",
     "examples/ansys-fluent-workflow/main": "_static/thumbnails/default.png",
     "examples/pymechanical-integration/main": "_static/thumbnails/default.png",
-    "examples/pyfluent-workflow/main": "_static/thumbnails/default.png",
+    # "examples/pyfluent-workflow/main": "_static/thumbnails/default.png",
     # Advanced examples
     "examples/cooled-turbine-blade/main": "_static/thumbnails/cooled-turbine-blade.png",
-    "examples/cyclic-symmetry-analysis/main": "_static/thumbnails/cyclic-symmetry-analysis.png",
+    # "examples/cyclic-symmetry-analysis/main": "_static/thumbnails/cyclic-symmetry-analysis.png",
     "examples/axisymmetric-rotor/main": "_static/thumbnails/axisymmetric-rotor.png",
     "examples/ansys-aedt-workflow/main": "_static/thumbnails/ansys-aedt-workflow.png",
 }
+nbsphinx_prolog = """
 
+.. grid:: 3
+    :gutter: 1
+
+    .. grid-item::
+        :child-align: center
+
+        .. button-link:: {cname_pref}/{python_file_loc}
+           :color: primary
+           :shadow:
+
+            Download as Python script :fab:`python`
+
+    .. grid-item::
+        :child-align: center
+
+        .. button-link:: {cname_pref}/{ipynb_file_loc}
+           :color: primary
+           :shadow:
+
+            Download as Jupyter notebook :fas:`book`
+
+----
+
+    """.format(
+        cname_pref=f"https://{cname}/version/{get_version_match(version)}",
+        python_file_loc="{{ env.docname }}.py",
+        ipynb_file_loc="{{ env.docname }}.ipynb",
+    )
 
 # -- Sphinx application setup ------------------------------------------------
 
