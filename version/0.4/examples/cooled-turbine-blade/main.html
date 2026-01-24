@@ -1,0 +1,1752 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Cooled turbine blade &#8212; PyWorkbench Examples</title>
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css\ansys_sphinx_theme.css?v=3ea42de1" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.nerdfonts.com/assets/css/webfont.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=80ee211d" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+ 
+<link href="../../_static/css/breadcrumbs.css" rel="stylesheet" />
+
+    <script src="../../_static/documentation_options.js?v=bd778e0b"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js\table.js?v=b64f5182"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/cooled-turbine-blade/main';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.14.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://examples.workbench.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.4';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Cyclic symmetry analysis" href="../cyclic-symmetry-analysis/main.html" />
+    <link rel="prev" title="Advanced examples" href="../../advanced-examples.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <link rel="canonical" href="https://examples.workbench.docs.pyansys.com/version/stable/examples/cooled-turbine-blade/main.html" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container"><!-- Debugging: html_theme_options =  -->
+ 
+<!-- Include the MeiliSearch CSS stylesheet only if theme present -->
+<link href="../../_static/css/meilisearch.css" rel="stylesheet" />
+
+<!-- Create a search bar form with a text input and a dropdown selector for the search index -->
+<form
+  class="bd-search d-flex align-items-center"
+  action="../../search.html"
+  method="get"
+>
+  <i class="fa fa-search" aria-hidden="true" id="search-icon"></i>
+  <input
+    type="search"
+    placeholder="Search"
+    class="form-control"
+    id="search-bar-input"
+    autofocus
+  />
+  <span class="search-button__kbd-shortcut"
+    ><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span
+  >
+  <style>
+    .bd-search .search-button__kbd-shortcut {
+      right: 33%;
+    }
+  </style>
+  
+  <select id="indexUidSelector" class="index-select">
+    
+    <option value="pyworkbench-examples-v0-4">pyworkbench-examples</option>
+    
+  </select>
+  
+  <!-- Include the MeiliSearch JavaScript library for the search bar -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+
+    
+  <script>
+    var HOST_URL = "https://backend.search.pyansys.com/";
+    var API_KEY = "";
+    var indexUid = "pyworkbench-examples-v0-4";
+  </script>
+
+  <script src="../../_static/js/meilisearch_theme_wrap.js"></script>
+</form>
+</div>
+  </div>
+   
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/pyansys-logo-black-cropped.png" class="logo__image only-light" alt="PyWorkbench Examples - Home"/>
+    <script>document.write(`<img src="../../_static/pyansys-logo-black-cropped.png" class="logo__image only-dark" alt="PyWorkbench Examples - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../basic-examples.html">
+                        Basic examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../../advanced-examples.html">
+                        Advanced examples
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyworkbench-examples" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(
+      (text) => (document.getElementById("announcement_msg").innerHTML = text),
+    )
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item">
+<nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../basic-examples.html">
+                        Basic examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../../advanced-examples.html">
+                        Advanced examples
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyworkbench-examples" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Cooled turbine blade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cyclic-symmetry-analysis/main.html">Cyclic symmetry analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../axisymmetric-rotor/main.html">Axisymmetric rotor</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+         
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="https://docs.pyansys.com/" class="nav-link">PyAnsys</a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a
+        href="../../index.html"
+        class="nav-link"
+        aria-label="Home"
+      >
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="../../advanced-examples.html" class="nav-link">Advanced examples</a>
+    </li>
+      
+    <li class="breadcrumb-item active" aria-current="page">Cooled turbine blade</li>
+    
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="Cooled-turbine-blade">
+<h1>Cooled turbine blade<a class="headerlink" href="#Cooled-turbine-blade" title="Link to this heading">#</a></h1>
+<p>This notebook demonstrates the process of using the Workbench client to upload project files, run scripts, start services, and handle output files. It also includes launching PyMechanical to solve models and visualize results.</p>
+<p>First, import the necessary modules. We import <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> for handling filesystem paths and <code class="docutils literal notranslate"><span class="pre">os</span></code> for interacting with the operating system. The <code class="docutils literal notranslate"><span class="pre">launch_workbench</span></code> function from <code class="docutils literal notranslate"><span class="pre">ansys.workbench.core</span></code> is imported to start a Workbench session, and <code class="docutils literal notranslate"><span class="pre">launch_mechanical</span></code> from <code class="docutils literal notranslate"><span class="pre">ansys.mechanical.core</span></code> to start a Mechanical session.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ansys.workbench.core</span> <span class="kn">import</span> <span class="n">launch_workbench</span>
+<span class="kn">from</span> <span class="nn">ansys.mechanical.core</span> <span class="kn">import</span> <span class="n">launch_mechanical</span>
+</pre></div>
+</div>
+</div>
+<p>Launch the Workbench service on the local machine, using some options. Define several directories that will be used during the session. <code class="docutils literal notranslate"><span class="pre">workdir</span></code> is set to the parent directory of the current file. <code class="docutils literal notranslate"><span class="pre">assets</span></code>, <code class="docutils literal notranslate"><span class="pre">scripts</span></code>, and <code class="docutils literal notranslate"><span class="pre">wbpz</span></code> are subdirectories within the working directory. The <code class="docutils literal notranslate"><span class="pre">launch_workbench</span></code> function is called to start a Workbench session with specified directories.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workdir</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;__file__&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span>
+<span class="n">assets</span> <span class="o">=</span> <span class="n">workdir</span> <span class="o">/</span> <span class="s2">&quot;assets&quot;</span>
+<span class="n">scripts</span> <span class="o">=</span> <span class="n">workdir</span> <span class="o">/</span> <span class="s2">&quot;scripts&quot;</span>
+<span class="n">wbpz</span> <span class="o">=</span> <span class="n">workdir</span> <span class="o">/</span> <span class="s2">&quot;wbpz&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wb</span> <span class="o">=</span> <span class="n">launch_workbench</span><span class="p">(</span><span class="n">release</span><span class="o">=</span><span class="s2">&quot;241&quot;</span><span class="p">,</span> <span class="n">server_workdir</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">workdir</span><span class="o">.</span><span class="n">absolute</span><span class="p">()),</span> <span class="n">client_workdir</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">workdir</span><span class="o">.</span><span class="n">absolute</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<p>Upload project files to the server using the <code class="docutils literal notranslate"><span class="pre">upload_file</span></code> method. The files uploaded are <code class="docutils literal notranslate"><span class="pre">cooled_turbine_blade.wbpz</span></code> and <code class="docutils literal notranslate"><span class="pre">cooled_turbine_blade.py</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wb</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">wbpz</span> <span class="o">/</span> <span class="s2">&quot;cooled_turbine_blade.wbpz&quot;</span><span class="p">))</span>
+<span class="n">wb</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">scripts</span> <span class="o">/</span> <span class="s2">&quot;cooled_turbine_blade.py&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Uploading cooled_turbine_blade.wbpz: 100%|██████████| 1.18M/1.18M [00:00&lt;00:00, 79.1MB/s]
+Uploading cooled_turbine_blade.py: 100%|██████████| 13.9k/13.9k [00:00&lt;?, ?B/s]
+</pre></div></div>
+</div>
+<p>Execute a Workbench script (<code class="docutils literal notranslate"><span class="pre">project.wbjn</span></code>) to define the project and load the geometry using the <code class="docutils literal notranslate"><span class="pre">run_script_file</span></code> method. The <code class="docutils literal notranslate"><span class="pre">set_log_file</span></code> method is used to direct the logs to <code class="docutils literal notranslate"><span class="pre">wb_log_file.log</span></code>. The name of the system created is stored in <code class="docutils literal notranslate"><span class="pre">sys_name</span></code> and printed.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">export_path</span> <span class="o">=</span> <span class="s1">&#39;wb_log_file.log&#39;</span>
+<span class="n">wb</span><span class="o">.</span><span class="n">set_log_file</span><span class="p">(</span><span class="n">export_path</span><span class="p">)</span>
+<span class="n">sys_name</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">run_script_file</span><span class="p">(</span><span class="nb">str</span><span class="p">((</span><span class="n">assets</span> <span class="o">/</span> <span class="s2">&quot;project.wbjn&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">absolute</span><span class="p">()),</span> <span class="n">log_level</span><span class="o">=</span><span class="s1">&#39;info&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sys_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+SYS
+</pre></div></div>
+</div>
+<p>Start a PyMechanical server for the system using the <code class="docutils literal notranslate"><span class="pre">start_mechanical_server</span></code> method. Create a PyMechanical client session connected to this server using <code class="docutils literal notranslate"><span class="pre">launch_mechanical</span></code>. The project directory is printed to verify the connection.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">server_port</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">start_mechanical_server</span><span class="p">(</span><span class="n">system_name</span><span class="o">=</span><span class="n">sys_name</span><span class="p">)</span>
+<span class="n">mechanical</span> <span class="o">=</span> <span class="n">launch_mechanical</span><span class="p">(</span><span class="n">start_instance</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ip</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">server_port</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">mechanical</span><span class="o">.</span><span class="n">project_directory</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cooled-turbine-bladewbpj\example_02_Cooled_Turbine_Blade_files\
+</pre></div></div>
+</div>
+<p>Read and execute the script <code class="docutils literal notranslate"><span class="pre">cooled_turbine_blade.py</span></code> via the PyMechanical client using <code class="docutils literal notranslate"><span class="pre">run_python_script</span></code>. This script typically contains commands to mesh and solve the turbine blade model. The output of the script is printed.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">scripts</span> <span class="o">/</span> <span class="s2">&quot;cooled_turbine_blade.py&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">sf</span><span class="p">:</span>
+    <span class="n">mech_script</span> <span class="o">=</span> <span class="n">sf</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">mech_output</span> <span class="o">=</span> <span class="n">mechanical</span><span class="o">.</span><span class="n">run_python_script</span><span class="p">(</span><span class="n">mech_script</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mech_output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#34;Stress&#34;: &#34;2802182020.5917487 [Pa]&#34;}
+</pre></div></div>
+</div>
+<p>Specify the Mechanical directory and run a script to fetch the working directory path. The path where all solver files are stored on the server is printed. Download the solver output file (<code class="docutils literal notranslate"><span class="pre">solve.out</span></code>) from the server to the client’s current working directory and print its contents.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mechanical</span><span class="o">.</span><span class="n">run_python_script</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;solve_dir=ExtAPI.DataModel.AnalysisList[1].WorkingDir&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;&#39;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result_solve_dir_server</span> <span class="o">=</span> <span class="n">mechanical</span><span class="o">.</span><span class="n">run_python_script</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;solve_dir&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;All solver files are stored on the server at: </span><span class="si">{</span><span class="n">result_solve_dir_server</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+All solver files are stored on the server at: C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cooled-turbine-bladewbpj\example_02_Cooled_Turbine_Blade_files\dp0\SYS-8\MECH\
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solve_out_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result_solve_dir_server</span><span class="p">,</span> <span class="s2">&quot;solve.out&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">write_file_contents_to_console</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Write file contents to console.&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;rt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">current_working_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+<span class="n">mechanical</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">solve_out_path</span><span class="p">,</span> <span class="n">target_dir</span><span class="o">=</span><span class="n">current_working_directory</span><span class="p">)</span>
+<span class="n">solve_out_local_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_working_directory</span><span class="p">,</span> <span class="s2">&quot;solve.out&quot;</span><span class="p">)</span>
+<span class="n">write_file_contents_to_console</span><span class="p">(</span><span class="n">solve_out_local_path</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">solve_out_local_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Downloading dns:///127.0.0.1:62222:C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cooled-turbine-bladewbpj\example_02_Cooled_Turbine_Blade_files\dp0\SYS-8\MECH\solve.out to C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cooled-turbine-blade\solve.out: 100%|██████████| 30.8k/30.8k [00:00&lt;?, ?B/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+ Ansys Mechanical Enterprise
+
+
+ *------------------------------------------------------------------*
+ |                                                                  |
+ |   W E L C O M E   T O   T H E   A N S Y S (R)  P R O G R A M     |
+ |                                                                  |
+ *------------------------------------------------------------------*
+
+
+
+
+ ***************************************************************
+ *         ANSYS MAPDL 2024 R1          LEGAL NOTICES          *
+ ***************************************************************
+ *                                                             *
+ * Copyright 1971-2024 Ansys, Inc.  All rights reserved.       *
+ * Unauthorized use, distribution or duplication is            *
+ * prohibited.                                                 *
+ *                                                             *
+ * Ansys is a registered trademark of Ansys, Inc. or its       *
+ * subsidiaries in the United States or other countries.       *
+ * See the Ansys, Inc. online documentation or the Ansys, Inc. *
+ * documentation CD or online help for the complete Legal      *
+ * Notice.                                                     *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * THIS ANSYS SOFTWARE PRODUCT AND PROGRAM DOCUMENTATION       *
+ * INCLUDE TRADE SECRETS AND CONFIDENTIAL AND PROPRIETARY      *
+ * PRODUCTS OF ANSYS, INC., ITS SUBSIDIARIES, OR LICENSORS.    *
+ * The software products and documentation are furnished by    *
+ * Ansys, Inc. or its subsidiaries under a software license    *
+ * agreement that contains provisions concerning               *
+ * non-disclosure, copying, length and nature of use,          *
+ * compliance with exporting laws, warranties, disclaimers,    *
+ * limitations of liability, and remedies, and other           *
+ * provisions.  The software products and documentation may be *
+ * used, disclosed, transferred, or copied only in accordance  *
+ * with the terms and conditions of that software license      *
+ * agreement.                                                  *
+ *                                                             *
+ * Ansys, Inc. is a UL registered                              *
+ * ISO 9001:2015 company.                                      *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * This product is subject to U.S. laws governing export and   *
+ * re-export.                                                  *
+ *                                                             *
+ * For U.S. Government users, except as specifically granted   *
+ * by the Ansys, Inc. software license agreement, the use,     *
+ * duplication, or disclosure by the United States Government  *
+ * is subject to restrictions stated in the Ansys, Inc.        *
+ * software license agreement and FAR 12.212 (for non-DOD      *
+ * licenses).                                                  *
+ *                                                             *
+ ***************************************************************
+
+ 2024 R1
+
+ Point Releases and Patches installed:
+
+ Ansys Service Pack 2024 R1.01
+ Ansys Service Pack 2024 R1.02
+ Ansys Service Pack 2024 R1.03
+ Ansys, Inc. License Manager 2024 R1
+ Ansys, Inc. License Manager 2024 R1.01
+ Ansys, Inc. License Manager 2024 R1.02
+ Ansys, Inc. License Manager 2024 R1.03
+ Discovery 2024 R1
+ Discovery 2024 R1.01
+ Discovery 2024 R1.02
+ Discovery 2024 R1.03
+ SpaceClaim 2024 R1
+ SpaceClaim 2024 R1.01
+ SpaceClaim 2024 R1.02
+ SpaceClaim 2024 R1.03
+ Icepak (includes CFD-Post) 2024 R1
+ Icepak (includes CFD-Post) 2024 R1.01
+ Icepak (includes CFD-Post) 2024 R1.02
+ Icepak (includes CFD-Post) 2024 R1.03
+ Fluids 2024 R1
+ Fluids 2024 R1.01
+ Fluids 2024 R1.02
+ Fluids 2024 R1.03
+ CFD-Post only 2024 R1
+ CFD-Post only 2024 R1.01
+ CFD-Post only 2024 R1.02
+ CFD-Post only 2024 R1.03
+ CFX (includes CFD-Post) 2024 R1
+ CFX (includes CFD-Post) 2024 R1.01
+ CFX (includes CFD-Post) 2024 R1.02
+ CFX (includes CFD-Post) 2024 R1.03
+ Chemkin 2024 R1
+ Chemkin 2024 R1.01
+ Chemkin 2024 R1.02
+ Chemkin 2024 R1.03
+ EnSight 2024 R1
+ EnSight 2024 R1.01
+ EnSight 2024 R1.02
+ EnSight 2024 R1.03
+ FENSAP-ICE 2024 R1
+ FENSAP-ICE 2024 R1.01
+ FENSAP-ICE 2024 R1.02
+ FENSAP-ICE 2024 R1.03
+ Fluent (includes CFD-Post) 2024 R1
+ Fluent (includes CFD-Post) 2024 R1.01
+ Fluent (includes CFD-Post) 2024 R1.02
+ Fluent (includes CFD-Post) 2024 R1.03
+ Polyflow (includes CFD-Post) 2024 R1
+ Polyflow (includes CFD-Post) 2024 R1.01
+ Polyflow (includes CFD-Post) 2024 R1.02
+ Polyflow (includes CFD-Post) 2024 R1.03
+ Forte (includes EnSight) 2024 R1
+ Forte (includes EnSight) 2024 R1.01
+ Forte (includes EnSight) 2024 R1.02
+ Forte (includes EnSight) 2024 R1.03
+ ICEM CFD 2024 R1
+ ICEM CFD 2024 R1.01
+ ICEM CFD 2024 R1.02
+ ICEM CFD 2024 R1.03
+ TurboGrid 2024 R1
+ TurboGrid 2024 R1.01
+ TurboGrid 2024 R1.02
+ TurboGrid 2024 R1.03
+ Speos 2024 R1
+ Speos 2024 R1.01
+ Speos 2024 R1.02
+ Speos 2024 R1.03
+ Speos HPC 2024 R1
+ Speos HPC 2024 R1.01
+ Speos HPC 2024 R1.02
+ Speos HPC 2024 R1.03
+ optiSLang 2024 R1
+ optiSLang 2024 R1.01
+ optiSLang 2024 R1.02
+ optiSLang 2024 R1.03
+ Additive 2024 R1
+ Additive 2024 R1.01
+ Additive 2024 R1.02
+ Additive 2024 R1.03
+ Aqwa 2024 R1
+ Aqwa 2024 R1.01
+ Aqwa 2024 R1.02
+ Aqwa 2024 R1.03
+ Autodyn 2024 R1
+ Autodyn 2024 R1.01
+ Autodyn 2024 R1.02
+ Autodyn 2024 R1.03
+ Customization Files for User Programmable Features 2024 R1
+ Customization Files for User Programmable Features 2024 R1.01
+ Customization Files for User Programmable Features 2024 R1.02
+ Customization Files for User Programmable Features 2024 R1.03
+ LS-DYNA 2024 R1
+ LS-DYNA 2024 R1.01
+ LS-DYNA 2024 R1.02
+ LS-DYNA 2024 R1.03
+ Mechanical Products 2024 R1
+ Mechanical Products 2024 R1.01
+ Mechanical Products 2024 R1.02
+ Mechanical Products 2024 R1.03
+ Motion 2024 R1
+ Motion 2024 R1.01
+ Motion 2024 R1.02
+ Motion 2024 R1.03
+ Sherlock 2024 R1
+ Sherlock 2024 R1.01
+ Sherlock 2024 R1.02
+ Sherlock 2024 R1.03
+ Sound - SAS 2024 R1
+ Sound - SAS 2024 R1.01
+ Sound - SAS 2024 R1.02
+ Sound - SAS 2024 R1.03
+
+
+          *****  MAPDL COMMAND LINE ARGUMENTS  *****
+  BATCH MODE REQUESTED (-b)    = NOLIST
+  INPUT FILE COPY MODE (-c)    = COPY
+  DISTRIBUTED MEMORY PARALLEL REQUESTED
+       4 PARALLEL PROCESSES REQUESTED WITH SINGLE THREAD PER PROCESS
+    TOTAL OF     4 CORES REQUESTED
+  INPUT FILE NAME              = C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cooled-turbine-bladewbpj\_ProjectScratch\Scr9C9B\dummy.dat
+  OUTPUT FILE NAME             = C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cooled-turbine-bladewbpj\_ProjectScratch\Scr9C9B\solve.out
+  START-UP FILE MODE           = NOREAD
+  STOP FILE MODE               = NOREAD
+
+ RELEASE= 2024 R1              BUILD= 24.1      UP20231106   VERSION=WINDOWS x64
+ CURRENT JOBNAME=file0  08:35:56  JUN 14, 2024 CP=      0.078
+
+
+ PARAMETER _DS_PROGRESS =     999.0000000
+
+ /INPUT FILE= ds.dat  LINE=       0
+
+
+
+ *** NOTE ***                            CP =       0.250   TIME= 08:35:57
+ The /CONFIG,NOELDB command is not valid in a distributed memory
+ parallel solution.  Command is ignored.
+
+ *GET  _WALLSTRT  FROM  ACTI  ITEM=TIME WALL  VALUE=  8.59916667
+
+ TITLE=
+ example_02_Cooled_Turbine_Blade--Static Structural (C5)
+
+  ACT Extensions:
+      LSDYNA, 2024.1
+      5f463412-bd3e-484b-87e7-cbc0a665e474, wbex
+ /COM,     ANSYSMotion, 2024.1
+      20180725-3f81-49eb-9f31-41364844c769, wbex
+
+
+ SET PARAMETER DIMENSIONS ON  _WB_PROJECTSCRATCH_DIR
+  TYPE=STRI  DIMENSIONS=      248        1        1
+
+ PARAMETER _WB_PROJECTSCRATCH_DIR(1) = C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cooled-turbine-bladewbpj\_ProjectScratch\Scr9C9B\
+
+ SET PARAMETER DIMENSIONS ON  _WB_SOLVERFILES_DIR
+  TYPE=STRI  DIMENSIONS=      248        1        1
+
+ PARAMETER _WB_SOLVERFILES_DIR(1) = C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cooled-turbine-bladewbpj\example_02_Cooled_Turbine_Blade_files\dp0\SYS-8\MECH\
+
+ SET PARAMETER DIMENSIONS ON  _WB_USERFILES_DIR
+  TYPE=STRI  DIMENSIONS=      248        1        1
+
+ PARAMETER _WB_USERFILES_DIR(1) = C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cooled-turbine-bladewbpj\example_02_Cooled_Turbine_Blade_files\user_files\
+ --- Data in consistent MKS units. See Solving Units in the help system for more
+
+ MKS UNITS SPECIFIED FOR INTERNAL
+  LENGTH        (l)  = METER (M)
+  MASS          (M)  = KILOGRAM (KG)
+  TIME          (t)  = SECOND (SEC)
+  TEMPERATURE   (T)  = CELSIUS (C)
+  TOFFSET            = 273.0
+  CHARGE        (Q)  = COULOMB
+  FORCE         (f)  = NEWTON (N) (KG-M/SEC2)
+  HEAT               = JOULE (N-M)
+
+  PRESSURE           = PASCAL (NEWTON/M**2)
+  ENERGY        (W)  = JOULE (N-M)
+  POWER         (P)  = WATT (N-M/SEC)
+  CURRENT       (i)  = AMPERE (COULOMBS/SEC)
+  CAPACITANCE   (C)  = FARAD
+  INDUCTANCE    (L)  = HENRY
+  MAGNETIC FLUX      = WEBER
+  RESISTANCE    (R)  = OHM
+  ELECTRIC POTENTIAL = VOLT
+
+ INPUT  UNITS ARE ALSO SET TO MKS
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2024 R1          24.1     ***
+ Ansys Mechanical Enterprise
+ 00000000  VERSION=WINDOWS x64   08:35:57  JUN 14, 2024 CP=      0.281
+
+ example_02_Cooled_Turbine_Blade--Static Structural (C5)
+
+
+
+          ***** MAPDL ANALYSIS DEFINITION (PREP7) *****
+ *********** Nodes for the whole assembly ***********
+ *********** Elements for Body 1 &#34;SYS-3\Solid&#34; ***********
+ *********** Send User Defined Coordinate System(s) ***********
+ *********** Set Reference Temperature ***********
+ *********** Send Materials ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Element Component ***********
+ *********** Send Named Selection as Element Component ***********
+ *********** Fixed Supports ***********
+
+
+ ***** ROUTINE COMPLETED *****  CP =         1.281
+
+
+ --- Number of total nodes = 37315
+ --- Number of contact elements = 0
+ --- Number of spring elements = 0
+ --- Number of bearing elements = 0
+ --- Number of solid elements = 29976
+ --- Number of condensed parts = 0
+ --- Number of total elements = 29736
+
+ *GET  _WALLBSOL  FROM  ACTI  ITEM=TIME WALL  VALUE=  8.59916667
+ ****************************************************************************
+ *************************    SOLUTION       ********************************
+ ****************************************************************************
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+
+ PERFORM A STATIC ANALYSIS
+  THIS WILL BE A NEW ANALYSIS
+
+ PARAMETER _THICKRATIO =    0.9090000000E-01
+
+ USE SPARSE MATRIX DIRECT SOLVER
+
+ CONTACT INFORMATION PRINTOUT LEVEL       1
+
+ CHECK INITIAL OPEN/CLOSED STATUS OF SELECTED CONTACT ELEMENTS
+      AND LIST DETAILED CONTACT PAIR INFORMATION
+
+ SPLIT CONTACT SURFACES AT SOLVE PHASE
+
+    NUMBER OF SPLITTING TBD BY PROGRAM
+
+ DO NOT COMBINE ELEMENT MATRIX FILES (.emat) AFTER DISTRIBUTED PARALLEL SOLUTION
+
+ DO NOT COMBINE ELEMENT SAVE DATA FILES (.esav) AFTER DISTRIBUTED PARALLEL SOLUTION
+
+ NLDIAG: Nonlinear diagnostics CONT option is set to ON.
+         Writing frequency : each ITERATION.
+
+ DO NOT SAVE ANY RESTART FILES AT ALL
+ ****************************************************
+ ******************* SOLVE FOR LS 1 OF 1 ****************
+ *********** Create Imported Load &#34;Imported Body Temperature&#34; ***********
+
+ PRINTOUT RESUMED BY /GOP
+
+ PRINTOUT RESUMED BY /GOP
+
+ USE       1 SUBSTEPS INITIALLY THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+ FOR AUTOMATIC TIME STEPPING:
+   USE      1 SUBSTEPS AS A MAXIMUM
+   USE      1 SUBSTEPS AS A MINIMUM
+
+ TIME=  1.0000
+
+ ERASE THE CURRENT DATABASE OUTPUT CONTROL TABLE.
+
+
+ WRITE ALL  ITEMS TO THE DATABASE WITH A FREQUENCY OF NONE
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE NSOL ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE RSOL ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE EANG ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE ETMP ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE VENG ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE STRS ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE EPEL ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE EPPL ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE EPTH ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE CONT ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL
+   FOR ALL APPLICABLE ENTITIES
+
+ *GET  ANSINTER_  FROM  ACTI  ITEM=INT        VALUE=  0.00000000
+
+ *IF  ANSINTER_                         ( =   0.00000     )  NE
+      0                                 ( =   0.00000     )  THEN
+
+ *ENDIF
+
+ *** NOTE ***                            CP =       1.766   TIME= 08:35:57
+ The automatic domain decomposition logic has selected the MESH domain
+ decomposition method with 4 processes per solution.
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** WARNING ***                         CP =       2.062   TIME= 08:35:57
+ Element shape checking is currently inactive.  Issue SHPP,ON or
+ SHPP,WARN to reactivate, if desired.
+
+ *** WARNING ***                         CP =       2.188   TIME= 08:35:57
+ SOLID185 wedges are recommended only in regions of relatively low
+ stress gradients.
+
+ *** NOTE ***                            CP =       2.188   TIME= 08:35:57
+ The model data was checked and warning messages were found.
+  Please review output or errors file (
+ C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-ex
+ amples\pyworkbench-examples\doc\source\examples\cooled-turbine-bladewbp
+ pj\_ProjectScratch\Scr9C9B\file0.err ) for these warning messages.
+
+ *** SELECTION OF ELEMENT TECHNOLOGIES FOR APPLICABLE ELEMENTS ***
+      --- GIVE SUGGESTIONS AND RESET THE KEY OPTIONS ---
+
+ ELEMENT TYPE         1 IS SOLID185. IT IS ASSOCIATED WITH LINEAR MATERIALS ONLY
+ AND POISSON&#39;S RATIO IS NOT GREATER THAN 0.49. KEYOPT(2)=3 IS SUGGESTED AND
+ HAS BEEN RESET.
+  KEYOPT(1-12)=    0    3    0    0    0    0    0    0    0    0    0    0
+
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2024 R1          24.1     ***
+ Ansys Mechanical Enterprise
+ 00000000  VERSION=WINDOWS x64   08:35:57  JUN 14, 2024 CP=      2.250
+
+ example_02_Cooled_Turbine_Blade--Static Structural (C5)
+
+
+
+                       S O L U T I O N   O P T I O N S
+
+   PROBLEM DIMENSIONALITY. . . . . . . . . . . . .3-D
+   DEGREES OF FREEDOM. . . . . . UX   UY   UZ
+   ANALYSIS TYPE . . . . . . . . . . . . . . . . .STATIC (STEADY-STATE)
+   OFFSET TEMPERATURE FROM ABSOLUTE ZERO . . . . .  273.15
+   EQUATION SOLVER OPTION. . . . . . . . . . . . .SPARSE
+   GLOBALLY ASSEMBLED MATRIX . . . . . . . . . . .SYMMETRIC
+
+ *** NOTE ***                            CP =       2.375   TIME= 08:35:57
+ The conditions for direct assembly have been met.  No .emat or .erot
+ files will be produced.
+
+
+
+     D I S T R I B U T E D   D O M A I N   D E C O M P O S E R
+
+  ...Number of elements: 29736
+  ...Number of nodes:    37315
+  ...Decompose to 4 CPU domains
+  ...Element load balance ratio =     1.000
+
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     1
+   TIME AT END OF THE LOAD STEP. . . . . . . . . .  1.0000
+   NUMBER OF SUBSTEPS. . . . . . . . . . . . . . .     1
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .    NO
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+       ALL       NONE
+      NSOL        ALL
+      RSOL        ALL
+      EANG        ALL
+      ETMP        ALL
+      VENG        ALL
+      STRS        ALL
+      EPEL        ALL
+      EPPL        ALL
+      EPTH        ALL
+      CONT        ALL
+
+
+ SOLUTION MONITORING INFO IS WRITTEN TO FILE= file.mntr
+
+
+ Range of element maximum matrix coefficients in global coordinates
+ Maximum = 3.950515708E+09 at element 28705.
+ Minimum = 125678644 at element 5064.
+
+   *** ELEMENT MATRIX FORMULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1     29736  SOLID185      3.797   0.000128
+ Time at end of element matrix formulation CP = 4.671875.
+
+ DISTRIBUTED SPARSE MATRIX DIRECT SOLVER.
+  Number of equations =      101637,    Maximum wavefront =    132
+
+  Process memory allocated for solver              =   122.361 MB
+  Process memory required for in-core solution     =   117.315 MB
+  Process memory required for out-of-core solution =    47.728 MB
+
+  Total memory allocated for solver                =   511.345 MB
+  Total memory required for in-core solution       =   490.030 MB
+  Total memory required for out-of-core solution   =   194.206 MB
+
+ *** NOTE ***                            CP =       5.062   TIME= 08:35:59
+ The Distributed Sparse Matrix Solver is currently running in the
+ in-core memory mode.  This memory mode uses the most amount of memory
+ in order to avoid using the hard drive as much as possible, which most
+ often results in the fastest solution time.  This mode is recommended
+ if enough physical memory is present to accommodate all of the solver
+ data.
+ curEqn=  27348  totEqn=  27348 Job CP sec=      5.719
+      Factor Done= 100% Factor Wall sec=      0.483 rate=      10.3 GFlops
+ Distributed sparse solver maximum pivot= 7.299354972E+09 at node 30840
+ UY.
+ Distributed sparse solver minimum pivot= 54855431.6 at node 36377 UZ.
+ Distributed sparse solver minimum pivot in absolute value= 54855431.6
+ at node 36377 UZ.
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1     29736  SOLID185      5.891   0.000198
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1     29736  SOLID185      0.516   0.000017
+ *** LOAD STEP     1   SUBSTEP     1  COMPLETED.    CUM ITER =      1
+ *** TIME =   1.00000         TIME INC =   1.00000      NEW TRIANG MATRIX
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+       12.188 MB WRITTEN ON ASSEMBLED MATRIX FILE: file0.full
+        7.312 MB WRITTEN ON RESULTS FILE: file0.rst
+ *************** Write FE CONNECTORS *********
+
+ WRITE OUT CONSTRAINT EQUATIONS TO FILE= file.ce
+ ****************************************************
+ *************** FINISHED SOLVE FOR LS 1 *************
+
+ *GET  _WALLASOL  FROM  ACTI  ITEM=TIME WALL  VALUE=  8.60055556
+
+ PRINTOUT RESUMED BY /GOP
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =         8.469
+
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2024 R1          24.1     ***
+ Ansys Mechanical Enterprise
+ 00000000  VERSION=WINDOWS x64   08:36:02  JUN 14, 2024 CP=      8.469
+
+ example_02_Cooled_Turbine_Blade--Static Structural (C5)
+
+
+
+          ***** MAPDL RESULTS INTERPRETATION (POST1) *****
+
+ *** NOTE ***                            CP =       8.469   TIME= 08:36:02
+ Reading results into the database (SET command) will update the current
+ displacement and force boundary conditions in the database with the
+ values from the results file for that load set.  Note that any
+ subsequent solutions will use these values unless action is taken to
+ either SAVE the current values or not overwrite them (/EXIT,NOSAVE).
+
+ Set Encoding of XML File to:ISO-8859-1
+
+ Set Output of XML File to:
+     PARM,     ,     ,     ,     ,     ,     ,     ,     ,     ,     ,     ,
+         ,     ,     ,     ,     ,     ,     ,
+
+ DATABASE WRITTEN ON FILE  parm.xml
+
+ EXIT THE MAPDL POST1 DATABASE PROCESSOR
+
+
+ ***** ROUTINE COMPLETED *****  CP =         8.469
+
+
+
+ PRINTOUT RESUMED BY /GOP
+
+ *GET  _WALLDONE  FROM  ACTI  ITEM=TIME WALL  VALUE=  8.60055556
+
+ PARAMETER _PREPTIME =     0.000000000
+
+ PARAMETER _SOLVTIME =     5.000000000
+
+ PARAMETER _POSTTIME =     0.000000000
+
+ PARAMETER _TOTALTIM =     5.000000000
+
+ *GET  _DLBRATIO  FROM  ACTI  ITEM=SOLU DLBR  VALUE=  1.00000000
+
+ *GET  _COMBTIME  FROM  ACTI  ITEM=SOLU COMB  VALUE= 0.169510500
+
+ *GET  _SSMODE   FROM  ACTI  ITEM=SOLU SSMM  VALUE=  2.00000000
+
+ *GET  _NDOFS    FROM  ACTI  ITEM=SOLU NDOF  VALUE=  101637.000
+
+ *GET  _SOL_END_TIME  FROM  ACTI  ITEM=SET  TIME  VALUE=  1.00000000
+
+ *IF  _sol_end_time                     ( =   1.00000     )  EQ
+      1.000000                          ( =   1.00000     )  THEN
+
+ /FCLEAN COMMAND REMOVING ALL LOCAL FILES
+
+ *ENDIF
+ --- Total number of nodes = 37315
+ --- Total number of elements = 29736
+ --- Element load balance ratio = 1
+ --- Time to combine distributed files = 0.1695105
+ --- Sparse memory mode = 2
+ --- Number of DOF = 101637
+
+ EXIT MAPDL WITHOUT SAVING DATABASE
+
+
+ NUMBER OF WARNING MESSAGES ENCOUNTERED=          2
+ NUMBER OF ERROR   MESSAGES ENCOUNTERED=          0
+
++--------------------- M A P D L   S T A T I S T I C S ------------------------+
+
+Release: 2024 R1            Build: 24.1       Update: UP20231106   Platform: WINDOWS x64
+Date Run: 06/14/2024   Time: 08:36     Process ID: 4088
+Operating System: Windows 10  (Build: 19045)
+
+Processor Model: Intel(R) Xeon(R) Platinum 8171M CPU @ 2.60GHz
+
+Compiler: Intel(R) Fortran Compiler Classic Version 2021.9  (Build: 20230302)
+          Intel(R) C/C++ Compiler Classic Version 2021.9  (Build: 20230302)
+          Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191125
+          BLAS Library supplied by Intel(R) MKL
+
+Number of machines requested            :    1
+Total number of cores available         :    8
+Number of physical cores available      :    4
+Number of processes requested           :    4
+Number of threads per process requested :    1
+Total number of cores requested         :    4 (Distributed Memory Parallel)
+MPI Type: INTELMPI
+MPI Version: Intel(R) MPI Library 2021.10 for Windows* OS
+
+
+GPU Acceleration: Not Requested
+
+Job Name: file0
+Input File: dummy.dat
+
+  Core                Machine Name   Working Directory
+ -----------------------------------------------------
+     0                 pyworkbench   C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cooled-turbine-bladewbpj\_ProjectScratch\Scr9C9B
+     1                 pyworkbench   C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cooled-turbine-bladewbpj\_ProjectScratch\Scr9C9B
+     2                 pyworkbench   C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cooled-turbine-bladewbpj\_ProjectScratch\Scr9C9B
+     3                 pyworkbench   C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cooled-turbine-bladewbpj\_ProjectScratch\Scr9C9B
+
+Latency time from master to core     1 =    3.022 microseconds
+Latency time from master to core     2 =    3.029 microseconds
+Latency time from master to core     3 =    3.289 microseconds
+
+Communication speed from master to core     1 =  5440.29 MB/sec
+Communication speed from master to core     2 =  5677.38 MB/sec
+Communication speed from master to core     3 =  3595.83 MB/sec
+
+Total CPU time for main thread                    :        5.8 seconds
+Total CPU time summed for all threads             :        9.2 seconds
+
+Elapsed time spent obtaining a license            :        0.4 seconds
+Elapsed time spent pre-processing model (/PREP7)  :        0.2 seconds
+Elapsed time spent solution - preprocessing       :        0.4 seconds
+Elapsed time spent computing solution             :        4.0 seconds
+Elapsed time spent solution - postprocessing      :        0.2 seconds
+Elapsed time spent post-processing model (/POST1) :        0.0 seconds
+
+Equation solver used                              :            Sparse (symmetric)
+Equation solver computational rate                :       48.5 Gflops
+Equation solver effective I/O rate                :       15.7 GB/sec
+
+Sum of disk space used on all processes           :      107.3 MB
+
+Sum of memory used on all processes               :      720.0 MB
+Sum of memory allocated on all processes          :     3246.0 MB
+Physical memory available                         :         32 GB
+Total amount of I/O written to disk               :        0.1 GB
+Total amount of I/O read from disk                :        0.0 GB
+
++------------------ E N D   M A P D L   S T A T I S T I C S -------------------+
+
+
+ *-----------------------------------------------------------------------------*
+ |                                                                             |
+ |                               RUN COMPLETED                                 |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Ansys MAPDL 2024 R1         Build 24.1         UP20231106    WINDOWS x64   |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Database Requested(-db)     1024 MB     Scratch Memory Requested   1024 MB |
+ |  Max Database Used(Master)     39 MB     Max Scratch Used(Master)    177 MB |
+ |  Max Database Used(Workers)     1 MB     Max Scratch Used(Workers)   170 MB |
+ |  Sum Database Used(All)        42 MB     Sum Scratch Used(All)       678 MB |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |        CP Time      (sec) =          9.188       Time  =  08:36:02          |
+ |        Elapsed Time (sec) =          7.000       Date  =  06/14/2024        |
+ |                                                                             |
+ *-----------------------------------------------------------------------------*
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+
+</pre></div></div>
+</div>
+<p>Specify the Mechanical directory path for images and run a script to fetch the directory path. The path where images are stored on the server is printed. Download an image file (<code class="docutils literal notranslate"><span class="pre">stress.png</span></code>) from the server to the client’s current working directory and display it using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">image</span> <span class="k">as</span> <span class="n">mpimg</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mechanical</span><span class="o">.</span><span class="n">run_python_script</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;image_dir=ExtAPI.DataModel.AnalysisList[1].WorkingDir&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;&#39;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result_image_dir_server</span> <span class="o">=</span> <span class="n">mechanical</span><span class="o">.</span><span class="n">run_python_script</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;image_dir&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Images are stored on the server at: </span><span class="si">{</span><span class="n">result_image_dir_server</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Images are stored on the server at: C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cooled-turbine-bladewbpj\example_02_Cooled_Turbine_Blade_files\dp0\SYS-8\MECH\
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_image_path</span><span class="p">(</span><span class="n">image_name</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result_image_dir_server</span><span class="p">,</span> <span class="n">image_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">display_image</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Printing </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2"> using matplotlib&quot;</span><span class="p">)</span>
+    <span class="n">image1</span> <span class="o">=</span> <span class="n">mpimg</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">image_name</span> <span class="o">=</span> <span class="s2">&quot;stress.png&quot;</span>
+<span class="n">image_path_server</span> <span class="o">=</span> <span class="n">get_image_path</span><span class="p">(</span><span class="n">image_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">image_path_server</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+    <span class="n">current_working_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+
+    <span class="n">local_file_path_list</span> <span class="o">=</span> <span class="n">mechanical</span><span class="o">.</span><span class="n">download</span><span class="p">(</span>
+        <span class="n">image_path_server</span><span class="p">,</span> <span class="n">target_dir</span><span class="o">=</span><span class="n">current_working_directory</span>
+    <span class="p">)</span>
+    <span class="n">image_local_path</span> <span class="o">=</span> <span class="n">local_file_path_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Local image path : </span><span class="si">{</span><span class="n">image_local_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">display_image</span><span class="p">(</span><span class="n">image_local_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Downloading dns:///127.0.0.1:62222:C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cooled-turbine-bladewbpj\example_02_Cooled_Turbine_Blade_files\dp0\SYS-8\MECH\stress.png to C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cooled-turbine-blade\stress.png: 100%|██████████| 12.0k/12.0k [00:00&lt;?, ?B/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Local image path : C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cooled-turbine-blade\stress.png
+Printing C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cooled-turbine-blade\stress.png using matplotlib
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_cooled-turbine-blade_main_30_2.png" src="../../_images/examples_cooled-turbine-blade_main_30_2.png" />
+</div>
+</div>
+<p>Download all the files from the server to the current working directory. Verify the target and source paths and copy all files from the server to the client.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">current_working_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+<span class="n">target_dir2</span> <span class="o">=</span> <span class="n">current_working_directory</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Files to be copied from server path at: </span><span class="si">{</span><span class="n">target_dir2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Files to be copied from server path at: C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cooled-turbine-blade
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;All the solver file is stored on the server at: </span><span class="si">{</span><span class="n">result_solve_dir_server</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+All the solver file is stored on the server at: C:\Users\ansys\actions-runner\_work\pyworkbench-examples\pyworkbench-examples\pyworkbench-examples\doc\source\examples\cooled-turbine-bladewbpj\example_02_Cooled_Turbine_Blade_files\dp0\SYS-8\MECH\
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">source_dir</span> <span class="o">=</span> <span class="n">result_solve_dir_server</span>
+<span class="n">destination_dir</span> <span class="o">=</span> <span class="n">target_dir2</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">source_dir</span> <span class="o">+</span> <span class="s1">&#39;/*&#39;</span><span class="p">):</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">destination_dir</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Finally, the <code class="docutils literal notranslate"><span class="pre">exit</span></code> method is called on both the PyMechanical and Workbench clients to gracefully shut down the services, ensuring that all resources are properly released.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mechanical</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+<span class="n">wb</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../../advanced-examples.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Advanced examples</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../cyclic-symmetry-analysis/main.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Cyclic symmetry analysis</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+<!-- If there is no fix edit button function, use the PyData edit-this-button-->
+</div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../../_sources/examples/cooled-turbine-blade/main.py.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright (c) 2024 ANSYS, Inc. All rights reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the
+  <a href="https://sphinxdocs.ansys.com/version/stable/index.html"
+    >Ansys Sphinx Theme</a
+  >
+  0.16.5. <br />Last updated on
+  <span id="date"></span>
+</p>
+<script>
+  var options = { day: "numeric", month: "long", year: "numeric" };
+  var lastModifiedDate = new Date(document.lastModified);
+  var date = lastModifiedDate.toLocaleDateString("en-US", options);
+  document.getElementById("date").innerHTML = date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

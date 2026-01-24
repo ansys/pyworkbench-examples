@@ -1,0 +1,94 @@
+import os
+import string
+import os.path
+import json
+
+work_dir = GetServerWorkingDirectory()
+arg_GeometryFile1 = os.path.join(work_dir, "example_03_3d_rotor_model.agdb")
+arg_GeometryFile2 = os.path.join(work_dir, "example_03_GenAxisymmModel.agdb")
+
+#Description=Set Number of digits to 10
+Project.SetPreference(Name='NumberOfSignificantDigits', Value=10)
+
+SetPreference(Name="ShowBetaOptions", Value="True")
+
+template1 = GetTemplate(
+    TemplateName="Modal",
+    Solver="ANSYS")
+system1 = template1.CreateSystem()
+engineeringDataComponent1 = system1.GetComponent(Name="Engineering Data")
+geometryComponent1 = system1.GetComponent(Name="Geometry")
+modelComponent1 = system1.GetComponent(Name="Model")
+system2 = template1.CreateSystem(
+    ComponentsToShare=[engineeringDataComponent1, geometryComponent1, modelComponent1],
+    Position="Right",
+    RelativeTo=system1)
+engineeringDataComponent2 = system2.GetComponent(Name="Engineering Data")
+geometryComponent2 = system2.GetComponent(Name="Geometry")
+modelComponent2 = system2.GetComponent(Name="Model")
+system3 = template1.CreateSystem(
+    ComponentsToShare=[engineeringDataComponent2, geometryComponent2, modelComponent2],
+    Position="Right",
+    RelativeTo=system2)
+template2 = GetTemplate(
+    TemplateName="Harmonic Response",
+    Solver="ANSYS")
+engineeringDataComponent3 = system3.GetComponent(Name="Engineering Data")
+geometryComponent3 = system3.GetComponent(Name="Geometry")
+modelComponent3 = system3.GetComponent(Name="Model")
+system4 = template2.CreateSystem(
+    ComponentsToShare=[engineeringDataComponent3, geometryComponent3, modelComponent3],
+    Position="Right",
+    RelativeTo=system3)
+system1.DisplayText = "3D Solid Model-Modal omega=0"
+system2.DisplayText = "3D Solid Model-Modal Campbell"
+system3.DisplayText = "3D Solid Model-Modal omega"
+system4.DisplayText = "3D Solid Model-Unbalance Response"
+geometry1 = system1.GetContainer(ComponentName="Geometry")
+geometry1.SetFile(FilePath=arg_GeometryFile1)
+modelComponent1.Refresh()
+model1 = system1.GetContainer(ComponentName="Model")
+#model1.Edit()
+
+template1 = GetTemplate(
+    TemplateName="Modal",
+    Solver="ANSYS")
+system1 = GetSystem(Name="SYS")
+system2 = template1.CreateSystem(
+    Position="Below",
+    RelativeTo=system1)
+engineeringDataComponent1 = system2.GetComponent(Name="Engineering Data")
+geometryComponent1 = system2.GetComponent(Name="Geometry")
+modelComponent1 = system2.GetComponent(Name="Model")
+system3 = template1.CreateSystem(
+    ComponentsToShare=[engineeringDataComponent1, geometryComponent1, modelComponent1],
+    Position="Right",
+    RelativeTo=system2)
+engineeringDataComponent2 = system3.GetComponent(Name="Engineering Data")
+geometryComponent2 = system3.GetComponent(Name="Geometry")
+modelComponent2 = system3.GetComponent(Name="Model")
+system4 = template1.CreateSystem(
+    ComponentsToShare=[engineeringDataComponent2, geometryComponent2, modelComponent2],
+    Position="Right",
+    RelativeTo=system3)
+template2 = GetTemplate(
+    TemplateName="Harmonic Response",
+    Solver="ANSYS")
+engineeringDataComponent3 = system4.GetComponent(Name="Engineering Data")
+geometryComponent3 = system4.GetComponent(Name="Geometry")
+modelComponent3 = system4.GetComponent(Name="Model")
+system5 = template2.CreateSystem(
+    ComponentsToShare=[engineeringDataComponent3, geometryComponent3, modelComponent3],
+    Position="Right",
+    RelativeTo=system4)
+system2.DisplayText = "Gen_axi_symm-Modal omega=0"
+system3.DisplayText = "Gen_axi_symm-Modal omega"
+system4.DisplayText = "Gen_axi_symm-Modal Campbell"
+system5.DisplayText = "Gen_axi_symm-Unbalance Response"
+geometry1 = system2.GetContainer(ComponentName="Geometry")
+geometry1.SetFile(FilePath=arg_GeometryFile2)
+modelComponent1.Refresh()
+
+# output systems name
+result = [system1.Name, system2.Name]
+wb_script_result = json.dumps(result)
