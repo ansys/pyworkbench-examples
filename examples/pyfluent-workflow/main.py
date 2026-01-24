@@ -25,32 +25,30 @@ from ansys.workbench.core import launch_workbench
 import ansys.fluent.core as pyfluent
 from ansys.fluent.core import examples
 
-# ## Specify client and server directories with launch WB service.
+# ## Launch PyWorkbench service and use the script directory as client directory.
 
 workdir = pathlib.Path("__file__").parent
-
-
-wb = launch_workbench(client_workdir=str(workdir.absolute()), show_gui=False, version="251")
+wb = launch_workbench(client_workdir=str(workdir.absolute()), show_gui=False, use_insecure_connection=True)
 
 # ## Download the input file from example data and upload to server directory.
 
 import_filename = examples.download_file("mixing_elbow.msh.h5", "pyfluent/mixing_elbow")
 wb.upload_file(import_filename)
 
-# ## Generate a "FLUENT" System using Ansys Workbench Scripting API (used for Journaling) and parse it to the PyWorkbench API.
+# ## Generate a "FLUENT" System using Workbench Scripting API and record the system name
 
-export_path = "wb_log_file.log"
-wb.set_log_file(export_path)
-wb.run_script_string('template1 = GetTemplate(TemplateName="FLUENT")', log_level="info")
-wb.run_script_string("system1 = template1.CreateSystem()")
+log_path = "wblog.txt"
+wb.set_log_file(log_path)
+sys_name = wb.run_script_string("""import json
+system1 = GetTemplate(TemplateName="FLUENT").CreateSystem()
+wb_script_result = json.dumps(system1.Name)""",
+     log_level="info")
 
-
-# ## Launch Fluent & Connect to Fluent
+# ## Launch Fluent using the recorded system name & Connect to Fluent
 # Launch Fluent as server with PyWorkbench API and and connect to Pyfluent session
 
-server_info_file = wb.start_fluent_server(system_name="FLU")
+server_info_file = wb.start_fluent_server(system_name=sys_name)
 fluent_session = pyfluent.connect_to_fluent(server_info_file_name=server_info_file)
-
 
 # ## Import mesh and perform mesh check
 
@@ -63,7 +61,6 @@ fluent_session = pyfluent.connect_to_fluent(server_info_file_name=server_info_fi
 
 fluent_session.file.read_mesh(file_name=import_filename)
 fluent_session.mesh.check()
-
 # -
 
 # ## Set working units for mesh
@@ -87,14 +84,12 @@ fluent_session.setup.models.energy.enabled = True
 fluent_session.setup.materials.database.copy_by_name(type="fluid", name="water-liquid")
 
 # ## Set up cell zone conditions
-
 # Set up the cell zone conditions for the fluid zone (``elbow-fluid``). Set ``material``
 # to ``"water-liquid"``.
 
 fluent_session.setup.cell_zone_conditions.fluid['elbow-fluid'].general.material = "water-liquid"
 
 # ## Set up boundary conditions for CFD analysis
-
 # Set up the boundary conditions for the inlets, outlet, and walls for CFD
 # analysis.
 # - cold inlet (cold-inlet), Setting: Value:
@@ -145,18 +140,10 @@ fluent_session.solution.initialization.hybrid_initialize()
 
 fluent_session.solution.run_calculation.iter_count = 100
 
-
 # ## Update Solution using Workbench Journal Commands
 
-script_string = """
-solutionComponent1 = system1.GetComponent(Name="Solution")
-system1 = GetSystem(Name="FLU")
-solutionComponent1 = system1.GetComponent(Name="Solution")
-solutionComponent1.Update(AllDependencies=True)
-"""
-
+script_string = """system1.GetComponent(Name="Solution").Update(AllDependencies=True)"""
 wb.run_script_string(script_string)
-
 
 # ## Postprocessing
 # Create and display velocity vectors on the ``symmetry-xyplane`` plane.
@@ -172,8 +159,6 @@ graphics.picture.y_resolution = 1440
 
 # ## Create velocity vectors
 # Create and display velocity vectors on the ``symmetry-xyplane`` plane. Then, export the image for inspection.
-
-graphics = fluent_session.results.graphics
 
 graphics.vector["velocity_vector_symmetry"] = {}
 velocity_symmetry = fluent_session.results.graphics.vector["velocity_vector_symmetry"]
@@ -208,27 +193,11 @@ fluent_session.solution.report_definitions.compute(report_defs=["mass_flow_rate"
 
 # ## Exit Fluent Session
 
-fluent_session.exit()
+wb.stop_fluent_server(system_name=sys_name)
 
-# ## Save project
+# ## Save and download the project archive
 
-save_string = """import os
-workdir = GetServerWorkingDirectory()
-path = os.path.join(workdir, "mixing_elbow.wbpj")
-Save(FilePath=path , Overwrite=True)"""
-wb.run_script_string(save_string)
-
-# ## Archive Project
-
-archive_string ="""import os
-workdir = GetServerWorkingDirectory()
-path = os.path.join(workdir, "mixing_elbow.wbpz")
-Archive(FilePath=path , IncludeExternalImportedFiles=True)"""
-wb.run_script_string(archive_string)
-
-# ## Download the archived project which has all simulation data and results.
-
-wb.download_file("mixing_elbow.wbpz")
+wb.download_project_archive(archive_name='mixing_elbow')
 
 # ## Exit Workbench Session.
 
