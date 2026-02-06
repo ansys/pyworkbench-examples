@@ -88,7 +88,7 @@ NS_LOW.Generate()
 
 
 NS_HIGH = NS_GRP.AddNamedSelection()
-NS_HIGH.Name="NS_LOW"
+NS_HIGH.Name="NS_HIGH"
 NS_HIGH.ScopingMethod=GeometryDefineByType.Worksheet
 
 GEN_CRT = NS_HIGH.GenerationCriteria
