@@ -28,7 +28,7 @@ jobs:
     if: |
       github.event.type != 'labeled'
     steps:
-     - uses: actions/checkout@v4
+     - uses: actions/checkout@v7
 
      - name: "Update labels"
        uses: micnncim/action-label-syncer@v1
@@ -36,7 +36,7 @@ jobs:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
      - name: "Label pull-request"
-       uses: actions/labeler@v5.0.0
+       uses: actions/labeler@v7.0.0
        with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -64,12 +64,12 @@ jobs:
     steps:
 
       - name: "Checkout project"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           path: pyworkbench-examples
 
       - name: "Checkout examples data"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: ansys/example-data
           path: data
@@ -80,7 +80,7 @@ jobs:
           Get-ChildItem -Path "pyworkbench-examples\examples" -Recurse
 
       - name: "Setup uv with Python ${{ env.MAIN_PYTHON_VERSION }}"
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@v7
         with:
           enable-cache: true
           cache-dependency-glob: |
@@ -111,7 +111,7 @@ jobs:
           REMOTING_SERVER_ADDRESS: "localhost"
 
       - name: "Upload HTML artifacts"
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: documentation-html
           path: pyworkbench-examples/doc/_build/html
