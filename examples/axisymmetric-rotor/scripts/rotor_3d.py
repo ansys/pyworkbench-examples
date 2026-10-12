@@ -65,6 +65,7 @@ NS_All_Bodies = [i for i in NS_GRP.GetChildren[Ansys.ACT.Automation.Mechanical.N
 
 # Mesh the model
 MSH.Activate()
+MSH.MeshSizing = MeshSizingType.Adaptive
 MSH.Resolution=4
 MSH.TransitionOption=1
 
