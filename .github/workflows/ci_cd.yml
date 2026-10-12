@@ -79,18 +79,17 @@ jobs:
           Copy-Item -Path "data\pyworkbench\*" -Destination "pyworkbench-examples\examples" -Recurse -Force
           Get-ChildItem -Path "pyworkbench-examples\examples" -Recurse
 
-      - name: "Setup uv with Python ${{ env.MAIN_PYTHON_VERSION }}"
+      - name: "Setup uv"
         uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
           cache-dependency-glob: |
             **/requirements*.txt
-          python-version: ${{ env.MAIN_PYTHON_VERSION }}
 
       - name: "Install requirements"
         working-directory: pyworkbench-examples
         run: |
-          uv venv .venv --seed
+          uv venv .venv --seed --python ${{ env.MAIN_PYTHON_VERSION }}
           .venv\Scripts\activate.bat
           uv pip install -r requirements/requirements_examples.txt
           uv pip install -r requirements/requirements_doc.txt
