@@ -1,5 +1,5 @@
 ansys-workbench-core==0.10.0
-ansys-fluent-core==0.37.0
+ansys-fluent-core==0.42.2
 ansys-fluent-visualization==0.24.0
 pyaedt == 1.8.0
 ansys-mechanical-core==0.11.34
