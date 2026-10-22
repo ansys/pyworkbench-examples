@@ -1,0 +1,12 @@
+import json
+system1 = GetTemplate(TemplateName="Thermal").CreateSystem()
+system2 = GetTemplate(TemplateName="Spring Mass Damper").CreateSystem(
+    DataTransferFrom=[Set(FromComponent=system1.GetComponent(Name="Results"),
+                          TransferName="TemperatureTransfer",
+                          ToComponentTemplate=GetComponentTemplate(Name="TestingSetupTemplate"))],
+    Position="Right", RelativeTo=system1)
+system1.GetContainer(ComponentName="Results").ReadResults(FilePath="D:/ANSYSDev/NoBackup/ansys_inc/v241/Addins/TestingAddin/bin/Win64/SMDTemp.dat")
+system2.GetContainer(ComponentName="Set Up").ReadValues(FilePath="D:/ANSYSDev/NoBackup/ansys_inc/v241/Addins/TestingAddin/bin/Win64/SMDSetup.dat")
+Update()
+result = GetComponentState(Component=system2.GetComponent(Name="Solution")).State.ToString()
+wb_script_result = json.dumps(result)

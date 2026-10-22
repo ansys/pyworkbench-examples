@@ -1,0 +1,32 @@
+;###############################################################################
+;#----------------------------General Info--------------------------------------
+;# Date				: 30/05/2023
+;# Description		: tui v24.4
+;# Purpose			: PyWorkbench Use Case
+;###############################################################################
+;#----------------------------General Settings----------------------------------
+;# Define Solver Task Page-->General
+/file set-tui "24.4"
+/define/unit length "in" q
+
+;###############################################################################
+;#----------------------------Physics Models------------------------------------
+;# Energy Modelling
+/define/models/energy y n n n yes 
+;###############################################################################
+;#----------------------------Materials-----------------------------------------
+;# Copy Material from the Fluent database
+/define/materials/copy fluid water-liquid water-liquid
+;# assigned copied material to fluid zone
+/define/boundary-conditions/fluid fluid yes water-liquid no no no no 0. no 0. no 0. no 0 no 0 no 1 no no no no no 
+;###############################################################################
+;#----------------------------Modify BCs----------------------------------------
+;# Set/Modify Boundary-Conditions to the right zones
+/define/boundary-conditions/set/velocity-inlet (cold-inlet) vmag n 0.4 ke-spec n n n y turb-intensity 5 turb-hydraulic-diam 4 q
+/define/boundary-conditions/set/velocity-inlet (cold-inlet) temperature n 293.15 q
+/define/boundary-conditions/set/velocity-inlet (hot-inlet) vmag n 1.2 ke-spec n n n y turb-intensity 5 turb-hydraulic-diam 1 q
+/define/boundary-conditions/set/velocity-inlet (hot-inlet) temperature n 313.15 q
+/define/boundary-conditions/set/pressure-outlet (outlet) ke-spec n n y turb-intensity 5 turb-viscosity-ratio 4 q
+;#----------------------------Solution Methods----------------------------------
+/solve initialize hyb-initialization
+/solve/set/number-of-iterations 1 q

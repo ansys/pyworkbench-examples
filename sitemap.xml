@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- managed-by: ansys/actions/_doc-gen-sitemap -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://examples.workbench.docs.pyansys.com/</loc>
+    <lastmod>2026-10-22T16:06:44+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://examples.workbench.docs.pyansys.com/version/stable/index.html</loc>
+  </url>
+  <url>
+    <loc>https://examples.workbench.docs.pyansys.com/version/stable/basic-examples.html</loc>
+  </url>
+  <url>
+    <loc>https://examples.workbench.docs.pyansys.com/version/stable/examples/axisymmetric-rotor/main.html</loc>
+  </url>
+  <url>
+    <loc>https://examples.workbench.docs.pyansys.com/version/stable/examples/ansys-fluent-workflow/main.html</loc>
+  </url>
+  <url>
+    <loc>https://examples.workbench.docs.pyansys.com/version/stable/examples/pymechanical-integration/main.html</loc>
+  </url>
+  <url>
+    <loc>https://examples.workbench.docs.pyansys.com/version/stable/examples/material-designer-workflow/main.html</loc>
+  </url>
+  <url>
+    <loc>https://examples.workbench.docs.pyansys.com/version/stable/examples/cooled-turbine-blade/main.html</loc>
+  </url>
+  <url>
+    <loc>https://examples.workbench.docs.pyansys.com/version/stable/examples/logging/main.html</loc>
+  </url>
+  <url>
+    <loc>https://examples.workbench.docs.pyansys.com/version/stable/examples/cyclic-symmetry-analysis/main.html</loc>
+  </url>
+  <url>
+    <loc>https://examples.workbench.docs.pyansys.com/version/stable/advanced-examples.html</loc>
+  </url>
+</urlset>
